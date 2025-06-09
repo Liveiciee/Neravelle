@@ -433,7 +433,7 @@
             const nvDaysPassed = Math.floor(nvTimeDiff / (1000 * 60 * 60 * 24));
             
             // Calculate current year, month, day
-            let remainingDays = nvDaysPassed;
+            let remainingDays = totalNeravelleDaysPassed;
             let nvYear = BASE_NV_YEAR;
             let nvMonthIndex = BASE_NV_MONTH;
             let nvDay = BASE_NV_DAY;
@@ -457,8 +457,8 @@
             }
             
             // Calculate current day name
-            const totalNeravelleDaysFromBase = nvDaysPassed;
-            const dayIndex = (Math.floor(totalNeravelleDaysFromBase) + DAYS.indexOf(BASE_NV_DAY_NAME)) % DAYS.length;
+            const totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed;
+            const dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalDaysFromBaseInNeravelle) % DAYS.length;
             const nvDayName = DAYS[dayIndex];
             
             return {
