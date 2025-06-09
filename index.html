@@ -396,7 +396,7 @@
         </div>
     </div>
 
-    <script>
+<script>
     // Konfigurasi Kalender NeraVelle
     const DAYS = ["Elarion", "Velmora", "Tarsilune", "Dravendei", "Esmiradyn", "Lapliel", "Noxverra"];
     const MONTHS = ["Luthenya", "Caelurest", "Virellan", "Emberleth", "Solmareth", "Ashdelyr", 
@@ -412,8 +412,8 @@
         "Noxverra": "Hari bintang dan malam hidup. Hari perayaan, kenangan, dan malam penuh makna."
     };
     
-    // Epoch: 1 Luthenya 1045 KSN dimulai pada 1 Januari 2025 00:00 WITA
-    const EPOCH = new Date('2025-01-01T00:00:00+08:00').getTime();
+    // PERBAIKAN EPOCH: 1 Luthenya 1045 KSN dimulai pada 16 Mei 2025 00:00 WITA
+    const EPOCH = new Date('2025-05-16T00:00:00+08:00').getTime();
     const REAL_DAY_TO_NV_DAY = 2; // 1 hari nyata = 2 hari Neravelle
     const NV_DAYS_PER_MONTH = 35;
     const NV_MONTHS_PER_YEAR = 12;
@@ -427,18 +427,18 @@
         // Hitung jumlah hari Neravelle yang telah berlalu
         const daysSinceEpoch = elapsedMs / (1000 * 60 * 60 * 24) * REAL_DAY_TO_NV_DAY;
         
-        // Hitung tahun Neravelle
+        // Hitung tahun Neravelle (mulai dari 1045)
         const nvYear = 1045 + Math.floor(daysSinceEpoch / NV_DAYS_PER_YEAR);
         let remainingDays = daysSinceEpoch % NV_DAYS_PER_YEAR;
         
         // Hitung bulan dan tanggal
         let monthIndex = 0;
-        while (remainingDays >= NV_DAYS_PER_MONTH) {
+        while (remainingDays >= NV_DAYS_PER_MONTH && monthIndex < NV_MONTHS_PER_YEAR - 1) {
             remainingDays -= NV_DAYS_PER_MONTH;
             monthIndex++;
         }
         
-        const nvMonth = MONTHS[monthIndex % NV_MONTHS_PER_YEAR];
+        const nvMonth = MONTHS[monthIndex];
         const nvDay = Math.floor(remainingDays) + 1; // Tanggal mulai dari 1
         
         // Hitung hari dalam minggu
@@ -487,8 +487,7 @@
     }
 
     // ... (fungsi lainnya tetap sama) ...
-
-    function updateClock() {
+function updateClock() {
         const now = new Date();
         const nvTime = getNeravelleTime(now);
         
