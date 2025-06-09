@@ -420,7 +420,7 @@
     const NV_DAYS_PER_YEAR = NV_DAYS_PER_MONTH * NV_MONTHS_PER_YEAR;
 
     // Fungsi untuk menghitung tanggal Neravelle berdasarkan waktu sekarang
-    function getNeravelleDate(now) {
+        function getNeravelleDate(now) {
         // Hitung selisih waktu dari epoch (dalam milidetik)
         const elapsedMs = now.getTime() - EPOCH;
         
@@ -439,7 +439,16 @@
         }
         
         const nvMonth = MONTHS[monthIndex];
-        const nvDay = Math.floor(remainingDays) + 1; // Tanggal mulai dari 1
+        let nvDay = Math.floor(remainingDays) + 1; // Tanggal mulai dari 1
+        nvDay = nvDay -1;
+        if (nvDay === 0) {
+          monthIndex = monthIndex -1;
+          if (monthIndex < 0) {
+            monthIndex = 11;
+          }
+          nvMonth = MONTHS[monthIndex];
+          nvDay = 35;
+        }
         
         // Hitung hari dalam minggu
         const dayIndex = Math.floor(daysSinceEpoch) % DAYS.length;
