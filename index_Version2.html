@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=width-device, initial-scale=1.0">
+    <title>Kalender Surya NeraVelle</title>
+    <style>
+        :root {
+            --purple-dark: #0f0c29;
+            --purple-medium: #3a1c71;
+            --purple-light: #9d4edd;
+            --purple-glow: #e0aaff;
+            --text-primary: #f3e5ff;
+            --text-secondary: #c77dff;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+            background: var(--purple-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, var(--purple-medium) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, var(--purple-medium) 0%, transparent 25%),
+                linear-gradient(to bottom, var(--purple-dark) 0%, #1a0a3a 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .header-decoration {
+            font-size: 1.8em;
+            line-height: 0.5;
+            color: var(--purple-glow);
+            text-shadow: 0 0 10px var(--purple-light);
+            letter-spacing: 3px;
+        }
+        
+        .title {
+            font-size: 3.5em;
+            margin: 10px 0;
+            background: linear-gradient(to right, var(--purple-glow), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(157, 78, 221, 0.5);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            text-shadow: 0 0 5px rgba(157, 78, 221, 0.3);
+        }
+        
+        .clock-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .time-card {
+            background: rgba(25, 20, 60, 0.8);
+            border: 2px solid var(--purple-light);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 0 30px var(--purple-medium), 
+                        inset 0 0 10px rgba(123, 44, 191, 0.3);
+            min-width: 300px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .time-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(157, 78, 221, 0.1) 0%, transparent 70%);
+            animation: rotate 60s linear infinite;
+            z-index: -1;
+        }
+        
+        .time-label {
+            font-size: 1.2em;
+            color: var(--purple-glow);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .neravelle-time {
+            font-size: 4em;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 3px;
+            color: var(--text-primary);
+            text-shadow: 0 0 15px var(--purple-glow);
+            margin: 15px 0;
+        }
+        
+        .neravelle-date {
+            font-size: 1.8em;
+            color: var(--text-primary);
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        
+        .real-time {
+            font-size: 1.5em;
+            color: var(--text-secondary);
+        }
+        
+        .day-description {
+            font-style: italic;
+            margin-top: 15px;
+            color: var(--purple-glow);
+            font-size: 1.1em;
+        }
+        
+        .calendar-info {
+            background: rgba(42, 21, 69, 0.7);
+            border: 1px solid var(--purple-light);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 40px 0;
+            box-shadow: 0 0 20px rgba(123, 44, 191, 0.3);
+        }
+        
+        .section-title {
+            color: var(--purple-glow);
+            font-size: 1.8em;
+            margin: 25px 0 15px 0;
+            border-bottom: 1px dashed var(--purple-light);
+            padding-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .divider {
+            border-top: 1px dashed var(--purple-light);
+            margin: 30px 0;
+            opacity: 0.5;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5em;
+            }
+            .neravelle-time {
+                font-size: 3em;
+            }
+            .neravelle-date {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-decoration">╔════*.·:·.✧ ✦ ✧.·:·.*════╗</div>
+            <h1 class="title">NERAVELLE FANTASY</h1>
+            <div class="header-decoration">╚════*.·:·.✧ ✦ ✧.·:·.*════╝</div>
+            <div class="subtitle">Kalender Surya NeraVelle - Waktu Berjalan 2× Lebih Cepat</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="clock-container">
+            <div class="time-card">
+                <div class="time-label">Waktu NeraVelle</div>
+                <div class="neravelle-time" id="neravelleTime">00:00:00</div>
+                <div class="neravelle-date" id="neravelleDate">Elarion, Luthenya 1, Tahun 1045</div>
+                <div class="day-description" id="dayDescription"></div>
+            </div>
+            
+            <div class="time-card">
+                <div class="time-label">Waktu Nyata</div>
+                <div class="real-time" id="realWorldTime">00:00:00</div>
+                <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
+                <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
+            </div>
+        </div>
+        
+        <div class="calendar-info">
+            <h2 class="section-title">▭▬▭▬▭▬▭▬▭▬▭▬▭▬▭</h2>
+            <h2 class="section-title">Kalender Surya NeraVelle</h2>
+            <p><em>Di dunia magis yang penuh cahaya dan keajaiban ini, waktu mengalir bukan sekadar detik yang lewat, melainkan bagian dari siklus suci yang ditentukan oleh bintang, roh langit, dan kehendak alam semesta. Maka dari itu, lahirlah sistem penanggalan kuno yang disebut sebagai <strong>Kalender Surya Neravelle</strong>.</em></p>
+            
+            <h3 class="section-title">Struktur Dasar Kalender</h3>
+            <ul style="list-style-type: none; padding-left: 20px;">
+                <li>➣ 1 Minggu terdiri dari 7 Hari</li>
+                <li>➣ 1 Bulan terdiri dari 5 Minggu (35 Hari)</li>
+                <li>➣ 1 Tahun terdiri dari 12 Bulan</li>
+                <li>➣ Total dalam 1 Tahun: 420 Hari</li>
+            </ul>
+            
+            <h3 class="section-title">Nama-nama Hari</h3>
+            <div style="columns: 2; column-gap: 40px;">
+                <p><strong>Elarion</strong> ⌇ Hari cahaya awal. Melambangkan harapan dan permulaan.</p>
+                <p><strong>Velmora</strong> ⌇ Hari angin dan bisikan. Hari untuk merenung dan menerima ilham.</p>
+                <p><strong>Tarsilune</strong> ⌇ Hari bulan jatuh. Menggambarkan keindahan malam dan kelembutan hati.</p>
+                <p><strong>Dravendei</strong> ⌇ Hari kekuatan. Didedikasikan untuk semangat, kerja keras, dan keberanian.</p>
+                <p><strong>Esmiradyn</strong> ⌇ Hari kristal dan sihir. Hari para penyihir dan pemurnian jiwa.</p>
+                <p><strong>Lapliel</strong> ⌇ Hari langit dan roh. Digunakan untuk berdoa, bermeditasi, dan terhubung dengan kekuatan luhur.</p>
+                <p><strong>Noxverra</strong> ⌇ Hari bintang dan malam hidup. Hari perayaan, kenangan, dan malam penuh makna.</p>
+            </div>
+            
+            <h3 class="section-title">Nama-nama Bulan</h3>
+            <div style="columns: 2; column-gap: 40px;">
+                <p><strong>1. Luthenya</strong> ⌇ Bulan bunga mekar. Menandai awal musim semi dan kelahiran baru.</p>
+                <p><strong>2. Caelurest</strong> ⌇ Bulan langit jernih. Waktu kedamaian dan penyembuhan.</p>
+                <p><strong>3. Virellan</strong> ⌇ Bulan kehidupan hijau. Simbol pertumbuhan, cinta, dan keberkahan.</p>
+                <p><strong>4. Emberleth</strong> ⌇ Bulan bara suci. Awal musim panas, gairah dan kekuatan membara.</p>
+                <p><strong>5. Solmareth</strong> ⌇ Bulan ombak matahari. Waktu petualangan dan pelayaran besar.</p>
+                <p><strong>6. Ashdelyr</strong> ⌇ Bulan bayangan terang. Awal musim gugur, masa renungan dan pertarungan batin.</p>
+                <p><strong>7. Zephandor</strong> ⌇ Bulan angin ilahi. Hari-hari penuh mimpi dan angan roh langit.</p>
+                <p><strong>8. Thundareen</strong> ⌇ Bulan gemuruh suci. Saat badai dan perubahan besar datang.</p>
+                <p><strong>9. Mystralis</strong> ⌇ Bulan kabut sakral. Musim ketika sihir meresap ke seluruh alam.</p>
+                <p><strong>10. Velouren</strong> ⌇ Bulan kesedihan indah. Waktu nostalgia, perpisahan, dan refleksi.</p>
+                <p><strong>11. Aurevanthe</strong> ⌇ Bulan emas malam. Puncak kreativitas dan seni.</p>
+                <p><strong>12. Nyxoria</strong> ⌇ Bulan roh abadi. Bulan penutup tahun, ketika semua jiwa kembali pada cahaya.</p>
+            </div>
+            
+            <h3 class="section-title">Makna Simbolik</h3>
+            <p><em>Setiap hari dan bulan dalam kalender ini bukan hanya unit waktu, tetapi juga mengandung makna spiritual, budaya, dan historis. Warga Neravelle percaya bahwa setiap jiwa memiliki hari lahir yang selaras dengan kekuatan kosmis tertentu, dan oleh karenanya nasib dan kekuatan seseorang pun terpengaruh oleh tanggal lahir mereka.</em></p>
+        </div>
+        
+        <div class="footer">
+            <p>© NeraVelle Fantasy Team | Siklus Waktu Suci</p>
+            <p>┈᮫ֺׅ┄᮫࣭ׄ⊹©® Neravelle Fantasy Team</p>
+        </div>
+    </div>
+
+    <script>
+        // Konfigurasi Kalender NeraVelle
+        const DAYS = ["Elarion", "Velmora", "Tarsilune", "Dravendei", "Esmiradyn", "Lapliel", "Noxverra"];
+        const MONTHS = ["Luthenya", "Caelurest", "Virellan", "Emberleth", "Solmareth", "Ashdelyr", 
+                       "Zephandor", "Thundareen", "Mystralis", "Velouren", "Aurevanthe", "Nyxoria"];
+        
+        const DAY_DESCRIPTIONS = {
+            "Elarion": "Hari cahaya awal. Melambangkan harapan dan permulaan.",
+            "Velmora": "Hari angin dan bisikan. Hari untuk merenung dan menerima ilham.",
+            "Tarsilune": "Hari bulan jatuh. Menggambarkan keindahan malam dan kelembutan hati.",
+            "Dravendei": "Hari kekuatan. Didedikasikan untuk semangat, kerja keras, dan keberanian.",
+            "Esmiradyn": "Hari kristal dan sihir. Hari para penyihir dan pemurnian jiwa.",
+            "Lapliel": "Hari langit dan roh. Digunakan untuk berdoa, bermeditasi, dan terhubung dengan kekuatan luhur.",
+            "Noxverra": "Hari bintang dan malam hidup. Hari perayaan, kenangan, dan malam penuh makna."
+        };
+        
+        let nvYear = 1045;
+        let nvMonth = "Caelurest";
+        let nvDay = 14;
+        let nvDayName = "Elarion";
+
+        function updateNeravelleDate() {
+            nvDay++;
+            if (nvDay > 35) {
+                nvDay = 1;
+                let monthIndex = MONTHS.indexOf(nvMonth) + 1;
+                if (monthIndex >= MONTHS.length) {
+                    monthIndex = 0;
+                    nvYear++;
+                }
+                nvMonth = MONTHS[monthIndex];
+            }
+            let dayIndex = DAYS.indexOf(nvDayName) + 1;
+            if (dayIndex >= DAYS.length) {
+                dayIndex = 0;
+            }
+            nvDayName = DAYS[dayIndex];
+        }
+
+        // Hitung waktu NeraVelle (2× lebih cepat)
+        function getNeravelleTime(realWorldDate) {
+            const now = realWorldDate || new Date();
+            
+            // Waktu nyata
+            const realHours = now.getHours();
+            const realMinutes = now.getMinutes();
+            const realSeconds = now.getSeconds();
+            
+            // Hitung total detik dunia nyata sejak tengah malam
+            const totalRealSeconds = realHours * 3600 + realMinutes * 60 + realSeconds;
+            
+            // Kalikan 2 untuk waktu NeraVelle
+            const totalNeravelleSeconds = totalRealSeconds * 2;
+            
+            // Hitung HH:MM:SS NeraVelle
+            const nvHours = Math.floor(totalNeravelleSeconds / 3600) % 24;
+            const nvMinutes = Math.floor((totalNeravelleSeconds % 3600) / 60);
+            const nvSeconds = Math.floor(totalNeravelleSeconds % 60);
+
+            return {
+                time: `${String(nvHours).padStart(2, '0')}:${String(nvMinutes).padStart(2, '0')}:${String(nvSeconds).padStart(2, '0')}`,
+                date: `${nvDayName}, ${nvDay} ${nvMonth}, Tahun ${nvYear}`,
+                realTime: `${String(realHours).padStart(2, '0')}:${String(realMinutes).padStart(2, '0')}:${String(realSeconds).padStart(2, '0')}`,
+                dayName: nvDayName
+            };
+        }
+        
+        function updateClock() {
+            const now = new Date();
+            const nvTime = getNeravelleTime(now);
+            
+            // Update tampilan
+            document.getElementById("neravelleTime").textContent = nvTime.time;
+            document.getElementById("neravelleDate").textContent = nvTime.date;
+            document.getElementById("realWorldTime").textContent = nvTime.realTime;
+            document.getElementById("dayDescription").textContent = DAY_DESCRIPTIONS[nvTime.dayName];
+            
+            // Efek visual saat detik berubah
+            if (nvTime.time.endsWith("00")) {
+                document.getElementById("neravelleTime").classList.add("pulse");
+                setTimeout(() => {
+                    document.getElementById("neravelleTime").classList.remove("pulse");
+                }, 1000);
+            }
+        }
+        
+        // Update jam setiap 500ms untuk akurasi
+        setInterval(updateClock, 500);
+        updateClock(); // Jalankan segera
+
+        // Update NeraVelle date every 12 real-world hours
+        setInterval(function() {
+            updateNeravelleDate();
+        }, 12 * 60 * 60 * 1000);
+    </script>
+</body>
+</html>
