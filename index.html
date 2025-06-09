@@ -412,7 +412,7 @@
         "Noxverra": "Hari bintang dan malam hidup. Hari perayaan, kenangan, dan malam penuh makna."
     };
     
-    // PERBAIKAN EPOCH: 1 Luthenya 1045 KSN dimulai pada 16 Mei 2025 00:00 WITA
+    // Epoch: 1 Luthenya 1045 KSN dimulai pada 16 Mei 2025 00:00 WITA
     const EPOCH = new Date('2025-05-16T00:00:00+08:00').getTime();
     const REAL_DAY_TO_NV_DAY = 2; // 1 hari nyata = 2 hari Neravelle
     const NV_DAYS_PER_MONTH = 35;
@@ -420,7 +420,7 @@
     const NV_DAYS_PER_YEAR = NV_DAYS_PER_MONTH * NV_MONTHS_PER_YEAR;
 
     // Fungsi untuk menghitung tanggal Neravelle berdasarkan waktu sekarang
-        function getNeravelleDate(now) {
+    function getNeravelleDate(now) {
         // Hitung selisih waktu dari epoch (dalam milidetik)
         const elapsedMs = now.getTime() - EPOCH;
         
@@ -437,19 +437,9 @@
             remainingDays -= NV_DAYS_PER_MONTH;
             monthIndex++;
         }
-        
         const nvMonth = MONTHS[monthIndex];
-        let nvDay = Math.floor(remainingDays) + 1; // Tanggal mulai dari 1
-        nvDay = nvDay -1;
-        if (nvDay === 0) {
-          monthIndex = monthIndex -1;
-          if (monthIndex < 0) {
-            monthIndex = 11;
-          }
-          nvMonth = MONTHS[monthIndex];
-          nvDay = 35;
-        }
-        
+        const nvDay = Math.floor(remainingDays) + 1; // Tanggal mulai dari 1
+    
         // Hitung hari dalam minggu
         const dayIndex = Math.floor(daysSinceEpoch) % DAYS.length;
         const nvDayName = DAYS[dayIndex];
@@ -508,7 +498,175 @@ function updateClock() {
         
         // Update sky animation
         updateSkyAnimation(nvTime.nvHours, nvTime.nvDay);
+
+        // Create stars for night time
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            starsContainer.innerHTML = '';
+            
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Random position
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Random size (1-3px)
+                const size = Math.random() * 2 + 1;
+                
+                star.style.left = `${x}%`;
+                star.style.top = `${y}%`;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+
+//              // Random twinkle delay
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
         
+        // Get moon phase based on day of month
+        function getMoonPhase(day) {
+            const phase = (day % 28) / 28; // Normalize to 0-1
+            
+            if (phase < 0.05 || phase >= 0.95) return "new";
+            if (phase < 0.25) return "crescent";
+            if (phase < 0.3) return "half";
+            if (phase < 0.45) return "gibbous";
+            if (phase < 0.55) return "full";
+            if (phase < 0.7) return "gibbous";
+            if (phase < 0.75) return "half";
+            return "crescent";
+    }
+        // Update sky animation based on Neravelle time
+        function updateSkyAnimation(nvHours, nvDay) {
+            const sunMoon = document.getElementById('sunMoon');
+            const sunsetGlow = document.getElementById('sunsetGlow');
+            const dawnGlow = document.getElementById('dawnGlow');
+            const stars = document.getElementById('stars');
+            const body = document.body;
+            
+            // Calculate sun/moon position (0-24 hours)
+            let celestialX, celestialY;
+            let celestialSize = 120;
+            let celestialOpacity = 1;
+            let isNight = false;
+            
+            if (nvHours >= 5 && nvHours < 7) { // Dawn
+                celestialX = 10 + ((nvHours - 5) / 2) * 40;
+                celestialY = 80;
+                dawnGlow.style.opacity = 0.8 - ((nvHours - 5) / 2) * 0.8;
+                sunsetGlow.style.opacity = 0;
+                stars.style.opacity = 0;
+                body.style.background = 'var(--dawn-sky)';
+                
+            // Sun during dawn
+                sunMoon.style.background = 'radial-gradient(circle, var(--sun-color) 30%, transparent 70%)';
+                sunMoon.style.boxShadow = '0 0 60px var(--sun-color), 0 0 120px rgba(255, 158, 88, 0.5)';
+            } 
+            else if (nvHours >= 7 && nvHours < 17) { // Day
+                celestialX = 10 + ((nvHours - 5) / 12) * 80;
+                celestialY = 20;
+                dawnGlow.style.opacity = 0;
+                sunsetGlow.style.opacity = 0;
+                stars.style.opacity = 0;
+                body.style.background = 'var(--day-sky)';
+                
+                // Sun during day
+                sunMoon.style.background = 'radial-gradient(circle, var(--sun-color) 30%, transparent 70%)';
+                sunMoon.style.boxShadow = '0 0 60px var(--sun-color), 0 0 120px rgba(255, 158, 88, 0.5)';
+            } 
+            else if (nvHours >= 17 && nvHours < 19) { // Sunset
+                celestialX = 10 + ((nvHours - 5) / 12) * 80;
+                celestialY = 20 + ((nvHours - 17) / 2) * 60;
+                sunsetGlow.style.opacity = 0.8 - ((19 - nvHours) / 2) * 0.8;
+                dawnGlow.style.opacity = 0;
+                stars.style.opacity = (nvHours - 17) / 2;
+                body.style.background = 'var(--sunset-sky)';
+
+                                // Sun during sunset
+                sunMoon.style.background = 'radial-gradient(circle, var(--sun-color) 30%, transparent 70%)';
+                sunMoon.style.boxShadow = '0 0 60px var(--sun-color), 0 0 120px rgba(255, 158, 88, 0.5)';
+            } 
+            else { // Night (or early morning)
+                celestialX = 10 + ((nvHours + 7) % 24 / 12) * 80;
+                celestialY = 20 + ((nvHours < 5) ? (nvHours / 5) * 60 : 0);
+                sunsetGlow.style.opacity = 0;
+                dawnGlow.style.opacity = 0;
+                stars.style.opacity = 1;
+                body.style.background = 'var(--purple-dark)';
+                isNight = true;
+                
+                // Moon during night - determine phase
+                const moonPhase = getMoonPhase(nvDay);
+                sunMoon.className = `sun-moon moon-${moonPhase}`;
+                
+                // Moon glow animation
+                sunMoon.style.animation = 'moon-glow 4s infinite';
+            }
+            
+            // Adjust size based on position
+            if ((nvHours >= 17 && nvHours < 19) || (nvHours >= 5 && nvHours < 7)) {
+                celestialSize = 150; // Larger at sunrise/sunset
+            }
+            // Apply position and size
+            sunMoon.style.left = `${celestialX}%`;
+            sunMoon.style.top = `${celestialY}%`;
+            sunMoon.style.width = `${celestialSize}px`;
+            sunMoon.style.height = `${celestialSize}px`;
+            sunMoon.style.opacity = celestialOpacity;
+            
+            // Position glows
+            sunsetGlow.style.left = `${celestialX}%`;
+            sunsetGlow.style.top = `${celestialY}%`;
+            sunsetGlow.style.marginLeft = `-150px`;
+            sunsetGlow.style.marginTop = `-150px`;
+            
+            dawnGlow.style.left = `${celestialX}%`;
+            dawnGlow.style.top = `${celestialY}%`;
+            dawnGlow.style.marginLeft = `-150px`;
+            dawnGlow.style.marginTop = `-150px`;
+            
+            // Special effect for Tarsilune (moon day)
+            if (nvDayName === "Tarsilune" && isNight) {
+                sunMoon.style.boxShadow = '0 0 80px var(--moon-color), 0 0 160px rgba(224, 224, 255, 0.7)';
+                stars.style.opacity = 1.2; // Brighter stars on moon day
+            }
+        }
+        
+        function updateClock() {
+            const now = new Date();
+            const nvTime = getNeravelleTime(now);
+            
+            // Update tampilan
+            document.getElementById("neravelleTime").textContent = nvTime.time;
+            document.getElementById("neravelleDate").textContent = nvTime.date;
+            document.getElementById("realWorldTime").textContent = nvTime.realTime;
+            document.getElementById("dayDescription").textContent = DAY_DESCRIPTIONS[nvTime.dayName];
+            
+            // Update sky animation
+            updateSkyAnimation(nvTime.nvHours, nvTime.nvDay);
+            
+            // Efek visual saat detik berubah
+            if (nvTime.time.endsWith("00")) {
+                document.getElementById("neravelleTime").classList.add("pulse");
+                setTimeout(() => {
+                    document.getElementById("neravelleTime").classList.remove("pulse");
+                }, 1000);
+            }
+        }
+        
+        // Initialize stars
+        createStars();
+        
+        // Update jam setiap 500ms untuk akurasi
+        setInterval(updateClock, 500);
+        updateClock(); // Jalankan segera
+
+    
+            
         // Efek visual saat detik berubah
         if (nvTime.time.endsWith("00")) {
             document.getElementById("neravelleTime").classList.add("pulse");
@@ -517,11 +675,17 @@ function updateClock() {
             }, 1000);
         }
     }
+        // Initialize stars
+        createStars();
+        
+        // Update jam setiap 500ms untuk akurasi
+        setInterval(updateClock, 500);
+        updateClock(); // Jalankan segera
 
-    // Hapus interval update tanggal
-    // Tetap pertahankan interval untuk update jam
-    setInterval(updateClock, 500);
-    updateClock();
-</script>
+        // Update NeraVelle date every 12 real-world hours
+        setInterval(function() {
+            updateNeravelleDate();
+        }, 12 * 60 * 60 * 1000);
+    </script>
 </body>
 </html>
