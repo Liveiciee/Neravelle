@@ -458,7 +458,7 @@
             
             // Calculate current day name
             const totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed;
-            const dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalDaysFromBaseInNeravelle) % DAYS.length;
+            const dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalDaysFromBaseInNeravelle + 1) % DAYS.length;
             const nvDayName = DAYS[dayIndex];
             
             return {
