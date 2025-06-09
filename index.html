@@ -675,17 +675,12 @@ function updateClock() {
             }, 1000);
         }
     }
-        // Initialize stars
-        createStars();
-        
-        // Update jam setiap 500ms untuk akurasi
-        setInterval(updateClock, 500);
-        updateClock(); // Jalankan segera
+        // Inisialisasi bintang
+    createStars();
 
-        // Update NeraVelle date every 12 real-world hours
-        setInterval(function() {
-            updateNeravelleDate();
-        }, 12 * 60 * 60 * 1000);
-    </script>
+    // Update jam setiap 500ms
+    setInterval(updateClock, 500);
+    updateClock(); // Jalankan segera
+</script>
 </body>
 </html>
