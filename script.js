@@ -157,14 +157,20 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
     sunsetGlow.style.height = `${glowSize}px`;
     dawnGlow.style.width = `${glowSize}px`;
     dawnGlow.style.height = `${glowSize}px`;
-    
-    // Calculate sun/moon position (0-24 hours)
+    const isNight = (nvHours < 5 || nvHours >= 19);
+    sunMoon.setAttribute('data-is-sun', !isNight); // Flag untuk matahar
+   
+   // Calculate sun/moon position (0-24 hours)
     let celestialX, celestialY;
     let celestialSize = 120;
     let celestialOpacity = 1;
     let isNight = false;
     
-    if (nvHours >= 5 && nvHours < 7) { // Dawn
+    if (nvHours >= 5 && nvHours < 7) { 
+    // Fajar (05:00-07:00 NV)
+    stars.style.opacity = 0; // Pastikan bintang HILANG saat fajar
+    sunMoon.style.background = 'radial-gradient(circle, var(--sun-color) 30%, transparent 70%)';
+    sunMoon.style.boxShadow = '0 0 60px var(--sun-color)';
         celestialX = 10 + ((nvHours - 5) / 2) * 40;
         celestialY = 80;
         dawnGlow.style.opacity = 0.8 - ((nvHours - 5) / 2) * 0.8;
@@ -176,7 +182,15 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
         sunMoon.style.background = 'radial-gradient(circle, var(--sun-color) 30%, transparent 70%)';
         sunMoon.style.boxShadow = '0 0 60px var(--sun-color), 0 0 120px rgba(255, 158, 88, 0.5)';
     } 
-    else if (nvHours >= 7 && nvHours < 17) { // Day
+    else if (nvHours >= 7 && nvHours < 17) { 
+    // Siang (07:00-17:00 NV)
+    stars.style.opacity = 0; // Bintang TIDAK muncul siang hari
+    dawnGlow.style.opacity = 0;
+    sunsetGlow.style.opacity = 0;
+    // Pastikan hanya matahari yang aktif:
+    sunMoon.style.background = 'radial-gradient(circle, var(--sun-color) 30%, transparent 70%)';
+    sunMoon.style.boxShadow = '0 0 80px var(--sun-color)';
+    sunMoon.style.animation = 'none'; // Matikan animasi bulan
         celestialX = 10 + ((nvHours - 5) / 12) * 80;
         celestialY = 20;
         dawnGlow.style.opacity = 0;
@@ -188,7 +202,9 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
         sunMoon.style.background = 'radial-gradient(circle, var(--sun-color) 30%, transparent 70%)';
         sunMoon.style.boxShadow = '0 0 60px var(--sun-color), 0 0 120px rgba(255, 158, 88, 0.5)';
     } 
-    else if (nvHours >= 17 && nvHours < 19) { // Sunset
+    else if (nvHours >= 17 && nvHours < 19) { 
+    // Senja (17:00-19:00 NV)
+    stars.style.opacity = (nvHours - 17) / 2; // Bintang muncul perlahan
         celestialX = 10 + ((nvHours - 5) / 12) * 80;
         celestialY = 20 + ((nvHours - 17) / 2) * 60;
         sunsetGlow.style.opacity = 0.8 - ((19 - nvHours) / 2) * 0.8;
@@ -200,7 +216,13 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
         sunMoon.style.background = 'radial-gradient(circle, var(--sun-color) 30%, transparent 70%)';
         sunMoon.style.boxShadow = '0 0 60px var(--sun-color), 0 0 120px rgba(255, 158, 88, 0.5)';
     } 
-    else { // Night (or early morning)
+    else {
+    // Malam or early morning (19:00-05:00 NV)
+    stars.style.opacity = 1; // Bintang penuh
+    // Hanya bulan yang terlihat:
+    const moonPhase = getMoonPhase(nvDay);
+    sunMoon.className = `sun-moon moon-${moonPhase}`;
+    sunMoon.style.animation = 'moon-glow 4s infinite';
         celestialX = 10 + ((nvHours + 7) % 24 / 12) * 80;
         celestialY = 20 + ((nvHours < 5) ? (nvHours / 5) * 60 : 0);
         sunsetGlow.style.opacity = 0;
