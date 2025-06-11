@@ -122,7 +122,6 @@ body {
         transparent var(--glow-spread)
     );
 }
-}
 
 .stars {
     position: fixed;
