@@ -27,53 +27,29 @@ function calculateNeravelleDate(realWorldDate) {
     const nvTimeDiff = timeDiff * 2; // NeraVelle berjalan 2x lebih cepat
     const totalNeravelleDaysPassed = Math.floor(nvTimeDiff / (1000 * 60 * 60 * 24));
 
-    // Mulai dari base
+    let remainingDays = totalNeravelleDaysPassed;
     let nvYear = BASE_NV_YEAR;
     let nvMonthIndex = BASE_NV_MONTH;
     let nvDay = BASE_NV_DAY;
 
-    const daysInMonth = 35;
-    const monthsInYear = 12;
-
-    if (totalNeravelleDaysPassed >= 0) {
-        // Jalan ke depan
-        let remainingDays = totalNeravelleDaysPassed;
-        while (remainingDays > 0) {
-            let daysLeftInMonth = daysInMonth - nvDay + 1;
-            if (remainingDays >= daysLeftInMonth) {
-                remainingDays -= daysLeftInMonth;
-                nvDay = 1;
-                nvMonthIndex++;
-                if (nvMonthIndex >= monthsInYear) {
-                    nvMonthIndex = 0;
-                    nvYear++;
-                }
-            } else {
-                nvDay += remainingDays;
-                remainingDays = 0;
+    while (remainingDays > 0) {
+        const daysInMonth = 35;
+        if (nvDay + remainingDays > daysInMonth) {
+            remainingDays -= (daysInMonth - nvDay + 1);
+            nvDay = 1;
+            nvMonthIndex++;
+            if (nvMonthIndex >= MONTHS.length) {
+                nvMonthIndex = 0;
+                nvYear++;
             }
-        }
-    } else {
-        // Jalan mundur jika sebelum base date
-        let remainingDays = -totalNeravelleDaysPassed;
-        while (remainingDays > 0) {
-            if (nvDay > remainingDays) {
-                nvDay -= remainingDays;
-                remainingDays = 0;
-            } else {
-                remainingDays -= nvDay;
-                nvMonthIndex--;
-                if (nvMonthIndex < 0) {
-                    nvMonthIndex = monthsInYear - 1;
-                    nvYear--;
-                }
-                nvDay = daysInMonth;
-            }
+        } else {
+            nvDay += remainingDays;
+            remainingDays = 0;
         }
     }
-    // Hitung dayName (agar tetap benar meski hari negatif)
-    let dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalNeravelleDaysPassed) % DAYS.length;
-    if (dayIndex < 0) dayIndex += DAYS.length;
+
+    const totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed;
+    const dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalDaysFromBaseInNeravelle + 1) % DAYS.length;
     const nvDayName = DAYS[dayIndex];
 
     return {
@@ -81,23 +57,15 @@ function calculateNeravelleDate(realWorldDate) {
         month: MONTHS[nvMonthIndex],
         day: nvDay,
         dayName: nvDayName
-    }; 
+    };
 }
+
 // === Ulang Tahun NeraVelle ===
 function convertBirthdate(realDate) {
     const nvDate = calculateNeravelleDate(new Date(realDate));
     return `Anda lahir di hari ${nvDate.dayName}, ${nvDate.day} ${nvDate.month}`;
 }
 
-function showNeravelleBirthdate() {
-    const input = document.getElementById("realBirthdate").value;
-    const resultDiv = document.getElementById("neravelleBirthdateResult");
-    if (!input) {
-        resultDiv.textContent = "Masukkan tanggal lahir!";
-        return;
-    }
-    resultDiv.textContent = convertBirthdate(input);
-}
 const birthdayInput = document.getElementById('birthdayInput');
 const birthdayOutput = document.getElementById('birthdayOutput');
 if (birthdayInput && birthdayOutput) {
@@ -112,19 +80,6 @@ if (birthdayInput && birthdayOutput) {
         birthdayOutput.textContent = 
             `Ulang tahunmu di kalender NeraVelle: ${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KSN`;
     });
-}
-    }
-
-    const totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed;
-    const dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalDaysFromBaseInNeravelle + 1) % DAYS.length;
-    const nvDayName = DAYS[dayIndex];
-
-    return {
-        year: nvYear,
-        month: MONTHS[nvMonthIndex],
-        day: nvDay,
-        dayName: nvDayName
-    };
 }
 
 // Hitung waktu NeraVelle (2× lebih cepat)
