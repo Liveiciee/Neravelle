@@ -49,6 +49,20 @@ body {
                 0 0 120px rgba(255, 158, 88, 0.5);
     transition: all 1.5s ease;
     z-index: -1;
+    display: none; /* Default: hidden */
+}
+.sun-moon.moon-new, 
+.sun-moon.moon-crescent,
+.sun-moon.moon-half,
+.sun-moon.moon-gibbous,
+.sun-moon.moon-full {
+    display: block; /* Muncul hanya saat malam */
+}
+/* Matahari siang/fajar */
+.sun-moon[data-is-sun="true"] {
+    display: block;
+    background: radial-gradient(circle, var(--sun-color) 30%, transparent 70%) !important;
+}
 }
 
 /* Moon phases */
