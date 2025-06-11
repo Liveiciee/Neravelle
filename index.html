@@ -27,27 +27,25 @@
         <div class="divider"></div>
         
         <div class="clock-container">
-            <div class="time-card">
-                <div class="time-label">Waktu Neravelle</div>
-                <div class="neravelle-time" id="neravelleTime">00:00:00</div>
-                <div class="neravelle-date" id="neravelleDate">Elarion, 1 Luthenya 1045 KSN</div>
-                <div class="day-description" id="dayDescription"></div>
-            </div>
-            
-            <div class="time-card">
-                <div class="time-label">Waktu Nyata</div>
-                <div class="real-time" id="realWorldTime">00:00:00</div>
-                <div class="day-description">1 jam nyata = 2 jam Neravelle</div>
-                <div class="day-description">1 hari nyata = 2 hari Neravelle</div>
-            </div>
-        
-            <div class="birthdate-converter">
-                <label for="realBirthdate">Konversi Tanggal Lahirmu ke Kalender Neravelle:</label>
-                <input type="date" id="realBirthdate">
-                <button onclick="showNeravelleBirthdate()">Konversi</button>
-                <div id="neravelleBirthdateResult"></div>
-           </div>
-    
+    <div class="time-card">
+        <div class="time-label">Waktu Neravelle</div>
+        <div class="neravelle-time" id="neravelleTime">00:00:00</div>
+        <div class="neravelle-date" id="neravelleDate">Elarion, 1 Luthenya 1045 KSN</div>
+        <div class="day-description" id="dayDescription"></div>
+    </div>
+    <div class="time-card">
+        <div class="time-label">Waktu Nyata</div>
+        <div class="real-time" id="realWorldTime">00:00:00</div>
+        <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
+        <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
+    </div>
+    <div class="time-card">
+        <div class="time-label">Konversi Ulang Tahun</div>
+        <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;">Tanggal ulang tahun (YYYY-MM-DD):</label>
+        <input type="date" id="birthdayInput" style="margin-bottom:10px;">
+        <div id="birthdayOutput" class="day-description" style="margin-top:12px;min-height:2em;"></div>
+    </div>
+</div
         </div>
         <div class="calendar-info">
             <h2 class="section-title">Kalender Surya Neravelle</h2>
