@@ -1,0 +1,305 @@
+:root {
+    --purple-dark: #0f0c29;
+    --purple-medium: #3a1c71;
+    --purple-light: #9d4edd;
+    --purple-glow: #e0aaff;
+    --text-primary: #f3e5ff;
+    --text-secondary: #c77dff;
+    --sun-color: #ff9e58;
+    --sunset-color: #ff6b6b;
+    --dawn-color: #ffb347;
+    --moon-color: #e0e0ff;
+    --day-sky: linear-gradient(to bottom, #1a0a3a 0%, #0f0c29 100%);
+    --sunset-sky: linear-gradient(to bottom, #302b63 0%, #0f0c29 100%);
+    --dawn-sky: linear-gradient(to bottom, #24243e 0%, #0f0c29 100%);
+}
+
+body {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    background: var(--purple-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    transition: background 2s ease;
+}
+
+/* Sky Animation Elements */
+.sky-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.sun-moon {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--sun-color) 30%, transparent 70%);
+    box-shadow: 0 0 60px var(--sun-color), 
+                0 0 120px rgba(255, 158, 88, 0.5);
+    transition: all 1.5s ease;
+    z-index: -1;
+}
+
+/* Moon phases */
+.sun-moon.moon-new {
+    background: radial-gradient(circle, var(--moon-color) 0%, transparent 0%);
+    box-shadow: 0 0 60px rgba(224, 224, 255, 0.3);
+}
+
+.sun-moon.moon-crescent {
+    background: 
+        radial-gradient(circle, var(--moon-color) 30%, transparent 30%),
+        radial-gradient(circle at 30% 50%, transparent 40%, var(--purple-dark) 40%);
+    box-shadow: 0 0 60px rgba(224, 224, 255, 0.5);
+}
+
+.sun-moon.moon-half {
+    background: 
+        linear-gradient(to right, transparent 50%, var(--moon-color) 50%);
+    box-shadow: 0 0 60px rgba(224, 224, 255, 0.7);
+}
+
+.sun-moon.moon-gibbous {
+    background: 
+        radial-gradient(circle, var(--moon-color) 70%, transparent 70%),
+        radial-gradient(circle at 30% 50%, transparent 20%, var(--purple-dark) 20%);
+    box-shadow: 0 0 60px rgba(224, 224, 255, 0.8);
+}
+
+.sun-moon.moon-full {
+    background: radial-gradient(circle, var(--moon-color) 100%, transparent 100%);
+    box-shadow: 0 0 60px var(--moon-color), 
+                0 0 120px rgba(224, 224, 255, 0.5);
+}
+
+.sunset-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--sunset-color) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: -2;
+}
+
+.dawn-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--dawn-color) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: -2;
+}
+
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -3;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.star {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    animation: twinkle 5s infinite alternate;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.2; }
+    100% { opacity: 1; }
+}
+
+/* Rest of your existing styles... */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.header {
+    text-align: center;
+    margin: 30px 0;
+    position: relative;
+}
+
+.header-decoration {
+    font-size: 1.8em;
+    line-height: 0.5;
+    color: var(--purple-glow);
+    text-shadow: 0 0 10px var(--purple-light);
+    letter-spacing: 3px;
+}
+
+.title {
+    font-size: 3.5em;
+    margin: 10px 0;
+    background: linear-gradient(to right, var(--purple-glow), var(--text-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 15px rgba(157, 78, 221, 0.5);
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    text-shadow: 0 0 5px rgba(157, 78, 221, 0.3);
+}
+
+.clock-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.time-card {
+    background: rgba(25, 20, 60, 0.8);
+    border: 2px solid var(--purple-light);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 0 30px var(--purple-medium), 
+                inset 0 0 10px rgba(123, 44, 191, 0.3);
+    min-width: 300px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.time-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(157, 78, 221, 0.1) 0%, transparent 70%);
+    animation: rotate 60s linear infinite;
+    z-index: -1;
+}
+
+.time-label {
+    font-size: 1.2em;
+    color: var(--purple-glow);
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.neravelle-time {
+    font-size: 4em;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 3px;
+    color: var(--text-primary);
+    text-shadow: 0 0 15px var(--purple-glow);
+    margin: 15px 0;
+}
+
+.neravelle-date {
+    font-size: 1.8em;
+    color: var(--text-primary);
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.real-time {
+    font-size: 1.5em;
+    color: var(--text-secondary);
+}
+
+.day-description {
+    font-style: italic;
+    margin-top: 15px;
+    color: var(--purple-glow);
+    font-size: 1.1em;
+}
+
+.calendar-info {
+    background: rgba(42, 21, 69, 0.7);
+    border: 1px solid var(--purple-light);
+    border-radius: 10px;
+    padding: 25px;
+    margin: 40px 0;
+    box-shadow: 0 0 20px rgba(123, 44, 191, 0.3);
+}
+
+.section-title {
+    color: var(--purple-glow);
+    font-size: 1.8em;
+    margin: 25px 0 15px 0;
+    border-bottom: 1px dashed var(--purple-light);
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.divider {
+    border-top: 1px dashed var(--purple-light);
+    margin: 30px 0;
+    opacity: 0.5;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Moon phases animation */
+@keyframes moon-glow {
+    0% { box-shadow: 0 0 20px rgba(224, 224, 255, 0.5); }
+    50% { box-shadow: 0 0 40px rgba(224, 224, 255, 0.8); }
+    100% { box-shadow: 0 0 20px rgba(224, 224, 255, 0.5); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5em;
+    }
+    .neravelle-time {
+        font-size: 3em;
+    }
+    .neravelle-date {
+        font-size: 1.5em;
+    }
+}
