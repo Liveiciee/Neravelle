@@ -320,4 +320,13 @@ body {
     .neravelle-date {
         font-size: 1.5em;
     }
+    /* Micro Update */
+.sun-moon[data-is-sun="true"] {
+    background: radial-gradient(circle, var(--sun-color) 30%, transparent 70%) !important;
+    box-shadow: 0 0 60px var(--sun-color), 0 0 120px rgba(255, 158, 88, 0.5) !important;
+    animation: none !important;
+}
+.sun-moon[data-is-sun="false"] {
+    animation: moon-glow 4s infinite !important;
+}
 }
