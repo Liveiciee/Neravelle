@@ -32,12 +32,12 @@ function calculateNeravelleDate(realWorldDate) {
     let nvMonthIndex = BASE_NV_MONTH;
     let nvDay = BASE_NV_DAY;
 
-    let daysInMonth = 35;
-    let monthsInYear = 12;
+    const daysInMonth = 35;
+    const monthsInYear = 12;
 
     if (totalNeravelleDaysPassed >= 0) {
+        // Jalan ke depan
         let remainingDays = totalNeravelleDaysPassed;
-        // Jalan maju
         while (remainingDays > 0) {
             let daysLeftInMonth = daysInMonth - nvDay + 1;
             if (remainingDays >= daysLeftInMonth) {
@@ -54,9 +54,8 @@ function calculateNeravelleDate(realWorldDate) {
             }
         }
     } else {
-        // Jika tanggal input sebelum BASE_REAL_DATE, mundur
+        // Jalan mundur jika sebelum base date
         let remainingDays = -totalNeravelleDaysPassed;
-        // Jalan mundur
         while (remainingDays > 0) {
             if (nvDay > remainingDays) {
                 nvDay -= remainingDays;
@@ -72,10 +71,8 @@ function calculateNeravelleDate(realWorldDate) {
             }
         }
     }
-    // Hitung dayName
-    const totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed;
-    // Basis Elarion, makanya +6 agar hari mundur juga benar
-    let dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalDaysFromBaseInNeravelle) % DAYS.length;
+    // Hitung dayName (agar tetap benar meski hari negatif)
+    let dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalNeravelleDaysPassed) % DAYS.length;
     if (dayIndex < 0) dayIndex += DAYS.length;
     const nvDayName = DAYS[dayIndex];
 
@@ -84,9 +81,8 @@ function calculateNeravelleDate(realWorldDate) {
         month: MONTHS[nvMonthIndex],
         day: nvDay,
         dayName: nvDayName
-    };
-      }
-
+    }; 
+}
 // === Ulang Tahun NeraVelle ===
 function convertBirthdate(realDate) {
     const nvDate = calculateNeravelleDate(new Date(realDate));
