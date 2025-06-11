@@ -46,7 +46,9 @@ function calculateNeravelleDate(realWorldDate) {
             nvDay += remainingDays;
             remainingDays = 0;
         }
-      function convertBirthdate(realDate) {
+
+// === Ulang Tahun NeraVelle ===
+function convertBirthdate(realDate) {
     const nvDate = calculateNeravelleDate(new Date(realDate));
     return `Anda lahir di hari ${nvDate.dayName}, ${nvDate.day} ${nvDate.month}`;
 }
@@ -59,6 +61,21 @@ function showNeravelleBirthdate() {
         return;
     }
     resultDiv.textContent = convertBirthdate(input);
+}
+const birthdayInput = document.getElementById('birthdayInput');
+const birthdayOutput = document.getElementById('birthdayOutput');
+if (birthdayInput && birthdayOutput) {
+    birthdayInput.addEventListener('input', function() {
+        const inputDate = birthdayInput.value;
+        if (!inputDate) {
+            birthdayOutput.textContent = "";
+            return;
+        }
+        const realDate = new Date(inputDate + 'T00:00:00');
+        const nvDate = calculateNeravelleDate(realDate);
+        birthdayOutput.textContent = 
+            `Ulang tahunmu di kalender NeraVelle: ${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KSN`;
+    });
 }
     }
 
