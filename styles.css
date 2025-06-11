@@ -264,6 +264,20 @@ body {
     box-shadow: 0 0 20px rgba(123, 44, 191, 0.3);
 }
 
+.birthdate-converter {
+    margin: 32px 0;
+    padding: 18px;
+    background: rgba(42, 21, 69, 0.7);
+    border: 1px solid var(--purple-light);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(157, 78, 221, 0.1);
+}
+#neravelleBirthdateResult {
+    margin-top: 12px;
+    font-weight: bold;
+    color: var(--purple-glow);
+}
+
 .section-title {
     color: var(--purple-glow);
     font-size: 1.8em;
