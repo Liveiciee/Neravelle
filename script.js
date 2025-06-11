@@ -131,6 +131,9 @@ function getMoonPhase(day) {
 
 // Update sky animation based on Neravelle time
 function updateSkyAnimation(nvHours, nvDay, nvDayName) {
+    const celestialBaseX = 10; // Define once
+    const celestialBaseY = 20; // Define once
+    let celestialX, celestialY;
     const sunMoon = document.getElementById('sunMoon');
     const sunsetGlow = document.getElementById('sunsetGlow');
     const dawnGlow = document.getElementById('dawnGlow');
@@ -156,8 +159,8 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
         celestialSize = 150;
     } 
     else if (isDay) {
-        celestialX = 10 + ((nvHours - 5) / 12) * 80;
-        celestialY = 20;
+        celestialX = celestialBaseX + ((nvHours - 5) / 12) * 80;
+        celestialY = celestialBaseY;
     } 
     else if (isSunset) {
         celestialX = 10 + ((nvHours - 5) / 12) * 80;
