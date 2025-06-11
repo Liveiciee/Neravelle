@@ -148,7 +148,6 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
     const isDay = (nvHours >= 7 && nvHours < 17);
     const isSunset = (nvHours >= 17 && nvHours < 19);
 
-    let celestialX, celestialY;
     let celestialSize = 120;
     let glowSize = 300;
 
@@ -173,13 +172,13 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
     }
 
     // 3. Atur tampilan berdasarkan waktu
-if (isNight) {
+    if (isNight) {
         // Mode malam: bulan + bintang
         const moonPhase = getMoonPhase(nvDay);
         sunMoon.className = `sun-moon moon-${moonPhase}`;
         sunMoon.setAttribute('data-is-sun', "false");
         sunMoon.style.animation = 'moon-glow 4s infinite';
-        stars.style.opacity = 1;
+        stars.style.opacity = 1; // <= Perbaiki ini
         body.style.background = 'var(--purple-dark)';
         sunsetGlow.style.opacity = 0;
         dawnGlow.style.opacity = 0;
@@ -187,7 +186,7 @@ if (isNight) {
         // Efek khusus hari Tarsilune
         if (nvDayName === "Tarsilune") {
             sunMoon.style.boxShadow = '0 0 80px var(--moon-color), 0 0 160px rgba(224, 224, 255, 0.7)';
-            stars.style.opacity = 1.2;
+            stars.style.opacity = 1; // <= Perbaiki ini juga
         } else {
             sunMoon.style.boxShadow = '';
         }
