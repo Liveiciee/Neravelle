@@ -51,23 +51,20 @@ body {
     z-index: -1;
     display: none; /* Default: hidden */
 }
-.sun-moon.moon-new, 
-.sun-moon.moon-crescent,
-.sun-moon.moon-half,
-.sun-moon.moon-gibbous,
-.sun-moon.moon-full {
-    display: block; /* Muncul hanya saat malam */
-}
+
 /* Matahari siang/fajar */
 .sun-moon[data-is-sun="true"] {
     display: block;
     background: radial-gradient(circle, var(--sun-color) 30%, transparent 70%) !important;
+    box-shadow: 0 0 60px var(--sun-color), 0 0 120px rgba(255, 158, 88, 0.5) !important;
+    animation: none !important;
 }
 
 /* Moon phases */
 .sun-moon.moon-new {
     background: radial-gradient(circle, var(--moon-color) 0%, transparent 0%);
     box-shadow: 0 0 60px rgba(224, 224, 255, 0.3);
+    display: block; /* Make sure moon is visible */
 }
 
 .sun-moon.moon-crescent {
@@ -75,12 +72,14 @@ body {
         radial-gradient(circle, var(--moon-color) 30%, transparent 30%),
         radial-gradient(circle at 30% 50%, transparent 40%, var(--purple-dark) 40%);
     box-shadow: 0 0 60px rgba(224, 224, 255, 0.5);
+    display: block; /* Make sure moon is visible */
 }
 
 .sun-moon.moon-half {
     background: 
         linear-gradient(to right, transparent 50%, var(--moon-color) 50%);
     box-shadow: 0 0 60px rgba(224, 224, 255, 0.7);
+    display: block; /* Make sure moon is visible */
 }
 
 .sun-moon.moon-gibbous {
@@ -88,13 +87,20 @@ body {
         radial-gradient(circle, var(--moon-color) 70%, transparent 70%),
         radial-gradient(circle at 30% 50%, transparent 20%, var(--purple-dark) 20%);
     box-shadow: 0 0 60px rgba(224, 224, 255, 0.8);
+    display: block; /* Make sure moon is visible */
 }
 
 .sun-moon.moon-full {
     background: radial-gradient(circle, var(--moon-color) 100%, transparent 100%);
     box-shadow: 0 0 60px var(--moon-color), 
                 0 0 120px rgba(224, 224, 255, 0.5);
+    display: block; /* Make sure moon is visible */
 }
+
+.sun-moon[data-is-sun="false"] {
+    animation: moon-glow 4s infinite !important;
+}
+
 .sunset-glow, .dawn-glow {
     position: absolute;
     width: 300px;
@@ -342,13 +348,4 @@ body {
     .neravelle-date {
         font-size: 1.5em;
     }
-    /* Micro Update */
-.sun-moon[data-is-sun="true"] {
-    background: radial-gradient(circle, var(--sun-color) 30%, transparent 70%) !important;
-    box-shadow: 0 0 60px var(--sun-color), 0 0 120px rgba(255, 158, 88, 0.5) !important;
-    animation: none !important;
-}
-.sun-moon[data-is-sun="false"] {
-    animation: moon-glow 4s infinite !important;
-}
 }
