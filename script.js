@@ -240,16 +240,8 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
     dawnGlow.style.height = `${glowSize}px`;
     dawnGlow.style.transform = 'translate(-50%, -50%)';
 }
-
+let lastNvHours = null;
 // Update clock and UI
-function updateClock() {
-    const neravelleTimeEl = document.getElementById('neravelleTime');
-    const neravelleDateEl = document.getElementById('neravelleDate');
-    const realWorldTimeEl = document.getElementById('realWorldTime');
-    const dayDescriptionEl = document.getElementById('dayDescription');
-
-    let lastNvHours = null;
-
 function updateClock() {
     const nv = getNeravelleTime();
 
