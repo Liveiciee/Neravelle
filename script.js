@@ -20,74 +20,36 @@ const BASE_NV_MONTH = 0; // Luthenya
 const BASE_NV_DAY = 1;
 const BASE_NV_DAY_NAME = "Elarion";
 
-// Fungsi helper untuk mendapatkan total hari dalam tahun Neravelle
-const DAYS_IN_NV_YEAR = 420; // 12 bulan × 35 hari
-const DAYS_IN_NV_MONTH = 35;
-
-// Fungsi untuk menghitung tanggal Neravelle
+// Calculate current Neravelle date based on real world time
 function calculateNeravelleDate(realWorldDate) {
     const now = realWorldDate || new Date();
-    
-    // Menentukan apakah tanggal sebelum BASE_REAL_DATE
-    const isBeforeBase = now < BASE_REAL_DATE;
-    
-    // Hitung selisih waktu
-    const timeDiff = isBeforeBase ? 
-        BASE_REAL_DATE - now :
-        now - BASE_REAL_DATE;
-    
-    // Konversi ke waktu Neravelle (2x lebih cepat)
-    const nvTimeDiff = timeDiff * 2;
+    const timeDiff = now - BASE_REAL_DATE;
+    const nvTimeDiff = timeDiff * 2; // NeraVelle berjalan 2x lebih cepat
     const totalNeravelleDaysPassed = Math.floor(nvTimeDiff / (1000 * 60 * 60 * 24));
 
-    // Inisialisasi dengan tanggal dasar Neravelle
+    let remainingDays = totalNeravelleDaysPassed;
     let nvYear = BASE_NV_YEAR;
     let nvMonthIndex = BASE_NV_MONTH;
     let nvDay = BASE_NV_DAY;
 
-    if (isBeforeBase) {
-        // Untuk tanggal sebelum BASE_REAL_DATE, hitung mundur
-        let daysToSubtract = totalNeravelleDaysPassed;
-        
-        while (daysToSubtract > 0) {
-            if (nvDay > 1) {
-                nvDay--;
-            } else {
-                // Mundur ke bulan sebelumnya
-                nvMonthIndex--;
-                if (nvMonthIndex < 0) {
-                    nvYear--;
-                    nvMonthIndex = 11; // Kembali ke bulan terakhir
-                }
-                nvDay = 35; // Setiap bulan memiliki 35 hari
+    while (remainingDays > 0) {
+        const daysInMonth = 35;
+        if (nvDay + remainingDays > daysInMonth) {
+            remainingDays -= (daysInMonth - nvDay + 1);
+            nvDay = 1;
+            nvMonthIndex++;
+            if (nvMonthIndex >= MONTHS.length) {
+                nvMonthIndex = 0;
+                nvYear++;
             }
-            daysToSubtract--;
-        }
-    } else {
-        // Untuk tanggal setelah BASE_REAL_DATE, hitung maju
-        let daysToAdd = totalNeravelleDaysPassed;
-        
-        while (daysToAdd > 0) {
-            if (nvDay < 35) {
-                nvDay++;
-            } else {
-                // Maju ke bulan berikutnya
-                nvMonthIndex++;
-                if (nvMonthIndex >= 12) {
-                    nvYear++;
-                    nvMonthIndex = 0;
-                }
-                nvDay = 1;
-            }
-            daysToAdd--;
+        } else {
+            nvDay += remainingDays;
+            remainingDays = 0;
         }
     }
 
-    // Hitung nama hari
-    const daysSinceBase = isBeforeBase ? -totalNeravelleDaysPassed : totalNeravelleDaysPassed;
-    let dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + daysSinceBase) % 7;
-    if (dayIndex < 0) dayIndex += 7; // Pastikan indeks selalu positif
-    
+    const totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed;
+    const dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalDaysFromBaseInNeravelle + 1) % DAYS.length;
     const nvDayName = DAYS[dayIndex];
 
     return {
@@ -98,14 +60,60 @@ function calculateNeravelleDate(realWorldDate) {
     };
 }
 
-// Perbaikan fungsi konversi ulang tahun
+// === Ulang Tahun NeraVelle ===
 function convertBirthdate(realDate) {
-    if (!realDate || isNaN(new Date(realDate).getTime())) {
-        return "Tanggal tidak valid";
-    }
     const nvDate = calculateNeravelleDate(new Date(realDate));
-    return `${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KSN`;
-  }
+    return `Anda lahir di hari ${nvDate.dayName}, ${nvDate.day} ${nvDate.month}`;
+}
+
+const birthdayInput = document.getElementById('birthdayInput');
+const birthdayOutput = document.getElementById('birthdayOutput');
+if (birthdayInput && birthdayOutput) {
+    birthdayInput.addEventListener('input', function() {
+        const inputDate = birthdayInput.value;
+        if (!inputDate) {
+            birthdayOutput.textContent = "";
+            return;
+        }
+        const realDate = new Date(inputDate + 'T00:00:00');
+        const nvDate = calculateNeravelleDate(realDate);
+        birthdayOutput.textContent = 
+            `Ulang tahunmu di kalender NeraVelle: ${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KSN`;
+    });
+}
+
+// Hitung waktu NeraVelle (2× lebih cepat)
+function getNeravelleTime(realWorldDate) {
+    const now = realWorldDate || new Date();
+
+    // Waktu nyata
+    const realHours = now.getHours();
+    const realMinutes = now.getMinutes();
+    const realSeconds = now.getSeconds();
+
+    // Hitung total detik dunia nyata sejak tengah malam
+    const totalRealSeconds = realHours * 3600 + realMinutes * 60 + realSeconds;
+
+    // Kalikan 2 untuk waktu NeraVelle
+    const totalNeravelleSeconds = totalRealSeconds * 2;
+
+    // Hitung HH:MM:SS NeraVelle
+    const nvHours = Math.floor(totalNeravelleSeconds / 3600) % 24;
+    const nvMinutes = Math.floor((totalNeravelleSeconds % 3600) / 60);
+    const nvSeconds = Math.floor(totalNeravelleSeconds % 60);
+
+    // Calculate current Neravelle date
+    const nvDate = calculateNeravelleDate(now);
+
+    return {
+        time: `${String(nvHours).padStart(2, '0')}:${String(nvMinutes).padStart(2, '0')}:${String(nvSeconds).padStart(2, '0')}`,
+        date: `${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KSN`,
+        realTime: `${String(realHours).padStart(2, '0')}:${String(realMinutes).padStart(2, '0')}:${String(realSeconds).padStart(2, '0')}`,
+        dayName: nvDate.dayName,
+        nvHours: nvHours,
+        nvDay: nvDate.day
+    };
+}
 
 // Create stars for night time
 function createStars() {
@@ -192,7 +200,7 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
         sunMoon.className = `sun-moon moon-${moonPhase}`;
         sunMoon.setAttribute('data-is-sun', "false");
         sunMoon.style.animation = 'moon-glow 4s infinite';
-        stars.style.opacity = 1; // <= Perbaiki ini
+        stars.style.opacity = 1;
         body.style.background = 'var(--purple-dark)';
         sunsetGlow.style.opacity = 0;
         dawnGlow.style.opacity = 0;
@@ -200,7 +208,7 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
         // Efek khusus hari Tarsilune
         if (nvDayName === "Tarsilune") {
             sunMoon.style.boxShadow = '0 0 80px var(--moon-color), 0 0 160px rgba(224, 224, 255, 0.7)';
-            stars.style.opacity = 1; // <= Perbaiki ini juga
+            stars.style.opacity = 1;
         } else {
             sunMoon.style.boxShadow = '';
         }
