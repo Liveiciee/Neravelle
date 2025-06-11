@@ -46,6 +46,20 @@ function calculateNeravelleDate(realWorldDate) {
             nvDay += remainingDays;
             remainingDays = 0;
         }
+      function convertBirthdate(realDate) {
+    const nvDate = calculateNeravelleDate(new Date(realDate));
+    return `Anda lahir di hari ${nvDate.dayName}, ${nvDate.day} ${nvDate.month}`;
+}
+
+function showNeravelleBirthdate() {
+    const input = document.getElementById("realBirthdate").value;
+    const resultDiv = document.getElementById("neravelleBirthdateResult");
+    if (!input) {
+        resultDiv.textContent = "Masukkan tanggal lahir!";
+        return;
+    }
+    resultDiv.textContent = convertBirthdate(input);
+}
     }
 
     const totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed;
