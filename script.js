@@ -152,6 +152,11 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
     const dawnGlow = document.getElementById('dawnGlow');
     const stars = document.getElementById('stars');
     const body = document.body;
+    const glowSize = isNight ? 250 : 300; // Lebih besar saat siang
+    sunsetGlow.style.width = `${glowSize}px`;
+    sunsetGlow.style.height = `${glowSize}px`;
+    dawnGlow.style.width = `${glowSize}px`;
+    dawnGlow.style.height = `${glowSize}px`;
     
     // Calculate sun/moon position (0-24 hours)
     let celestialX, celestialY;
@@ -227,13 +232,11 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
     // Position glows
     sunsetGlow.style.left = `${celestialX}%`;
     sunsetGlow.style.top = `${celestialY}%`;
-    sunsetGlow.style.marginLeft = `-150px`;
-    sunsetGlow.style.marginTop = `-150px`;
+    sunsetGlow.style.transform = 'translate(-50%, -50%)';
     
     dawnGlow.style.left = `${celestialX}%`;
     dawnGlow.style.top = `${celestialY}%`;
-    dawnGlow.style.marginLeft = `-150px`;
-    dawnGlow.style.marginTop = `-150px`;
+    dawnGlow.style.transform = 'translate(-50%, -50%)';
     
     // Special effect for Tarsilune (moon day)
     if (nvDayName === "Tarsilune" && isNight) {
