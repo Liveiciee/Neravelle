@@ -173,7 +173,7 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
     }
 
     // 3. Atur tampilan berdasarkan waktu
-    if (isNight) {
+if (isNight) {
         // Mode malam: bulan + bintang
         const moonPhase = getMoonPhase(nvDay);
         sunMoon.className = `sun-moon moon-${moonPhase}`;
