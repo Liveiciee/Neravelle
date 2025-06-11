@@ -12,6 +12,7 @@
     --day-sky: linear-gradient(to bottom, #1a0a3a 0%, #0f0c29 100%);
     --sunset-sky: linear-gradient(to bottom, #302b63 0%, #0f0c29 100%);
     --dawn-sky: linear-gradient(to bottom, #24243e 0%, #0f0c29 100%);
+    --glow-spread: 70%; /* Kontrol sebaran glow */
 }
 
 body {
@@ -81,27 +82,32 @@ body {
     box-shadow: 0 0 60px var(--moon-color), 
                 0 0 120px rgba(224, 224, 255, 0.5);
 }
-
-.sunset-glow {
+.sunset-glow, .dawn-glow {
     position: absolute;
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background: radial-gradient(circle, var(--sunset-color) 0%, transparent 70%);
+    background: radial-gradient(
+        circle, 
+        var(--sunset-color) 0%, 
+        transparent var(--glow-spread)
+    );
     opacity: 0;
     transition: opacity 1s ease;
     z-index: -2;
+    transform: translate(-50%, -50%); /* Pusatkan tepat di posisi matahari */
+    pointer-events: none; /* Hindari interaksi mouse */
+    filter: blur(10px); /* Efek glow lebih halus */
 }
 
+/* Untuk dawn glow */
 .dawn-glow {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--dawn-color) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 1s ease;
-    z-index: -2;
+    background: radial-gradient(
+        circle, 
+        var(--dawn-color) 0%, 
+        transparent var(--glow-spread)
+    );
+}
 }
 
 .stars {
