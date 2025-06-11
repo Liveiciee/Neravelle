@@ -20,36 +20,68 @@ const BASE_NV_MONTH = 0; // Luthenya
 const BASE_NV_DAY = 1;
 const BASE_NV_DAY_NAME = "Elarion";
 
+// Fungsi helper untuk mendapatkan total hari dalam tahun Neravelle
+const DAYS_IN_NV_YEAR = 420; // 12 bulan × 35 hari
+const DAYS_IN_NV_MONTH = 35;
+
 // Calculate current Neravelle date based on real world time
 function calculateNeravelleDate(realWorldDate) {
     const now = realWorldDate || new Date();
-    const timeDiff = now - BASE_REAL_DATE;
+    
+    // Jika tanggal lebih awal dari BASE_REAL_DATE, hitung mundur
+    const isBeforeBase = now < BASE_REAL_DATE;
+    const timeDiff = isBeforeBase ? 
+        BASE_REAL_DATE - now :
+        now - BASE_REAL_DATE;
+    
     const nvTimeDiff = timeDiff * 2; // NeraVelle berjalan 2x lebih cepat
     const totalNeravelleDaysPassed = Math.floor(nvTimeDiff / (1000 * 60 * 60 * 24));
 
-    let remainingDays = totalNeravelleDaysPassed;
+    let adjustedDays = isBeforeBase ? -totalNeravelleDaysPassed : totalNeravelleDaysPassed;
+    
+    // Inisialisasi dengan tanggal dasar
     let nvYear = BASE_NV_YEAR;
     let nvMonthIndex = BASE_NV_MONTH;
     let nvDay = BASE_NV_DAY;
 
-    while (remainingDays > 0) {
-        const daysInMonth = 35;
-        if (nvDay + remainingDays > daysInMonth) {
-            remainingDays -= (daysInMonth - nvDay + 1);
-            nvDay = 1;
-            nvMonthIndex++;
-            if (nvMonthIndex >= MONTHS.length) {
-                nvMonthIndex = 0;
-                nvYear++;
+    // Jika sebelum tanggal dasar, hitung mundur
+    if (isBeforeBase) {
+        while (adjustedDays < 0) {
+            nvDay--;
+            if (nvDay < 1) {
+                nvMonthIndex--;
+                if (nvMonthIndex < 0) {
+                    nvYear--;
+                    nvMonthIndex = 11;
+                }
+                nvDay = DAYS_IN_NV_MONTH;
             }
-        } else {
-            nvDay += remainingDays;
-            remainingDays = 0;
+            adjustedDays++;
+        }
+    } else {
+        // Jika setelah tanggal dasar, hitung maju
+        while (adjustedDays > 0) {
+            nvDay++;
+            if (nvDay > DAYS_IN_NV_MONTH) {
+                nvMonthIndex++;
+                if (nvMonthIndex >= MONTHS.length) {
+                    nvYear++;
+                    nvMonthIndex = 0;
+                }
+                nvDay = 1;
+            }
+            adjustedDays--;
         }
     }
 
-    const totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed;
-    const dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalDaysFromBaseInNeravelle + 1) % DAYS.length;
+    // Hitung nama hari
+    const daysSinceBase = isBeforeBase ? -totalNeravelleDaysPassed : totalNeravelleDaysPassed;
+    let dayIndex = DAYS.indexOf(BASE_NV_DAY_NAME) + daysSinceBase;
+    
+    // Pastikan indeks hari selalu positif dan dalam range yang valid
+    while (dayIndex < 0) dayIndex += DAYS.length;
+    dayIndex = dayIndex % DAYS.length;
+    
     const nvDayName = DAYS[dayIndex];
 
     return {
@@ -62,8 +94,11 @@ function calculateNeravelleDate(realWorldDate) {
 
 // === Ulang Tahun NeraVelle ===
 function convertBirthdate(realDate) {
+    if (!realDate || isNaN(new Date(realDate).getTime())) {
+        return "Tanggal tidak valid";
+    }
     const nvDate = calculateNeravelleDate(new Date(realDate));
-    return `Anda lahir di hari ${nvDate.dayName}, ${nvDate.day} ${nvDate.month}`;
+    return `${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KSN`;
 }
 
 const birthdayInput = document.getElementById('birthdayInput');
@@ -75,45 +110,9 @@ if (birthdayInput && birthdayOutput) {
             birthdayOutput.textContent = "";
             return;
         }
-        const realDate = new Date(inputDate + 'T00:00:00');
-        const nvDate = calculateNeravelleDate(realDate);
-        birthdayOutput.textContent = 
-            `Ulang tahunmu di kalender NeraVelle: ${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KSN`;
+        birthdayOutput.textContent = `Ulang tahunmu di kalender NeraVelle: ${convertBirthdate(inputDate)}`;
     });
-}
-
-// Hitung waktu NeraVelle (2× lebih cepat)
-function getNeravelleTime(realWorldDate) {
-    const now = realWorldDate || new Date();
-
-    // Waktu nyata
-    const realHours = now.getHours();
-    const realMinutes = now.getMinutes();
-    const realSeconds = now.getSeconds();
-
-    // Hitung total detik dunia nyata sejak tengah malam
-    const totalRealSeconds = realHours * 3600 + realMinutes * 60 + realSeconds;
-
-    // Kalikan 2 untuk waktu NeraVelle
-    const totalNeravelleSeconds = totalRealSeconds * 2;
-
-    // Hitung HH:MM:SS NeraVelle
-    const nvHours = Math.floor(totalNeravelleSeconds / 3600) % 24;
-    const nvMinutes = Math.floor((totalNeravelleSeconds % 3600) / 60);
-    const nvSeconds = Math.floor(totalNeravelleSeconds % 60);
-
-    // Calculate current Neravelle date
-    const nvDate = calculateNeravelleDate(now);
-
-    return {
-        time: `${String(nvHours).padStart(2, '0')}:${String(nvMinutes).padStart(2, '0')}:${String(nvSeconds).padStart(2, '0')}`,
-        date: `${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KSN`,
-        realTime: `${String(realHours).padStart(2, '0')}:${String(realMinutes).padStart(2, '0')}:${String(realSeconds).padStart(2, '0')}`,
-        dayName: nvDate.dayName,
-        nvHours: nvHours,
-        nvDay: nvDate.day
-    };
-}
+        }
 
 // Create stars for night time
 function createStars() {
