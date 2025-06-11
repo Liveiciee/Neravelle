@@ -24,63 +24,69 @@ const BASE_NV_DAY_NAME = "Elarion";
 const DAYS_IN_NV_YEAR = 420; // 12 bulan × 35 hari
 const DAYS_IN_NV_MONTH = 35;
 
-// Calculate current Neravelle date based on real world time
+// Fungsi untuk menghitung tanggal Neravelle
 function calculateNeravelleDate(realWorldDate) {
     const now = realWorldDate || new Date();
     
-    // Jika tanggal lebih awal dari BASE_REAL_DATE, hitung mundur
+    // Menentukan apakah tanggal sebelum BASE_REAL_DATE
     const isBeforeBase = now < BASE_REAL_DATE;
+    
+    // Hitung selisih waktu
     const timeDiff = isBeforeBase ? 
         BASE_REAL_DATE - now :
         now - BASE_REAL_DATE;
     
-    const nvTimeDiff = timeDiff * 2; // NeraVelle berjalan 2x lebih cepat
+    // Konversi ke waktu Neravelle (2x lebih cepat)
+    const nvTimeDiff = timeDiff * 2;
     const totalNeravelleDaysPassed = Math.floor(nvTimeDiff / (1000 * 60 * 60 * 24));
 
-    let adjustedDays = isBeforeBase ? -totalNeravelleDaysPassed : totalNeravelleDaysPassed;
-    
-    // Inisialisasi dengan tanggal dasar
+    // Inisialisasi dengan tanggal dasar Neravelle
     let nvYear = BASE_NV_YEAR;
     let nvMonthIndex = BASE_NV_MONTH;
     let nvDay = BASE_NV_DAY;
 
-    // Jika sebelum tanggal dasar, hitung mundur
     if (isBeforeBase) {
-        while (adjustedDays < 0) {
-            nvDay--;
-            if (nvDay < 1) {
+        // Untuk tanggal sebelum BASE_REAL_DATE, hitung mundur
+        let daysToSubtract = totalNeravelleDaysPassed;
+        
+        while (daysToSubtract > 0) {
+            if (nvDay > 1) {
+                nvDay--;
+            } else {
+                // Mundur ke bulan sebelumnya
                 nvMonthIndex--;
                 if (nvMonthIndex < 0) {
                     nvYear--;
-                    nvMonthIndex = 11;
+                    nvMonthIndex = 11; // Kembali ke bulan terakhir
                 }
-                nvDay = DAYS_IN_NV_MONTH;
+                nvDay = 35; // Setiap bulan memiliki 35 hari
             }
-            adjustedDays++;
+            daysToSubtract--;
         }
     } else {
-        // Jika setelah tanggal dasar, hitung maju
-        while (adjustedDays > 0) {
-            nvDay++;
-            if (nvDay > DAYS_IN_NV_MONTH) {
+        // Untuk tanggal setelah BASE_REAL_DATE, hitung maju
+        let daysToAdd = totalNeravelleDaysPassed;
+        
+        while (daysToAdd > 0) {
+            if (nvDay < 35) {
+                nvDay++;
+            } else {
+                // Maju ke bulan berikutnya
                 nvMonthIndex++;
-                if (nvMonthIndex >= MONTHS.length) {
+                if (nvMonthIndex >= 12) {
                     nvYear++;
                     nvMonthIndex = 0;
                 }
                 nvDay = 1;
             }
-            adjustedDays--;
+            daysToAdd--;
         }
     }
 
     // Hitung nama hari
     const daysSinceBase = isBeforeBase ? -totalNeravelleDaysPassed : totalNeravelleDaysPassed;
-    let dayIndex = DAYS.indexOf(BASE_NV_DAY_NAME) + daysSinceBase;
-    
-    // Pastikan indeks hari selalu positif dan dalam range yang valid
-    while (dayIndex < 0) dayIndex += DAYS.length;
-    dayIndex = dayIndex % DAYS.length;
+    let dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + daysSinceBase) % 7;
+    if (dayIndex < 0) dayIndex += 7; // Pastikan indeks selalu positif
     
     const nvDayName = DAYS[dayIndex];
 
@@ -92,27 +98,14 @@ function calculateNeravelleDate(realWorldDate) {
     };
 }
 
-// === Ulang Tahun NeraVelle ===
+// Perbaikan fungsi konversi ulang tahun
 function convertBirthdate(realDate) {
     if (!realDate || isNaN(new Date(realDate).getTime())) {
         return "Tanggal tidak valid";
     }
     const nvDate = calculateNeravelleDate(new Date(realDate));
     return `${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KSN`;
-}
-
-const birthdayInput = document.getElementById('birthdayInput');
-const birthdayOutput = document.getElementById('birthdayOutput');
-if (birthdayInput && birthdayOutput) {
-    birthdayInput.addEventListener('input', function() {
-        const inputDate = birthdayInput.value;
-        if (!inputDate) {
-            birthdayOutput.textContent = "";
-            return;
-        }
-        birthdayOutput.textContent = `Ulang tahunmu di kalender NeraVelle: ${convertBirthdate(inputDate)}`;
-    });
-        }
+  }
 
 // Create stars for night time
 function createStars() {
