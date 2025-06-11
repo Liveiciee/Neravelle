@@ -263,31 +263,101 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
     // Special effect for Tarsilune (moon day)
     if (nvDayName === "Tarsilune" && isNight) {
         sunMoon.style.boxShadow = '0 0 80px var(--moon-color), 0 0 160px rgba(224, 224, 255, 0.7)';
-        stars.style.opacity = 1.2; // Brighter stars on moon day
-    }
-}
+function updateSkyAnimation(nvHours, nvDay, nvDayName) {
+    const sunMoon = document.getElementById('sunMoon');
+    const sunsetGlow = document.getElementById('sunsetGlow');
+    const dawnGlow = document.getElementById('dawnGlow');
+    const stars = document.getElementById('stars');
+    const body = document.body;
+    
+    // 1. Tentukan fase waktu dan inisialisasi variabel
+    const isNight = (nvHours < 5 || nvHours >= 19);
+    const isDawn = (nvHours >= 5 && nvHours < 7);
+    const isDay = (nvHours >= 7 && nvHours < 17);
+    const isSunset = (nvHours >= 17 && nvHours < 19);
+    
+    let celestialX, celestialY;
+    let celestialSize = 120;
+    let glowSize = 300;
 
-function updateClock() {
-    const now = new Date();
-    const nvTime = getNeravelleTime(now);
-    
-    // Update tampilan
-    document.getElementById("neravelleTime").textContent = nvTime.time;
-    document.getElementById("neravelleDate").textContent = nvTime.date;
-    document.getElementById("realWorldTime").textContent = nvTime.realTime;
-    document.getElementById("dayDescription").textContent = DAY_DESCRIPTIONS[nvTime.dayName];
-    
-    // Update sky animation
-    updateSkyAnimation(nvTime.nvHours, nvTime.nvDay, nvTime.dayName);
-    
-    // Efek visual saat detik berubah
-    if (nvTime.time.endsWith("00")) {
-        document.getElementById("neravelleTime").classList.add("pulse");
-        setTimeout(() => {
-            document.getElementById("neravelleTime").classList.remove("pulse");
-        }, 1000);
+    // 2. Atur posisi celestial object (sun/moon)
+    if (isDawn) {
+        celestialX = 10 + ((nvHours - 5) / 2) * 40;
+        celestialY = 80;
+        celestialSize = 150;
+    } 
+    else if (isDay) {
+        celestialX = 10 + ((nvHours - 5) / 12) * 80;
+        celestialY = 20;
+    } 
+    else if (isSunset) {
+        celestialX = 10 + ((nvHours - 5) / 12) * 80;
+        celestialY = 20 + ((nvHours - 17) / 2) * 60;
+        celestialSize = 150;
+    } 
+    else { // Night
+        celestialX = 10 + ((nvHours + 7) % 24 / 12) * 80;
+        celestialY = 20 + ((nvHours < 5) ? (nvHours / 5) * 60 : 0);
     }
-}
+
+    // 3. Atur tampilan berdasarkan waktu
+    if (isNight) {
+        // Mode malam: bulan + bintang
+        const moonPhase = getMoonPhase(nvDay);
+        sunMoon.className = `sun-moon moon-${moonPhase}`;
+        sunMoon.style.animation = 'moon-glow 4s infinite';
+        stars.style.opacity = 1;
+        body.style.background = 'var(--purple-dark)';
+        
+        // Efek khusus hari Tarsilune
+        if (nvDayName === "Tarsilune") {
+            sunMoon.style.boxShadow = '0 0 80px var(--moon-color), 0 0 160px rgba(224, 224, 255, 0.7)';
+            stars.style.opacity = 1.2;
+        }
+    } 
+    else {
+        // Mode siang/senja/fajar: matahari
+        sunMoon.style.background = 'radial-gradient(circle, var(--sun-color) 30%, transparent 70%)';
+        sunMoon.style.boxShadow = '0 0 60px var(--sun-color), 0 0 120px rgba(255, 158, 88, 0.5)';
+        sunMoon.style.animation = 'none';
+        
+        if (isDawn) {
+            dawnGlow.style.opacity = 0.8 - ((nvHours - 5) / 2) * 0.8;
+            body.style.background = 'var(--dawn-sky)';
+        } 
+        else if (isDay) {
+            body.style.background = 'var(--day-sky)';
+        } 
+        else if (isSunset) {
+            sunsetGlow.style.opacity = 0.8 - ((19 - nvHours) / 2) * 0.8;
+            stars.style.opacity = (nvHours - 17) / 2;
+            body.style.background = 'var(--sunset-sky)';
+        }
+        
+        // Reset efek yang tidak digunakan
+        if (!isDawn) dawnGlow.style.opacity = 0;
+        if (!isSunset) sunsetGlow.style.opacity = 0;
+        if (!isSunset && !isNight) stars.style.opacity = 0;
+    }
+
+    // 4. Terapkan posisi dan ukuran
+    sunMoon.style.left = `${celestialX}%`;
+    sunMoon.style.top = `${celestialY}%`;
+    sunMoon.style.width = `${celestialSize}px`;
+    sunMoon.style.height = `${celestialSize}px`;
+    
+    sunsetGlow.style.left = `${celestialX}%`;
+    sunsetGlow.style.top = `${celestialY}%`;
+    sunsetGlow.style.width = `${glowSize}px`;
+    sunsetGlow.style.height = `${glowSize}px`;
+    sunsetGlow.style.transform = 'translate(-50%, -50%)';
+    
+    dawnGlow.style.left = `${celestialX}%`;
+    dawnGlow.style.top = `${celestialY}%`;
+    dawnGlow.style.width = `${glowSize}px`;
+    dawnGlow.style.height = `${glowSize}px`;
+    dawnGlow.style.transform = 'translate(-50%, -50%)';
+    }
 
 // Initialize stars
 createStars();
