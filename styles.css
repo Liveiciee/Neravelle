@@ -63,7 +63,6 @@ body {
     display: block;
     background: radial-gradient(circle, var(--sun-color) 30%, transparent 70%) !important;
 }
-}
 
 /* Moon phases */
 .sun-moon.moon-new {
