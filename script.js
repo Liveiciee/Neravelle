@@ -248,14 +248,27 @@ function updateClock() {
     const realWorldTimeEl = document.getElementById('realWorldTime');
     const dayDescriptionEl = document.getElementById('dayDescription');
 
+    let lastNvHours = null;
+
+function updateClock() {
     const nv = getNeravelleTime();
+
+    // Update tampilan waktu setiap interval
+    const neravelleTimeEl = document.getElementById('neravelleTime');
+    const neravelleDateEl = document.getElementById('neravelleDate');
+    const realWorldTimeEl = document.getElementById('realWorldTime');
+    const dayDescriptionEl = document.getElementById('dayDescription');
 
     if (neravelleTimeEl) neravelleTimeEl.textContent = nv.time;
     if (neravelleDateEl) neravelleDateEl.textContent = nv.date;
     if (realWorldTimeEl) realWorldTimeEl.textContent = nv.realTime;
     if (dayDescriptionEl) dayDescriptionEl.textContent = DAY_DESCRIPTIONS[nv.dayName] || "";
 
-    updateSkyAnimation(nv.nvHours, nv.nvDay, nv.dayName);
+    // Hanya update animasi jika jam berubah
+    if (nv.nvHours !== lastNvHours) {
+        updateSkyAnimation(nv.nvHours, nv.nvDay, nv.dayName);
+        lastNvHours = nv.nvHours;
+    }
 }
 
 // Initialize stars
