@@ -155,23 +155,58 @@ function createStars() {
     const starsContainer = document.getElementById('stars');
     if (!starsContainer) return;
     starsContainer.innerHTML = '';
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 160; i++) {
         const star = document.createElement('div');
         star.className = 'star';
+        // Ganti isi menjadi ✦
+        star.textContent = '✦';
         // Random position
         const x = Math.random() * 100;
         const y = Math.random() * 100;
-        // Random size (1-3px)
-        const size = Math.random() * 2 + 1;
         star.style.left = `${x}%`;
         star.style.top = `${y}%`;
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
+        // Random font size (12-28px)
+        const size = Math.random() * 16 + 12;
+        star.style.fontSize = `${size}px`;
+        // Random warna (soft)
+        const colors = [
+            '#fffbe8', '#d0bfff', '#b8c0ff', '#8ecae6',
+            '#f1c0e8', '#caf0f8', '#ffe066', '#f7cad0'
+        ];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        star.style.color = color;
+        // Random glow
+        star.style.textShadow = `0 0 ${10+Math.random()*40}px ${color}, 0 0 4px #fff`;
         // Random twinkle delay
         star.style.animationDelay = `${Math.random() * 5}s`;
         starsContainer.appendChild(star);
     }
-}
+
+    // Tambahkan nebula/galaksi
+    for (let i = 0; i < 5; i++) {
+        const neb = document.createElement('div');
+        neb.className = 'nebula';
+        // Random position
+        neb.style.left = `${Math.random()*100}%`;
+        neb.style.top = `${Math.random()*100}%`;
+        // Random ukuran
+        const s = 120 + Math.random()*160;
+        neb.style.width = `${s}px`;
+        neb.style.height = `${s*(0.5+Math.random())}px`;
+        // Random warna gradien
+        const nebulaGradients = [
+            'radial-gradient(circle at 40% 60%, #b8c0ff77 0%, #5e60ce44 70%, transparent 100%)',
+            'radial-gradient(circle at 60% 40%, #f1c0e899 0%, #a2d2ff44 80%, transparent 100%)',
+            'radial-gradient(circle at 70% 30%, #ffe06655 0%, #ffb4a2bb 60%, transparent 100%)',
+            'radial-gradient(circle at 20% 80%, #d0bfff77 0%, #b8c0ff55 90%, transparent 100%)'
+        ];
+        neb.style.background = nebulaGradients[Math.floor(Math.random()*nebulaGradients.length)];
+        neb.style.opacity = 0.27 + Math.random()*0.25;
+        neb.style.filter = `blur(${24+Math.random()*18}px)`;
+        neb.style.animationDelay = `${Math.random()*12}s`;
+        starsContainer.appendChild(neb);
+    }
+                                                          }
 
 // Get moon phase based on day of month
 function getMoonPhase(day) {
