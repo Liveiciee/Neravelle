@@ -155,45 +155,46 @@ function createStars() {
     const starsContainer = document.getElementById('stars');
     if (!starsContainer) return;
     starsContainer.innerHTML = '';
+
     for (let i = 0; i < 160; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-        // Ganti isi menjadi ✦
-        star.textContent = '✦';
+        // Tidak pakai text, hanya div bulat
         // Random position
         const x = Math.random() * 100;
         const y = Math.random() * 100;
         star.style.left = `${x}%`;
         star.style.top = `${y}%`;
-        // Random font size (12-28px)
-        const size = Math.random() * 8 + 6;
-        star.style.fontSize = `${size}px`;
+        // Random size (diameter 2 - 5.5 px)
+        const size = Math.random() * 3.5 + 2;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.borderRadius = '50%';
         // Random warna (soft)
         const colors = [
             '#fffbe8', '#d0bfff', '#b8c0ff', '#8ecae6',
             '#f1c0e8', '#caf0f8', '#ffe066', '#f7cad0'
         ];
         const color = colors[Math.floor(Math.random() * colors.length)];
-        star.style.color = color;
+        star.style.background = color;
         // Random glow
-        star.style.textShadow = `0 0 ${10+Math.random()*40}px ${color}, 0 0 4px #fff`;
+        star.style.boxShadow = `0 0 ${7 + Math.random() * 22}px ${color}, 0 0 4px #fff`;
         // Random twinkle delay
         star.style.animationDelay = `${Math.random() * 5}s`;
+        // Opacity lebih tinggi
+        star.style.opacity = 0.7 + Math.random() * 0.3;
         starsContainer.appendChild(star);
     }
 
-    // Tambahkan nebula/galaksi
+    // Nebula/galaksi tetap
     for (let i = 0; i < 5; i++) {
         const neb = document.createElement('div');
         neb.className = 'nebula';
-        // Random position
         neb.style.left = `${Math.random()*100}%`;
         neb.style.top = `${Math.random()*100}%`;
-        // Random ukuran
         const s = 120 + Math.random()*160;
         neb.style.width = `${s}px`;
         neb.style.height = `${s*(0.5+Math.random())}px`;
-        // Random warna gradien
         const nebulaGradients = [
             'radial-gradient(circle at 40% 60%, #b8c0ff77 0%, #5e60ce44 70%, transparent 100%)',
             'radial-gradient(circle at 60% 40%, #f1c0e899 0%, #a2d2ff44 80%, transparent 100%)',
@@ -206,7 +207,7 @@ function createStars() {
         neb.style.animationDelay = `${Math.random()*12}s`;
         starsContainer.appendChild(neb);
     }
-                                                          }
+          }                                                          }
 
 // Get moon phase based on day of month
 function getMoonPhase(day) {
