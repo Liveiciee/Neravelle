@@ -1,6 +1,6 @@
-/* --- NERAVELLE FANTASY: Enhanced & Optimized Styles --- */
+/* --- NERAVELLE FANTASY: Compiled & Optimized Styles --- */
 
-/* === Variabel & Base Styles === */
+/* === Base Variables === */
 :root {
     /* Color Palette */
     --purple-dark: #0f0c29;
@@ -17,13 +17,7 @@
     --moon-color: #e0e0ff;
     --star-color: rgba(255, 255, 255, 0.9);
     
-    /* Sky Gradients */
-    --day-sky: linear-gradient(to bottom, #1a0a3a 0%, #0f0c29 100%);
-    --sunset-sky: linear-gradient(to bottom, #302b63 0%, #0f0c29 100%);
-    --dawn-sky: linear-gradient(to bottom, #24243e 0%, #0f0c29 100%);
-    
     /* Layout */
-    --sidebar-width: 280px;
     --border-radius-main: 16px;
     --border-radius-small: 8px;
     --content-max-width: 1200px;
@@ -59,129 +53,49 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* === Accessibility === */
-:focus-visible {
-    outline: 3px solid var(--purple-glow);
-    outline-offset: 2px;
-    box-shadow: 0 0 0 3px rgba(224, 170, 255, 0.4);
-}
-
-.skip-link {
-    position: absolute;
-    top: -40px;
-    left: 0;
-    background: var(--purple-light);
-    color: white;
-    padding: 8px;
-    z-index: 100;
-    transition: top 0.3s;
-}
-
-.skip-link:focus {
-    top: 0;
-}
-
-/* === Layout === */
-.main-wrapper {
-    display: flex;
-    min-height: 100vh;
-    position: relative;
-}
-
-#main-content {
-    flex: 1;
-    padding: 2rem 3rem;
-    margin-left: var(--sidebar-width);
+/* === Layout Structure === */
+.container {
     max-width: var(--content-max-width);
     margin: 0 auto;
-    padding-left: calc(var(--sidebar-width) + 3rem);
-}
-
-/* === Sidebar Styles === */
-#sidebar {
-    position: fixed;
-    width: var(--sidebar-width);
-    height: 100vh;
-    padding: 1.5rem;
-    background: rgba(25, 20, 60, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-right: 1px solid rgba(157, 78, 221, 0.15);
-    z-index: 100;
-    overflow-y: auto;
-    transform: translateX(0);
-    transition: transform var(--transition-medium), 
-                box-shadow var(--transition-medium);
-}
-
-.sidebar-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(157, 78, 221, 0.1);
-}
-
-.sidebar-header h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--purple-glow);
-    text-shadow: 0 0 8px rgba(157, 78, 221, 0.6);
-    margin: 0;
-}
-
-.sidebar-header p {
-    margin-top: 0.5rem;
-    color: var(--text-secondary);
-    font-style: italic;
-    font-size: 0.95rem;
-}
-
-/* Navigation */
-.nav-link {
-    display: block;
-    padding: 0.75rem 1rem;
-    margin: 0.25rem 0;
-    color: var(--text-primary);
-    text-decoration: none;
-    border-radius: var(--border-radius-small);
-    transition: all var(--transition-fast);
-}
-
-.nav-link:hover,
-.nav-link:focus {
-    background: rgba(224, 170, 255, 0.1);
-    color: var(--purple-glow);
-}
-
-/* === Content Sections === */
-.section, .content-section {
-    background: rgba(25, 20, 60, 0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(157, 78, 221, 0.1);
-    border-radius: var(--border-radius-main);
     padding: 2rem;
-    margin-bottom: 2.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
 }
 
-.section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2rem;
-    color: var(--purple-glow);
-    margin-bottom: 1.5rem;
+/* === Header Styles === */
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
     position: relative;
 }
 
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 60px;
-    height: 2px;
-    background: var(--purple-light);
+.header-decoration {
+    font-size: 1.2rem;
+    color: var(--purple-glow);
+    margin: 0.5rem 0;
+    letter-spacing: 1px;
+}
+
+.title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    color: var(--purple-glow);
+    text-shadow: 0 0 10px rgba(157, 78, 221, 0.6);
+    margin: 0.5rem 0;
+}
+
+.subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+
+/* === Divider === */
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--purple-light), transparent);
+    margin: 2rem 0;
 }
 
 /* === Clock & Calendar Styles === */
@@ -231,7 +145,93 @@ body {
     font-family: 'Cormorant Garamond', serif;
 }
 
-/* === Celestial Animations === */
+.day-description {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* === Form Elements === */
+.birthday-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(42, 21, 69, 0.7);
+    border: 1px solid var(--purple-light);
+    border-radius: var(--border-radius-small);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: border-color var(--transition-fast);
+}
+
+.birthday-input:focus {
+    border-color: var(--purple-glow);
+    box-shadow: 0 0 0 2px rgba(224, 170, 255, 0.3);
+    outline: none;
+}
+
+/* === Section Styles === */
+.section {
+    background: rgba(25, 20, 60, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(157, 78, 221, 0.1);
+    border-radius: var(--border-radius-main);
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    color: var(--purple-glow);
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.section h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--purple-light);
+}
+
+.section h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: var(--purple-glow);
+    margin: 1.5rem 0 1rem;
+}
+
+.section p, .section li {
+    margin-bottom: 0.8rem;
+    line-height: 1.7;
+}
+
+.section ul, .section ol {
+    padding-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.section ul li, .section ol li {
+    margin-bottom: 0.5rem;
+}
+
+/* === Special Text Styles === */
+.arkaelith {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--purple-glow);
+    text-align: center;
+    margin: 1rem 0;
+    display: block;
+}
+
+/* === Sky Animation Elements === */
 .sky-container {
     position: fixed;
     top: 0;
@@ -242,7 +242,6 @@ body {
     overflow: hidden;
 }
 
-/* Sun/Moon Styles */
 .sun-moon {
     position: absolute;
     width: 120px;
@@ -254,55 +253,31 @@ body {
     will-change: transform, box-shadow;
 }
 
-/* Sun State */
 .sun-moon[data-is-sun="true"] {
-    background: radial-gradient(
-        circle, 
-        var(--sun-color) 30%, 
-        transparent 70%
-    );
-    box-shadow: 0 0 60px var(--sun-color),
-                0 0 120px rgba(255, 158, 88, 0.4);
+    background: radial-gradient(circle, var(--sun-color) 30%, transparent 70%);
+    box-shadow: 0 0 60px var(--sun-color), 0 0 120px rgba(255, 158, 88, 0.4);
 }
 
-/* Moon Phases */
 .moon-new {
     box-shadow: 0 0 40px rgba(224, 224, 255, 0.2);
 }
 
 .moon-crescent {
-    background: radial-gradient(
-        circle at 70% 50%, 
-        var(--moon-color) 35%, 
-        transparent 35.5%
-    ), radial-gradient(
-        circle at 65% 50%, 
-        var(--purple-dark) 38%, 
-        transparent 38.5%
-    );
+    background: radial-gradient(circle at 70% 50%, var(--moon-color) 35%, transparent 35.5%),
+                radial-gradient(circle at 65% 50%, var(--purple-dark) 38%, transparent 38.5%);
     box-shadow: 0 0 50px rgba(224, 224, 255, 0.4);
 }
 
 .moon-half {
-    background: linear-gradient(
-        to right, 
-        var(--moon-color) 50%, 
-        transparent 50%
-    );
+    background: linear-gradient(to right, var(--moon-color) 50%, transparent 50%);
     box-shadow: 0 0 50px rgba(224, 224, 255, 0.5);
 }
 
 .moon-gibbous, .moon-full {
-    background: radial-gradient(
-        circle, 
-        var(--moon-color) 100%, 
-        transparent 100%
-    );
-    box-shadow: 0 0 60px var(--moon-color),
-                0 0 120px rgba(224, 224, 255, 0.3);
+    background: radial-gradient(circle, var(--moon-color) 100%, transparent 100%);
+    box-shadow: 0 0 60px var(--moon-color), 0 0 120px rgba(224, 224, 255, 0.3);
 }
 
-/* Stars & Nebula */
 .stars {
     position: fixed;
     top: 0;
@@ -330,24 +305,6 @@ body {
     mix-blend-mode: screen;
 }
 
-/* === Form Elements === */
-.birthday-input {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    background: rgba(42, 21, 69, 0.7);
-    border: 1px solid var(--purple-light);
-    border-radius: var(--border-radius-small);
-    color: var(--text-primary);
-    font-family: inherit;
-    font-size: 1rem;
-    transition: border-color var(--transition-fast);
-}
-
-.birthday-input:focus {
-    border-color: var(--purple-glow);
-    box-shadow: 0 0 0 2px rgba(224, 170, 255, 0.3);
-}
-
 /* === Animations === */
 @keyframes twinkle {
     0%, 100% { opacity: 0.6; }
@@ -364,315 +321,57 @@ body {
     50% { box-shadow: 0 0 50px rgba(224, 224, 255, 0.7); }
 }
 
-/* --- TAB NAVIGATION --- */
-.tab-buttons, .rules-tab-buttons, .power-tab-buttons, .stats-tab-buttons, .class-tab-buttons {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.3rem;
-    flex-wrap: wrap;
-}
-.tab-button, .rules-tab-button, .power-tab-button, .stats-tab-button, .class-tab-button {
-    background: rgba(157, 78, 221, 0.08);
-    color: var(--text-primary);
-    border: none;
-    border-radius: var(--border-radius-small);
-    padding: 0.6em 1.2em;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    transition: background var(--transition-fast), color var(--transition-fast);
-    cursor: pointer;
-    font-family: inherit;
-    outline: none;
-}
-.tab-button.active, .rules-tab-button.active, .power-tab-button.active, .stats-tab-button.active, .class-tab-button.active {
-    background: var(--purple-glow);
-    color: #25103a;
-}
-.tab-content, .rules-tab-content, .power-tab-content, .stats-tab-content, .class-tab-content {
-    display: none;
-    animation: fadeIn 0.5s;
-}
-.tab-content.active, .rules-tab-content.active, .power-tab-content.active, .stats-tab-content.active, .class-tab-content.active {
-    display: block;
-}
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(16px);}
-    100% { opacity: 1; transform: none;}
-}
-
-/* --- CARD & GRID COMPONENTS --- */
-.stats-grid, .class-list, .class-details-list, .stages-container, .affinity-grid, .slots-visualization, .days-months-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.2rem;
-}
-.stats-grid .stat-card, .class-list .class-card, .class-details-list .detail-card, .stage-card, .affinity-card, .example-card, .method-card, .effect-level {
-    background: rgba(157, 78, 221, 0.08);
-    border-radius: var(--border-radius-small);
-    box-shadow: 0 1px 8px rgba(157,78,221,0.06);
-    padding: 1.1em 1.3em;
-    flex: 1 1 220px;
-    min-width: 200px;
-    max-width: 340px;
-    margin-bottom: 0.8em;
-    transition: box-shadow var(--transition-fast), transform var(--transition-fast);
-}
-.stats-grid .stat-card:hover, .class-list .class-card:hover, .affinity-card:hover, .stage-card:hover {
-    box-shadow: 0 2px 18px rgba(157,78,221,0.13);
-    transform: translateY(-4px) scale(1.02);
-}
-.stat-bar {
-    height: 8px;
-    border-radius: 4px;
-    background: linear-gradient(90deg, var(--purple-light) 0%, var(--purple-glow) 100%);
-    margin: 0.6em 0 0.9em 0;
-    position: relative;
-}
-.stat-bar[data-value]::after {
-    content: "";
-    display: block;
-    height: 100%;
-    border-radius: 4px;
-    background: var(--purple-glow);
-    width: attr(data-value percentage, 100%);
-    max-width: 100%;
-}
-.stat-bar[data-value] {
-    width: 100%;
-    background: rgba(157,78,221,0.16);
-    position: relative;
-}
-.stat-bar[data-value]:before {
-    content: '';
-    display: block;
-    height: 100%;
-    border-radius: 4px;
-    background: var(--purple-light);
-    width: calc(var(--value, 70) * 1%);
-    max-width: 100%;
-    position: absolute;
-    left: 0; top: 0;
-}
-.stat-bar[data-value="75"]:before { width: 75%; }
-.stat-bar[data-value="70"]:before { width: 70%; }
-.stat-bar[data-value="65"]:before { width: 65%; }
-.stat-bar[data-value="60"]:before { width: 60%; }
-.stat-bar[data-value="55"]:before { width: 55%; }
-.stat-bar[data-value="50"]:before { width: 50%; }
-.stat-bar[data-value="45"]:before { width: 45%; }
-.stat-bar[data-value="40"]:before { width: 40%; }
-.stat-bar[data-value="35"]:before { width: 35%; }
-.stat-bar[data-value="30"]:before { width: 30%; }
-.stat-bar[data-value="25"]:before { width: 25%; }
-.stat-bar[data-value="20"]:before { width: 20%; }
-.stat-bar[data-value="15"]:before { width: 15%; }
-.stat-bar[data-value="10"]:before { width: 10%; }
-/* Untuk stat yang nilainya lain, tambahkan sesuai kebutuhan */
-
-.class-card, .class-details-list .detail-card {
-    min-width: 180px;
-    max-width: 270px;
-    text-align: center;
-    border: 1px solid rgba(157,78,221,0.11);
-}
-.class-card h4, .detail-card h4 { color: var(--purple-glow); margin-bottom: 0.1em;}
-.class-card p, .detail-card ul { color: var(--text-secondary); font-size: 1em; }
-
-.stage-card, .affinity-card {
-    min-width: 220px;
-    max-width: 340px;
-    border-left: 5px solid var(--purple-light);
-}
-.stage-number {
-    width: 2.3em; height: 2.3em;
-    background: var(--purple-glow);
-    color: #25103a;
-    font-weight: bold;
-    font-size: 1.2em;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 0.7em;
-}
-.stage-example, .affinity-details, .cantus-feature ul, .cantus-feature p { font-size: 0.98em; color: var(--text-secondary); }
-.affinity-card h4 { color: var(--purple-glow); }
-
-.slots-visualization {
-    display: flex; gap: 0.35em; margin-bottom: 0.6em;
-}
-.slot {
-    width: 2em; height: 2em;
-    border-radius: 50%;
-    background: rgba(224,170,255,0.22);
-    color: var(--purple-dark);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 600;
-    border: 2px solid var(--purple-glow);
-    font-size: 1em;
-    opacity: 0.64;
-    transition: background var(--transition-fast);
-}
-.slot.active {
-    background: var(--purple-glow);
-    color: #25103a;
-    opacity: 1;
-    border-width: 3px;
-}
-
-.days-list, .months-list {
-    flex: 1 1 260px;
-    min-width: 210px;
-    background: rgba(157,78,221,0.09);
-    border-radius: var(--border-radius-small);
-    padding: 1.1em 1.2em;
-    margin-bottom: 0.5em;
-}
-
-.calendar-structure, .distribution-example, .tier-table, .example-distribution {
-    margin: 1.1em 0;
-    background: rgba(157, 78, 221, 0.07);
-    border-radius: var(--border-radius-small);
-    padding: 1.2em 1.1em;
-}
-
-.tier-table table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.97em;
-    margin-top: 0.6em;
-}
-.tier-table th, .tier-table td {
-    padding: 0.55em 0.6em;
-    border: 1px solid rgba(157,78,221,0.1);
-    text-align: left;
-}
-.tier-table th { background: rgba(157,78,221,0.17); color: var(--purple-glow);}
-.tier-table td { background: rgba(157,78,221,0.04);}
-.tier-table tr:nth-child(even) td { background: rgba(224,170,255,0.06); }
-
-@media (max-width: 768px) {
-    .stats-grid, .class-list, .class-details-list, .stages-container, .affinity-grid, .slots-visualization, .days-months-grid {
-        flex-direction: column;
-        gap: 0.7em;
-    }
-    .calendar-structure, .distribution-example, .tier-table, .example-distribution {
-        padding: 0.8em 0.4em;
-    }
-    }
-
-/* === KONDISI LANGIT & PERBAIKAN STYLES === */
-
-/* [PERBAIKAN] Class untuk berbagai kondisi langit */
+/* === Sky Condition Classes === */
 .night-sky {
     background: var(--purple-dark);
 }
 
 .dawn-sky {
-    background: var(--dawn-sky);
+    background: linear-gradient(to bottom, #24243e 0%, #0f0c29 100%);
 }
 
 .day-sky {
-    background: var(--day-sky);
+    background: linear-gradient(to bottom, #1a0a3a 0%, #0f0c29 100%);
 }
 
 .sunset-sky {
-    background: var(--sunset-sky);
-}
-
-/* [PERBAIKAN] Style untuk stat bars */
-.stat-bar[data-value] {
-    position: relative;
-    height: 8px;
-    border-radius: 4px;
-    background: rgba(157, 78, 221, 0.16);
-    margin: 0.6em 0 0.9em 0;
-    overflow: hidden;
-}
-
-.stat-bar[data-value]::before {
-    content: '';
-    display: block;
-    height: 100%;
-    border-radius: 4px;
-    background: var(--purple-light);
-    width: calc(var(--value, 0) * 1%);
-    position: absolute;
-    left: 0;
-    top: 0;
-    transition: width 0.5s ease;
-}
-
-/* [PERBAIKAN] Style untuk submenu yang terbuka */
-.has-submenu.open > .submenu {
-    display: block;
-    max-height: 500px;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.submenu {
-    display: none;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.4s ease;
-    padding-left: 1.5rem;
-}
-
-.has-submenu > a > .fa-chevron-down {
-    transition: transform 0.3s ease;
-    margin-left: auto;
-    padding-left: 10px;
-}
-
-.has-submenu.open > a > .fa-chevron-down {
-    transform: rotate(180deg);
-}
-
-/* [PERBAIKAN] Style untuk tab aktif */
-.tab-button.active,
-.rules-tab-button.active,
-.power-tab-button.active,
-.stats-tab-button.active,
-.class-tab-button.active {
-    background: var(--purple-glow);
-    color: #25103a;
-    font-weight: 600;
+    background: linear-gradient(to bottom, #302b63 0%, #0f0c29 100%);
 }
 
 /* === Responsive Design === */
 @media (max-width: 1024px) {
-    #sidebar {
-        transform: translateX(-100%);
+    .container {
+        padding: 1.5rem;
     }
     
-    #sidebar.open {
-        transform: translateX(0);
-        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
-    }
-    
-    #main-content {
-        padding-left: 2rem;
-        margin-left: 0;
-        width: 100%;
-    }
-    
-    .neravelle-time {
+    .title {
         font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.3rem;
     }
 }
 
 @media (max-width: 768px) {
-    .content-section {
-        padding: 1.5rem;
-    }
-    
     .clock-container {
         grid-template-columns: 1fr;
     }
     
-    .section-title {
+    .section {
+        padding: 1.5rem;
+    }
+    
+    .section h2 {
         font-size: 1.8rem;
+    }
+    
+    .section h3 {
+        font-size: 1.5rem;
+    }
+    
+    .neravelle-time {
+        font-size: 2.5rem;
     }
 }
 
@@ -683,13 +382,19 @@ body {
         color: black !important;
     }
     
-    #sidebar, .sky-container {
+    .sky-container {
         display: none;
     }
     
-    #main-content {
+    .container {
         padding: 0;
-        margin: 0;
-        width: 100%;
+        max-width: 100%;
+    }
+    
+    .section {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        page-break-inside: avoid;
     }
 }
