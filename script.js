@@ -430,20 +430,73 @@ function initNavigation() {
     });
 }
 
-// Initialize everything
+// ... Kalender, sky, birthday converter, sidebar, accordion, navigation (tidak berubah dari versi sebelumnya) ...
+
+// Helper: Tabs handler
+function initTabs(tabClass, buttonClass, contentClass) {
+    document.querySelectorAll(`.${tabClass}`).forEach(tabContainer => {
+        const buttons = tabContainer.querySelectorAll(`.${buttonClass}`);
+        const contents = tabContainer.querySelectorAll(`.${contentClass}`);
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                const target = btn.dataset[buttonClass.replace('-button', 'Tab')];
+                if (target) {
+                    const el = tabContainer.querySelector(`#${target}`);
+                    if (el) el.classList.add('active');
+                }
+            });
+        });
+    });
+}
+
+// Sidebar submenu
+function initSidebarSubmenu() {
+    document.querySelectorAll('.has-submenu > a').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const parent = link.parentElement;
+            parent.classList.toggle('open');
+        });
+    });
+}
+
+// Dummy search (replace with your logic)
+function initSearch() {
+    const input = document.getElementById('search-input');
+    const btn = document.getElementById('search-button');
+    const results = document.getElementById('search-results');
+    const container = document.getElementById('search-results-container');
+    btn.addEventListener('click', () => {
+        const query = input.value.trim();
+        if (query) {
+            results.classList.remove('hidden');
+            container.innerHTML = `<p>Fitur pencarian belum aktif.<br>Hasil pencarian <b>${query}</b> akan muncul di sini.</p>`;
+        }
+    });
+    input.addEventListener('keypress', e => {
+        if (e.key === 'Enter') btn.click();
+    });
+}
+
+// Init all
 function init() {
-    // Create stars and start clock
     createStars();
     setInterval(debouncedUpdateClock, 500);
     debouncedUpdateClock();
-    
-    // Initialize components
     initBirthdayConverter();
     initSidebar();
     initAccordion();
     initNavigation();
-    
-    // Handle responsive behavior
+    initTabs('info-tabs', 'tab-button', 'tab-content');
+    initTabs('rules-tabs', 'rules-tab-button', 'rules-tab-content');
+    initTabs('power-system-tabs', 'power-tab-button', 'power-tab-content');
+    initTabs('stats-tabs', 'stats-tab-button', 'stats-tab-content');
+    initTabs('class-tabs', 'class-tab-button', 'class-tab-content');
+    initSidebarSubmenu();
+    initSearch();
     window.addEventListener('resize', () => {
         const sidebar = domCache.sidebar();
         if (window.innerWidth > 1024 && sidebar) {
@@ -452,10 +505,8 @@ function init() {
         }
     });
 }
-
-// Start when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
     init();
-    }
+                                                      }
