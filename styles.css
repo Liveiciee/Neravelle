@@ -1,411 +1,419 @@
+/* --- NERAVELLE FANTASY: Enhanced & Optimized Styles --- */
+
+/* === Variabel & Base Styles === */
 :root {
+    /* Color Palette */
     --purple-dark: #0f0c29;
-    --purple-medium: #3a1c71;
+    --purple-medium: #2c1d58;
     --purple-light: #9d4edd;
     --purple-glow: #e0aaff;
-    --text-primary: #f3e5ff;
+    --text-primary: rgba(243, 229, 255, 0.95);
     --text-secondary: #c77dff;
+    
+    /* Celestial Colors */
     --sun-color: #ff9e58;
-    --sunset-color: #ff6b6b;
-    --dawn-color: #ffb347;
+    --sunset-color: rgba(255, 107, 107, 0.8);
+    --dawn-color: rgba(255, 179, 71, 0.8);
     --moon-color: #e0e0ff;
+    --star-color: rgba(255, 255, 255, 0.9);
+    
+    /* Sky Gradients */
     --day-sky: linear-gradient(to bottom, #1a0a3a 0%, #0f0c29 100%);
     --sunset-sky: linear-gradient(to bottom, #302b63 0%, #0f0c29 100%);
     --dawn-sky: linear-gradient(to bottom, #24243e 0%, #0f0c29 100%);
-    --glow-spread: 70%; /* Kontrol sebaran glow */
+    
+    /* Layout */
+    --sidebar-width: 280px;
+    --border-radius-main: 16px;
+    --border-radius-small: 8px;
+    --content-max-width: 1200px;
+    
+    /* Animations */
+    --transition-slow: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-medium: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-fast: 0.2s ease-out;
+}
+
+/* === Base Styles === */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    height: 100%;
 }
 
 body {
-    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--purple-dark);
     color: var(--text-primary);
     line-height: 1.6;
-    margin: 0;
-    padding: 0;
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
-    transition: background 2s ease;
+    transition: background var(--transition-slow);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Sky Animation Elements */
+/* === Accessibility === */
+:focus-visible {
+    outline: 3px solid var(--purple-glow);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(224, 170, 255, 0.4);
+}
+
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--purple-light);
+    color: white;
+    padding: 8px;
+    z-index: 100;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* === Layout === */
+.main-wrapper {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+}
+
+#main-content {
+    flex: 1;
+    padding: 2rem 3rem;
+    margin-left: var(--sidebar-width);
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding-left: calc(var(--sidebar-width) + 3rem);
+}
+
+/* === Sidebar Styles === */
+#sidebar {
+    position: fixed;
+    width: var(--sidebar-width);
+    height: 100vh;
+    padding: 1.5rem;
+    background: rgba(25, 20, 60, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(157, 78, 221, 0.15);
+    z-index: 100;
+    overflow-y: auto;
+    transform: translateX(0);
+    transition: transform var(--transition-medium), 
+                box-shadow var(--transition-medium);
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(157, 78, 221, 0.1);
+}
+
+.sidebar-header h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--purple-glow);
+    text-shadow: 0 0 8px rgba(157, 78, 221, 0.6);
+    margin: 0;
+}
+
+.sidebar-header p {
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+/* Navigation */
+.nav-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    margin: 0.25rem 0;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: var(--border-radius-small);
+    transition: all var(--transition-fast);
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    background: rgba(224, 170, 255, 0.1);
+    color: var(--purple-glow);
+}
+
+/* === Content Sections === */
+.content-section {
+    background: rgba(25, 20, 60, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(157, 78, 221, 0.1);
+    border-radius: var(--border-radius-main);
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    color: var(--purple-glow);
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--purple-light);
+}
+
+/* === Clock & Calendar Styles === */
+.clock-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.time-card {
+    background: rgba(25, 20, 60, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--purple-light);
+    border-radius: var(--border-radius-main);
+    padding: 1.5rem;
+    box-shadow: 0 0 20px rgba(123, 44, 191, 0.15);
+    transition: transform var(--transition-fast), 
+                box-shadow var(--transition-fast);
+}
+
+.time-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(123, 44, 191, 0.3);
+}
+
+.time-label {
+    font-size: 1.1rem;
+    color: var(--purple-glow);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.neravelle-time {
+    font-family: 'Orbitron', monospace;
+    font-size: 3rem;
+    color: var(--text-primary);
+    text-shadow: 0 0 10px var(--purple-glow);
+    margin: 0.5rem 0;
+    letter-spacing: 1px;
+}
+
+.neravelle-date {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin: 0.5rem 0;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+/* === Celestial Animations === */
 .sky-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -2;
+    z-index: -10;
     overflow: hidden;
 }
 
+/* Sun/Moon Styles */
 .sun-moon {
     position: absolute;
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    background: radial-gradient(circle, var(--sun-color) 30%, transparent 70%);
-    box-shadow: 0 0 60px var(--sun-color), 
-                0 0 120px rgba(255, 158, 88, 0.5);
-    transition: all 1.5s ease;
-    z-index: -1;
-    display: none; /* Default: hidden */
+    z-index: -5;
+    transform: translate(-50%, -50%);
+    transition: all var(--transition-slow);
+    will-change: transform, box-shadow;
 }
 
-/* Matahari siang/fajar */
+/* Sun State */
 .sun-moon[data-is-sun="true"] {
-    display: block;
-    background: radial-gradient(circle, var(--sun-color) 30%, transparent 70%) !important;
-    box-shadow: 0 0 60px var(--sun-color), 0 0 120px rgba(255, 158, 88, 0.5) !important;
-    animation: none !important;
-}
-
-/* Moon phases */
-.sun-moon.moon-new {
-    background: radial-gradient(circle, var(--moon-color) 0%, transparent 0%);
-    box-shadow: 0 0 60px rgba(224, 224, 255, 0.3);
-    display: block; /* Make sure moon is visible */
-}
-
-.sun-moon.moon-crescent {
-    background: 
-        radial-gradient(circle, var(--moon-color) 30%, transparent 30%),
-        radial-gradient(circle at 30% 50%, transparent 40%, var(--purple-dark) 40%);
-    box-shadow: 0 0 60px rgba(224, 224, 255, 0.5);
-    display: block; /* Make sure moon is visible */
-}
-
-.sun-moon.moon-half {
-    background: 
-        linear-gradient(to right, transparent 50%, var(--moon-color) 50%);
-    box-shadow: 0 0 60px rgba(224, 224, 255, 0.7);
-    display: block; /* Make sure moon is visible */
-}
-
-.sun-moon.moon-gibbous {
-    background: 
-        radial-gradient(circle, var(--moon-color) 70%, transparent 70%),
-        radial-gradient(circle at 30% 50%, transparent 20%, var(--purple-dark) 20%);
-    box-shadow: 0 0 60px rgba(224, 224, 255, 0.8);
-    display: block; /* Make sure moon is visible */
-}
-
-.sun-moon.moon-full {
-    background: radial-gradient(circle, var(--moon-color) 100%, transparent 100%);
-    box-shadow: 0 0 60px var(--moon-color), 
-                0 0 120px rgba(224, 224, 255, 0.5);
-    display: block; /* Make sure moon is visible */
-}
-
-.sun-moon[data-is-sun="false"] {
-    animation: moon-glow 4s infinite !important;
-}
-
-.sunset-glow, .dawn-glow {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
     background: radial-gradient(
         circle, 
-        var(--sunset-color) 0%, 
-        transparent var(--glow-spread)
+        var(--sun-color) 30%, 
+        transparent 70%
     );
-    opacity: 0;
-    transition: opacity 1s ease;
-    z-index: -2;
-    transform: translate(-50%, -50%); /* Pusatkan tepat di posisi matahari */
-    pointer-events: none; /* Hindari interaksi mouse */
-    filter: blur(10px); /* Efek glow lebih halus */
+    box-shadow: 0 0 60px var(--sun-color),
+                0 0 120px rgba(255, 158, 88, 0.4);
 }
 
-/* Untuk dawn glow */
-.dawn-glow {
+/* Moon Phases */
+.moon-new {
+    box-shadow: 0 0 40px rgba(224, 224, 255, 0.2);
+}
+
+.moon-crescent {
+    background: radial-gradient(
+        circle at 70% 50%, 
+        var(--moon-color) 35%, 
+        transparent 35.5%
+    ), radial-gradient(
+        circle at 65% 50%, 
+        var(--purple-dark) 38%, 
+        transparent 38.5%
+    );
+    box-shadow: 0 0 50px rgba(224, 224, 255, 0.4);
+}
+
+.moon-half {
+    background: linear-gradient(
+        to right, 
+        var(--moon-color) 50%, 
+        transparent 50%
+    );
+    box-shadow: 0 0 50px rgba(224, 224, 255, 0.5);
+}
+
+.moon-gibbous, .moon-full {
     background: radial-gradient(
         circle, 
-        var(--dawn-color) 0%, 
-        transparent var(--glow-spread)
+        var(--moon-color) 100%, 
+        transparent 100%
     );
+    box-shadow: 0 0 60px var(--moon-color),
+                0 0 120px rgba(224, 224, 255, 0.3);
 }
 
+/* Stars & Nebula */
 .stars {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -3;
+    z-index: -8;
     opacity: 0;
-    transition: opacity 2s ease;
+    transition: opacity var(--transition-slow);
 }
 
 .star {
     position: absolute;
     border-radius: 50%;
+    background: var(--star-color);
     animation: twinkle 5s infinite alternate;
-    user-select: none;
-    pointer-events: none;
-    transition: background 1s, box-shadow 1s, opacity 1.5s, width 1.5s, height 1.5s;
-    z-index: -3;
-    /* width, height, background, box-shadow, opacity diatur lewat JS */
+    will-change: opacity, transform;
 }
 
 .nebula {
     position: absolute;
     border-radius: 50%;
-    pointer-events: none;
-    user-select: none;
-    z-index: -1;
-    animation: nebula-move 20s linear infinite alternate;
-    /* background, size, filter, opacity diatur dari JS */
+    animation: nebula-move 25s infinite alternate;
+    will-change: transform, opacity;
+    mix-blend-mode: screen;
 }
 
-@keyframes nebula-move {
-    0% { transform: translateY(0px) scale(1);}
-    100% { transform: translateY(-40px) scale(1.07);}
-}
-
-
-
-/* Rest of your existing styles... */
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    position: relative;
-    z-index: 1;
-}
-
-.header {
-    text-align: center;
-    margin: 30px 0;
-    position: relative;
-}
-
-.header-decoration {
-    font-size: 1.8em;
-    line-height: 0.5;
-    color: var(--purple-glow);
-    text-shadow: 0 0 10px var(--purple-light);
-    letter-spacing: 3px;
-}
-
-.title {
-    font-size: 3.5em;
-    margin: 10px 0;
-    background: linear-gradient(to right, var(--purple-glow), var(--text-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 15px rgba(157, 78, 221, 0.5);
-    font-weight: 700;
-    letter-spacing: 2px;
-}
-
-.subtitle {
-    font-style: italic;
-    color: var(--text-secondary);
-    font-size: 1.3em;
-    margin-bottom: 30px;
-    text-shadow: 0 0 5px rgba(157, 78, 221, 0.3);
-}
-
-.clock-container {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin: 40px 0;
-    flex-wrap: wrap;
-}
-
-.time-card {
-    background: rgba(25, 20, 60, 0.8);
-    border: 2px solid var(--purple-light);
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 0 30px var(--purple-medium), 
-                inset 0 0 10px rgba(123, 44, 191, 0.3);
-    min-width: 300px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.time-card::before {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(157, 78, 221, 0.1) 0%, transparent 70%);
-    animation: rotate 60s linear infinite;
-    z-index: -1;
-}
-
-.time-label {
-    font-size: 1.2em;
-    color: var(--purple-glow);
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.neravelle-time {
-    font-size: 4em;
-    font-family: 'Orbitron', sans-serif;
-    letter-spacing: 3px;
-    color: var(--text-primary);
-    text-shadow: 0 0 15px var(--purple-glow);
-    margin: 15px 0;
-}
-
-.neravelle-date {
-    font-size: 1.8em;
-    color: var(--text-primary);
-    margin: 15px 0;
-    font-weight: bold;
-}
-
-.real-time {
-    font-size: 1.5em;
-    color: var(--text-secondary);
-}
-
-.day-description {
-    font-style: italic;
-    margin-top: 15px;
-    color: var(--purple-glow);
-    font-size: 1.1em;
-}
-
-.calendar-info {
+/* === Form Elements === */
+.birthday-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
     background: rgba(42, 21, 69, 0.7);
     border: 1px solid var(--purple-light);
-    border-radius: 10px;
-    padding: 25px;
-    margin: 40px 0;
-    box-shadow: 0 0 20px rgba(123, 44, 191, 0.3);
-}
-
-@media (min-width: 1024px) {
-    .time-card {
-        min-width: 250px;
-        max-width: 300px;
-        flex: 1 1 0px;
-    }
-}
-
-/* Style untuk input tanggal */
-.birthday-input {
-    background: rgba(42, 21, 69, 0.9); /* Lebih pekat */
-    border: 2px solid var(--purple-glow); /* Lebih tebal & glowing */
-    border-radius: 12px; /* Lebih membulat */
-    padding: 12px 16px; /* Lebih longgar */
+    border-radius: var(--border-radius-small);
     color: var(--text-primary);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.08em;
-    width: 100%;
-    box-sizing: border-box;
-    margin-bottom: 14px;
-    box-shadow: 0 0 18px 2px rgba(157, 78, 221, 0.18), 0 2px 10px 0 rgba(80, 30, 120, 0.09);
-    transition: border-color 0.3s, background 0.35s;
-    outline: none;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color var(--transition-fast);
 }
 
 .birthday-input:focus {
-    outline: none;
-    border-color: var(--purple-light);
-    box-shadow: none;
-    background: rgba(58, 28, 113, 0.45);
+    border-color: var(--purple-glow);
+    box-shadow: 0 0 0 2px rgba(224, 170, 255, 0.3);
 }
 
-.birthday-input:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    background: rgba(42, 21, 69, 0.45);
-}
-
-/* Style khusus untuk input date di browser tertentu */
-.birthday-input::-webkit-calendar-picker-indicator {
-    filter: invert(0.7) sepia(1) hue-rotate(240deg) saturate(6);
-    cursor: pointer;
-    opacity: 0.85;
-}
-
-/* Style untuk placeholder */
-.birthday-input::placeholder {
-    color: var(--text-secondary);
-    opacity: 0.75;
-    font-style: italic;
-}
-
-/* Style untuk output text */
-#birthdayOutput {
-    color: var(--purple-glow);
-    font-size: 1.12em;
-    line-height: 1.5;
-    padding: 12px 10px;
-    background: rgba(42, 21, 69, 0.42);
-    border-radius: 9px;
-    border-left: 3px solid var(--purple-light);
-    margin-top: 6px;
-    box-shadow: 0 0 9px 1px rgba(157, 78, 221, 0.07);
-}
-
-
-.section-title {
-    color: var(--purple-glow);
-    font-size: 1.8em;
-    margin: 25px 0 15px 0;
-    border-bottom: 1px dashed var(--purple-light);
-    padding-bottom: 10px;
-    font-weight: bold;
-}
-
-.divider {
-    border-top: 1px dashed var(--purple-light);
-    margin: 30px 0;
-    opacity: 0.5;
-}
-
-.footer {
-    text-align: center;
-    margin-top: 50px;
-    padding: 20px;
-    color: var(--text-secondary);
-    font-size: 0.9em;
-}
-
-@keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes pulse {
-    0% { opacity: 0.8; }
+/* === Animations === */
+@keyframes twinkle {
+    0%, 100% { opacity: 0.6; }
     50% { opacity: 1; }
-    100% { opacity: 0.8; }
 }
 
-.pulse {
-    animation: pulse 2s infinite;
+@keyframes nebula-move {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+    100% { transform: translate(-20px, -30px) scale(1.05); opacity: 0.9; }
 }
 
-/* Moon phases animation */
 @keyframes moon-glow {
-    0% { box-shadow: 0 0 20px rgba(224, 224, 255, 0.5); }
-    50% { box-shadow: 0 0 40px rgba(224, 224, 255, 0.8); }
-    100% { box-shadow: 0 0 20px rgba(224, 224, 255, 0.5); }
+    0%, 100% { box-shadow: 0 0 30px rgba(224, 224, 255, 0.4); }
+    50% { box-shadow: 0 0 50px rgba(224, 224, 255, 0.7); }
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .title {
-        font-size: 2.5em;
+/* === Responsive Design === */
+@media (max-width: 1024px) {
+    #sidebar {
+        transform: translateX(-100%);
     }
+    
+    #sidebar.open {
+        transform: translateX(0);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    #main-content {
+        padding-left: 2rem;
+        margin-left: 0;
+        width: 100%;
+    }
+    
     .neravelle-time {
-        font-size: 3em;
+        font-size: 2.5rem;
     }
-    .neravelle-date {
-        font-size: 1.5em;
+}
+
+@media (max-width: 768px) {
+    .content-section {
+        padding: 1.5rem;
+    }
+    
+    .clock-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+}
+
+/* === Print Styles === */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    #sidebar, .sky-container {
+        display: none;
+    }
+    
+    #main-content {
+        padding: 0;
+        margin: 0;
+        width: 100%;
     }
 }
