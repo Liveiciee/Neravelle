@@ -31,23 +31,42 @@
             <div class="sidebar-header">
                 <h3>NERAVELLE FANTASY</h3>
                 <p>Ensiklopedia Dunia</p>
+                <div class="search-box">
+                    <input type="text" placeholder="Cari di Neravelle..." id="search-input">
+                    <button id="search-button"><i class="fas fa-search"></i></button>
+                </div>
             </div>
             <a href="https://chat.whatsapp.com/" target="_blank" class="cta-button">Gabung Komunitas</a>
             <nav>
                 <ul>
-                    <li><a href="#welcome-section" class="nav-link">Beranda & Kalender</a></li>
-                    <li><a href="#rules-section" class="nav-link">Peraturan Komunitas</a></li>
-                    <li><a href="#power-system-section" class="nav-link">Power System</a></li>
-                    <li><a href="#stats-system-section" class="nav-link">Stats System</a></li>
-                    <li><a href="#class-system-section" class="nav-link">Class System</a></li>
-                    <li><a href="#races-section" class="nav-link">Ras di Neravelle</a></li>
-                    <li><a href="#traits-section" class="nav-link">Traits System</a></li>
-                    <li><a href="#titles-section" class="nav-link">Titles System</a></li>
-                    <li><a href="#job-section" class="nav-link">Job & Profesi</a></li>
-                    <li><a href="#inventory-section" class="nav-link">Inventory</a></li>
-                    <li><a href="#financial-section" class="nav-link">Sistem Keuangan</a></li>
-                    <li><a href="#rp-guide-section" class="nav-link">Panduan Roleplay</a></li>
-                    <li><a href="#worldbuilding-section" class="nav-link">Worldbuilding</a></li>
+                    <li><a href="#welcome-section" class="nav-link active"><i class="fas fa-home"></i> Beranda & Kalender</a></li>
+                    <li><a href="#rules-section" class="nav-link"><i class="fas fa-scroll"></i> Peraturan Komunitas</a></li>
+                    <li class="has-submenu">
+                        <a href="#power-system-section" class="nav-link"><i class="fas fa-fire"></i> Power System <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="#power-basics">Dasar Virelai Auralis</a></li>
+                            <li><a href="#cantus-auralis">Cantus Auralis</a></li>
+                            <li><a href="#drain-essence">Drain of Essence</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#stats-system-section" class="nav-link"><i class="fas fa-chart-bar"></i> Stats System</a></li>
+                    <li><a href="#class-system-section" class="nav-link"><i class="fas fa-swords"></i> Class System</a></li>
+                    <li class="has-submenu">
+                        <a href="#races-section" class="nav-link"><i class="fas fa-dragon"></i> Ras di Neravelle <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="#vaelthane">Vaelthane (Human)</a></li>
+                            <li><a href="#elyndar">Elyndar (Elf)</a></li>
+                            <li><a href="#tharnok">Tharnok (Dwarf)</a></li>
+                            <!-- Add more races as needed -->
+                        </ul>
+                    </li>
+                    <li><a href="#traits-section" class="nav-link"><i class="fas fa-dna"></i> Traits System</a></li>
+                    <li><a href="#titles-section" class="nav-link"><i class="fas fa-crown"></i> Titles System</a></li>
+                    <li><a href="#job-section" class="nav-link"><i class="fas fa-briefcase"></i> Job & Profesi</a></li>
+                    <li><a href="#inventory-section" class="nav-link"><i class="fas fa-backpack"></i> Inventory</a></li>
+                    <li><a href="#financial-section" class="nav-link"><i class="fas fa-coins"></i> Sistem Keuangan</a></li>
+                    <li><a href="#rp-guide-section" class="nav-link"><i class="fas fa-theater-masks"></i> Panduan Roleplay</a></li>
+                    <li><a href="#worldbuilding-section" class="nav-link"><i class="fas fa-globe"></i> Worldbuilding</a></li>
                 </ul>
             </nav>
             <footer class="sidebar-footer">
@@ -56,227 +75,801 @@
         </aside>
 
         <main id="main-content">
+            <!-- Search Results Container -->
+            <div id="search-results" class="hidden">
+                <h2>Hasil Pencarian</h2>
+                <div id="search-results-container"></div>
+            </div>
+
+            <!-- KALENDER & WELCOME -->
             <section id="welcome-section" class="content-section">
                 <div class="header">
                     <div class="header-decoration">╔════*.·:·.✧ ✦ ✧.·:·.*════╗</div>
                     <h1 class="title">KALENDER SURYA NERAVELLE</h1>
                     <div class="header-decoration">╚════*.·:·.✧ ✦ ✧.·:·.*════╝</div>
                 </div>
-                <div class="clock-container">
-                    <div class="time-card">
-                        <div class="time-label">Waktu Neravelle</div>
-                        <div class="neravelle-time" id="neravelleTime">00:00:00</div>
-                        <div class="neravelle-date" id="neravelleDate">Elarion, 1 Luthenya 1045 KSN</div>
-                        <div class="day-description" id="dayDescription"></div>
+                
+                <div class="info-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="time-conversion">Konversi Waktu</button>
+                        <button class="tab-button" data-tab="calendar-structure">Struktur Kalender</button>
+                        <button class="tab-button" data-tab="days-months">Hari & Bulan</button>
                     </div>
-                    <div class="time-card">
-                        <div class="time-label">Waktu Nyata</div>
-                        <div class="real-time" id="realWorldTime">00:00:00</div>
-                        <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
-                        <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
+                    
+                    <div class="tab-content active" id="time-conversion">
+                        <div class="clock-container">
+                            <div class="time-card">
+                                <div class="time-label">Waktu Neravelle</div>
+                                <div class="neravelle-time" id="neravelleTime">00:00:00</div>
+                                <div class="neravelle-date" id="neravelleDate">Elarion, 1 Luthenya 1045 KSN</div>
+                                <div class="day-description" id="dayDescription"></div>
+                            </div>
+                            <div class="time-card">
+                                <div class="time-label">Waktu Nyata</div>
+                                <div class="real-time" id="realWorldTime">00:00:00</div>
+                                <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
+                                <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
+                            </div>
+                            <div class="time-card">
+                                <div class="time-label">Konversi Ulang Tahun</div>
+                                <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;color:var(--text-secondary);font-weight:600;">
+                                    Tanggal ulang tahun
+                                </label>
+                                <input type="date" id="birthdayInput" class="birthday-input" placeholder="Pilih tanggal lahirmu" autocomplete="bday">
+                                <div id="birthdayOutput"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="time-card">
-                        <div class="time-label">Konversi Ulang Tahun</div>
-                        <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;color:var(--text-secondary);font-weight:600;">
-                            Tanggal ulang tahun
-                        </label>
-                        <input type="date" id="birthdayInput" class="birthday-input" placeholder="Pilih tanggal lahirmu" autocomplete="bday">
-                        <div id="birthdayOutput"></div>
+                    
+                    <div class="tab-content" id="calendar-structure">
+                        <div class="calendar-structure">
+                            <div class="structure-item">
+                                <h3>Struktur Dasar Kalender</h3>
+                                <ul>
+                                    <li>1 Minggu terdiri dari 7 Hari</li>
+                                    <li>1 Bulan terdiri dari 5 Minggu (35 Hari)</li>
+                                    <li>1 Tahun terdiri dari 12 Bulan</li>
+                                    <li>Total dalam 1 Tahun: 420 Hari</li>
+                                </ul>
+                            </div>
+                            <div class="structure-item">
+                                <h3>Contoh Format Penulisan Tanggal</h3>
+                                <p>"Esmiradyn, Emberleth tanggal 23, Tahun 1048 Surya Neravelle"</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="days-months">
+                        <div class="days-months-grid">
+                            <div class="days-list">
+                                <h3>Nama-nama Hari</h3>
+                                <ul>
+                                    <li><strong>Elarion</strong> - Hari cahaya awal. Melambangkan harapan dan permulaan.</li>
+                                    <li><strong>Velmora</strong> - Hari angin dan bisikan. Hari untuk merenung dan menerima ilham.</li>
+                                    <li><strong>Tarsilune</strong> - Hari bulan jatuh. Menggambarkan keindahan malam dan kelembutan hati.</li>
+                                    <li><strong>Dravendei</strong> - Hari kekuatan. Didedikasikan untuk semangat, kerja keras, dan keberanian.</li>
+                                    <li><strong>Esmiradyn</strong> - Hari kristal dan sihir. Hari para penyihir dan pemurnian jiwa.</li>
+                                    <li><strong>Lapliel</strong> - Hari langit dan roh. Digunakan untuk berdoa, bermeditasi, dan terhubung dengan kekuatan luhur.</li>
+                                    <li><strong>Noxverra</strong> - Hari bintang dan malam hidup. Hari perayaan, kenangan, dan malam penuh makna.</li>
+                                </ul>
+                            </div>
+                            <div class="months-list">
+                                <h3>Nama-nama Bulan</h3>
+                                <ul>
+                                    <li><strong>Luthenya</strong> - Bulan bunga mekar. Menandai awal musim semi dan kelahiran baru.</li>
+                                    <li><strong>Caelurest</strong> - Bulan langit jernih. Waktu kedamaian dan penyembuhan.</li>
+                                    <li><strong>Virellan</strong> - Bulan kehidupan hijau. Simbol pertumbuhan, cinta, dan keberkahan.</li>
+                                    <li><strong>Emberleth</strong> - Bulan bara suci. Awal musim panas, gairah dan kekuatan membara.</li>
+                                    <li><strong>Solmareth</strong> - Bulan ombak matahari. Waktu petualangan dan pelayaran besar.</li>
+                                    <li><strong>Ashdelyr</strong> - Bulan bayangan terang. Awal musim gugur, masa renungan dan pertarungan batin.</li>
+                                    <li><strong>Zephandor</strong> - Bulan angin ilahi. Hari-hari penuh mimpi dan angan roh langit.</li>
+                                    <li><strong>Thundareen</strong> - Bulan gemuruh suci. Saat badai dan perubahan besar datang.</li>
+                                    <li><strong>Mystralis</strong> - Bulan kabut sakral. Musim ketika sihir meresap ke seluruh alam.</li>
+                                    <li><strong>Velouren</strong> - Bulan kesedihan indah. Waktu nostalgia, perpisahan, dan refleksi.</li>
+                                    <li><strong>Aurevanthe</strong> - Bulan emas malam. Puncak kreativitas dan seni.</li>
+                                    <li><strong>Nyxoria</strong> - Bulan roh abadi. Bulan penutup tahun, ketika semua jiwa kembali pada cahaya.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
+            <!-- RULES -->
             <section id="rules-section" class="content-section">
-                <h2>Peraturan Komunitas</h2>
-                <div class="accordion">
-                    <div class="accordion-item">
-                        <button class="accordion-header">Peraturan OOC (Out of Character)</button>
-                        <div class="accordion-content">
+                <h2 class="section-title">Peraturan Komunitas</h2>
+                
+                <div class="rules-tabs">
+                    <div class="rules-tab-buttons">
+                        <button class="rules-tab-button active" data-rules-tab="ooc-rules">OOC Rules</button>
+                        <button class="rules-tab-button" data-rules-tab="ic-rules">IC Rules</button>
+                    </div>
+                    
+                    <div class="rules-tab-content active" id="ooc-rules">
+                        <div class="rules-checklist">
+                            <h3>Peraturan OOC (Out of Character)</h3>
                             <ul>
-                                <li>Dilarang keras melakukan SARA, ujaran kebencian, atau diskriminasi terhadap sesama anggota. </li>
-                                <li>Selalu bersikap sopan dan saling menghargai di luar peran (OOC). </li>
-                                <li>Jangan menyebarkan informasi pribadi orang lain tanpa izin. </li>
-                                <li>Gunakan (OOC) jika ingin berbicara di luar karakter dalam grup IC. </li>
-                                <li>Tidak diperkenankan spam pesan, stiker, atau gambar yang tidak relevan di grup roleplay. </li>
-                                <li>Gunakan jalur pribadi atau hubungi admin bila ada masalah. </li>
-                                <li>Perselisihan antar pemain harus diselesaikan secara dewasa dan tidak dibawa ke dalam RP. </li>
-                                <li>Jangan menuntut balasan cepat. </li>
-                                <li>Tidak ada kasta sosial OOC. </li>
+                                <li><input type="checkbox" id="ooc1"><label for="ooc1">Dilarang keras melakukan SARA, ujaran kebencian, atau diskriminasi terhadap sesama anggota.</label></li>
+                                <li><input type="checkbox" id="ooc2"><label for="ooc2">Selalu bersikap sopan dan saling menghargai di luar peran (OOC).</label></li>
+                                <li><input type="checkbox" id="ooc3"><label for="ooc3">Jangan menyebarkan informasi pribadi orang lain tanpa izin.</label></li>
+                                <li><input type="checkbox" id="ooc4"><label for="ooc4">Gunakan (OOC) jika ingin berbicara di luar karakter dalam grup IC.</label></li>
+                                <li><input type="checkbox" id="ooc5"><label for="ooc5">Tidak diperkenankan spam pesan, stiker, atau gambar yang tidak relevan di grup roleplay.</label></li>
+                                <li><input type="checkbox" id="ooc6"><label for="ooc6">Gunakan jalur pribadi atau hubungi admin bila ada masalah.</label></li>
+                                <li><input type="checkbox" id="ooc7"><label for="ooc7">Perselisihan antar pemain harus diselesaikan secara dewasa dan tidak dibawa ke dalam RP.</label></li>
+                                <li><input type="checkbox" id="ooc8"><label for="ooc8">Jangan menuntut balasan cepat.</label></li>
+                                <li><input type="checkbox" id="ooc9"><label for="ooc9">Tidak ada kasta sosial OOC.</label></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="accordion-item">
-                        <button class="accordion-header">Peraturan IC (In Character)</button>
-                        <div class="accordion-content">
-                             <ul>
-                                <li>Dilarang melakukan godmodding (mengontrol karakter orang lain tanpa izin). </li>
-                                <li>Hindari powerplaying (membuat karakter terlalu sempurna/OP tanpa kelemahan). </li>
-                                <li>Jangan metagaming (menggunakan informasi OOC untuk keuntungan IC). </li>
-                                <li>Roleplay harus sesuai dengan setting dunia Neravelle. </li>
-                                <li>Karakter yang mati hanya jika disetujui oleh pemiliknya (kecuali event khusus dan kehendak Narator). </li>
-                                <li>Waktu IC disesuaikan dengan waktu event atau timeline dunia Neravelle. </li>
+                    
+                    <div class="rules-tab-content" id="ic-rules">
+                        <div class="rules-checklist">
+                            <h3>Peraturan IC (In Character)</h3>
+                            <ul>
+                                <li><input type="checkbox" id="ic1"><label for="ic1">Dilarang melakukan godmodding (mengontrol karakter orang lain tanpa izin).</label></li>
+                                <li><input type="checkbox" id="ic2"><label for="ic2">Hindari powerplaying (membuat karakter terlalu sempurna/OP tanpa kelemahan).</label></li>
+                                <li><input type="checkbox" id="ic3"><label for="ic3">Jangan metagaming (menggunakan informasi OOC untuk keuntungan IC).</label></li>
+                                <li><input type="checkbox" id="ic4"><label for="ic4">Roleplay harus sesuai dengan setting dunia Neravelle.</label></li>
+                                <li><input type="checkbox" id="ic5"><label for="ic5">Karakter yang mati hanya jika disetujui oleh pemiliknya (kecuali event khusus dan kehendak Narator).</label></li>
+                                <li><input type="checkbox" id="ic6"><label for="ic6">Waktu IC disesuaikan dengan waktu event atau timeline dunia Neravelle.</label></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- POWER SYSTEM -->
             <section id="power-system-section" class="content-section">
-                 <h2>Power System: Virelai Auralis</h2>
-                 <p>Virelai Auralis adalah seni kuno pengendalian Aura Magis, energi tak kasatmata yang mengalir dari dalam tubuh maupun dari lingkungan sekitar.  Aura ini menjadi fondasi dari segala bentuk kekuatan di dunia Neravelle. </p>
-                <div class="accordion">
-                    <div class="accordion-item">
-                        <button class="accordion-header">Dua Sumber Aura</button>
-                        <div class="accordion-content">
-                            <p>Setiap karakter hanya dapat memilih salah satu dari dua jenis Auralis sebagai sumber Aura Magis mereka. </p>
-                            <h4>Aura Magis Alam (Auralis Naturae)</h4>
-                            <p>Aura yang berasal dari energi dunia seperti pepohonan, angin, api, dan sungai.  Penggunanya disebut <strong>Naturalis</strong>.  Kekuatan ini cenderung eksternal, tidak stabil, namun memiliki daya ledak yang luas. </p>
-                            <h4>Aura Magis Spiritual (Auralis Anima)</h4>
-                            <p>Aura yang berasal dari dalam diri seseorang, merupakan pantulan dari jiwa, emosi, dan kehendak.  Penggunanya disebut <strong>Animant</strong>.  Kekuatan ini lebih internal, personal, terkontrol, dan unik bagi penggunanya. </p>
+                <h2 class="section-title">Power System: Virelai Auralis</h2>
+                <p class="intro-text">
+                    Virelai Auralis adalah seni kuno pengendalian Aura Magis, energi tak kasatmata yang mengalir dari dalam tubuh maupun dari lingkungan sekitar. Aura ini menjadi fondasi dari segala fenomena supranatural di dunia Neravelle.
+                </p>
+                
+                <div class="power-system-tabs">
+                    <div class="power-tab-buttons">
+                        <button class="power-tab-button active" data-power-tab="sources">Sumber Aura</button>
+                        <button class="power-tab-button" data-power-tab="stages">Tahap Penguasaan</button>
+                        <button class="power-tab-button" data-power-tab="specialization">Spesialisasi</button>
+                        <button class="power-tab-button" data-power-tab="cantus">Cantus Auralis</button>
+                        <button class="power-tab-button" data-power-tab="drain">Drain of Essence</button>
+                    </div>
+                    
+                    <div class="power-tab-content active" id="sources">
+                        <h3>Dua Sumber Aura</h3>
+                        <p>Setiap karakter hanya dapat memilih salah satu dari dua jenis Auralis sebagai sumber Aura Magis mereka.</p>
+                        
+                        <div class="aura-sources">
+                            <div class="aura-source-card">
+                                <h4>Aura Magis Alam (Auralis Naturae)</h4>
+                                <p>Aura yang berasal dari energi dunia seperti pepohonan, angin, api, dan sungai. Penggunanya disebut <strong>Naturalis</strong>. Kekuatan ini cenderung eksternal, tidak terikat pada satu individu, namun lebih pada harmoni dengan alam sekitar.</p>
+                                <div class="aura-pros-cons">
+                                    <div class="pros">
+                                        <h5>Kelebihan:</h5>
+                                        <ul>
+                                            <li>Daya ledak lebih besar</li>
+                                            <li>Ruang manipulasi luas</li>
+                                            <li>Koneksi dengan elemen alam</li>
+                                        </ul>
+                                    </div>
+                                    <div class="cons">
+                                        <h5>Kekurangan:</h5>
+                                        <ul>
+                                            <li>Kurang stabil</li>
+                                            <li>Bergantung pada lingkungan</li>
+                                            <li>Butuh sinkronisasi</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="aura-source-card">
+                                <h4>Aura Magis Spiritual (Auralis Anima)</h4>
+                                <p>Aura yang berasal dari dalam diri seseorang, merupakan pantulan dari jiwa, emosi, dan kehendak. Penggunanya disebut <strong>Animant</strong>. Kekuatan ini lebih internal dan seringkali dipengaruhi oleh kondisi batin, emosi, dan tekad penggunanya.</p>
+                                <div class="aura-pros-cons">
+                                    <div class="pros">
+                                        <h5>Kelebihan:</h5>
+                                        <ul>
+                                            <li>Lebih personal dan unik</li>
+                                            <li>Terkontrol dengan baik</li>
+                                            <li>Erat dengan karakteristik pengguna</li>
+                                        </ul>
+                                    </div>
+                                    <div class="cons">
+                                        <h5>Kekurangan:</h5>
+                                        <ul>
+                                            <li>Bergantung pada kondisi emosi</li>
+                                            <li>Daya ledak terbatas</li>
+                                            <li>Butuh pemahaman diri mendalam</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                     <div class="accordion-item">
-                        <button class="accordion-header">5 Tahap Penguasaan Virelai Auralis</button>
-                        <div class="accordion-content">
-                            <p>Terdapat 5 Tahap Fundamental dalam penguasaan Virelai Auralis yang harus dipahami setiap pemain. </p>
-                            <ul>
-                                <li><strong>Exhale (Pelepasan):</strong> Proses menyebarkan Aura keluar dari tubuh. </li>
-                                <li><strong>Veil (Selubung):</strong> Menyelubungi bagian tubuh tertentu dengan Aura untuk bertahan atau menyerang. </li>
-                                <li><strong>Pulse (Denyut):</strong> Melepaskan aura dalam bentuk gelombang atau getaran magis. </li>
-                                <li><strong>Weave (Tenun):</strong> Menggabungkan aura dengan objek, senjata, atau mantra. </li>
-                                <li><strong>Trace (Jejak):</strong> Menghubungkan aura ke aura lain untuk membaca, melacak, atau mengganggu. </li>
-                            </ul>
+                    
+                    <div class="power-tab-content" id="stages">
+                        <h3>5 Tahap Penguasaan Virelai Auralis</h3>
+                        <p>Terdapat 5 Tahap Fundamental dalam penguasaan Virelai Auralis yang harus dipahami setiap pemain.</p>
+                        
+                        <div class="stages-container">
+                            <div class="stage-card">
+                                <div class="stage-number">1</div>
+                                <h4>Exhale (Pelepasan)</h4>
+                                <p>Proses menyebarkan Aura keluar dari tubuh.</p>
+                                <div class="stage-example">
+                                    <h5>Contoh:</h5>
+                                    <p>Mengeluarkan aura untuk merasakan lingkungan sekitar atau mendeteksi keberadaan makhluk lain.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stage-card">
+                                <div class="stage-number">2</div>
+                                <h4>Veil (Selubung)</h4>
+                                <p>Menyelubungi bagian tubuh tertentu dengan Aura untuk bertahan atau menyerang.</p>
+                                <div class="stage-example">
+                                    <h5>Contoh:</h5>
+                                    <p>Membungkus tangan dengan aura untuk meningkatkan kekuatan pukulan atau membuat perisai aura di lengan.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stage-card">
+                                <div class="stage-number">3</div>
+                                <h4>Pulse (Denyut)</h4>
+                                <p>Melepaskan aura dalam bentuk gelombang atau getaran magis.</p>
+                                <div class="stage-example">
+                                    <h5>Contoh:</h5>
+                                    <p>Menciptakan gelombang kejut aura untuk menjauhkan musuh atau mendeteksi benda tersembunyi.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stage-card">
+                                <div class="stage-number">4</div>
+                                <h4>Weave (Tenun)</h4>
+                                <p>Menggabungkan aura dengan objek, senjata, atau mantra.</p>
+                                <div class="stage-example">
+                                    <h5>Contoh:</h5>
+                                    <p>Mengisi pedang dengan aura untuk membuatnya lebih tajam atau melindungi benda dengan lapisan aura.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stage-card">
+                                <div class="stage-number">5</div>
+                                <h4>Trace (Jejak)</h4>
+                                <p>Menghubungkan aura ke aura lain untuk membaca, melacak, atau mengganggu.</p>
+                                <div class="stage-example">
+                                    <h5>Contoh:</h5>
+                                    <p>Melacak seseorang berdasarkan sisa aura mereka atau mengganggu aliran aura musuh.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                     <div class="accordion-item">
-                        <button class="accordion-header">Spesialisasi (Affinity)</button>
-                        <div class="accordion-content">
-                            <p>Setelah menguasai 5 tahap fundamental, setiap individu akan menentukan Jalur Aura (Affinity) mereka. Penentuan ini melalui keputusan Admin. </p>
-                            <ul>
-                                <li><strong>Arkhant (Penyerapan):</strong> Menyerap energi dari objek atau musuh. </li>
-                                <li><strong>Veltarius (Manipulasi):</strong> Memanipulasi objek, elemen, atau makhluk hidup. </li>
-                                <li><strong>Zenair (Proyeksi):</strong> Memancarkan aura sebagai tembakan, sinar, atau ledakan. </li>
-                                <li><strong>Gaevan (Reinforcement):</strong> Memperkuat tubuh, refleks, dan serangan. </li>
-                                <li><strong>Eidrix (Transformasi):</strong> Mengubah bentuk atau struktur biologis diri sendiri. </li>
-                                <li><strong>Myrrdin (Manifestasi):</strong> Mewujudkan aura menjadi bentuk fisik terbatas seperti roh atau senjata. </li>
-                            </ul>
+                    
+                    <div class="power-tab-content" id="specialization">
+                        <h3>Spesialisasi (Affinity)</h3>
+                        <p>Setelah menguasai 5 tahap fundamental, setiap individu akan menentukan Jalur Aura (Affinity) mereka. Penentuan ini melalui keputusan Admin.</p>
+                        
+                        <div class="affinity-grid">
+                            <div class="affinity-card">
+                                <h4>Arkhant (Penyerapan)</h4>
+                                <p>Menyerap energi dari objek atau musuh.</p>
+                                <div class="affinity-details">
+                                    <p><strong>Kekuatan:</strong> Dapat mengubah energi yang diserap menjadi kekuatan sendiri.</p>
+                                    <p><strong>Contoh:</strong> Menyerap energi api untuk meningkatkan serangan sendiri.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="affinity-card">
+                                <h4>Veltarius (Manipulasi)</h4>
+                                <p>Memanipulasi objek, elemen, atau makhluk hidup.</p>
+                                <div class="affinity-details">
+                                    <p><strong>Kekuatan:</strong> Kontrol penuh atas elemen atau objek yang dimanipulasi.</p>
+                                    <p><strong>Contoh:</strong> Mengendalikan aliran air atau menggerakkan benda dari kejauhan.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="affinity-card">
+                                <h4>Zenair (Proyeksi)</h4>
+                                <p>Memancarkan aura sebagai tembakan, sinar, atau ledakan.</p>
+                                <div class="affinity-details">
+                                    <p><strong>Kekuatan:</strong> Serangan jarak jauh yang kuat dan tepat.</p>
+                                    <p><strong>Contoh:</strong> Menembakkan sinar aura atau menciptakan ledakan energi.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="affinity-card">
+                                <h4>Gaevan (Reinforcement)</h4>
+                                <p>Memperkuat tubuh, refleks, dan serangan.</p>
+                                <div class="affinity-details">
+                                    <p><strong>Kekuatan:</strong> Peningkatan kemampuan fisik secara signifikan.</p>
+                                    <p><strong>Contoh:</strong> Meningkatkan kecepatan, kekuatan, atau daya tahan tubuh.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="affinity-card">
+                                <h4>Eidrix (Transformasi)</h4>
+                                <p>Mengubah bentuk atau struktur biologis diri sendiri.</p>
+                                <div class="affinity-details">
+                                    <p><strong>Kekuatan:</strong> Adaptasi bentuk untuk berbagai situasi.</p>
+                                    <p><strong>Contoh:</strong> Mengubah tangan menjadi cakar atau menumbuhkan sayap sementara.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="affinity-card">
+                                <h4>Myrrdin (Manifestasi)</h4>
+                                <p>Mewujudkan aura menjadi bentuk fisik terbatas seperti roh atau senjata.</p>
+                                <div class="affinity-details">
+                                    <p><strong>Kekuatan:</strong> Menciptakan senjata atau entitas dari aura.</p>
+                                    <p><strong>Contoh:</b> Membuat pedang aura atau memanggil roh pelindung.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                     <div class="accordion-item">
-                        <button class="accordion-header">Cantus Auralis (Lagu Jiwa)</button>
-                        <div class="accordion-content">
-                            <p>Cantus Auralis adalah mantra spiritual pribadi yang unik, lahir dari resonansi jiwa seseorang terhadap Virelai Aura.  Ia tidak bisa disalin atau diwariskan. </p>
-                             <ul>
-                                <li>Setiap individu memiliki maksimal 6 Slot Cantus Auralis. </li>
-                                <li>Saat lahir, seseorang otomatis memiliki 1 Cantus Auralis Pertama. </li>
-                                <li>Pembukaan slot berikutnya memerlukan *Ujian Jiwa*. </li>
-                                <li>Sumber kekuatannya berasal dari puncak emosi atau keyakinan jiwa. </li>
-                                <li>Mengonsumsi Essence (Vir) dalam jumlah besar, rata-rata 1.000-2.000 Vir per teknik. </li>
-                            </ul>
+                    
+                    <div class="power-tab-content" id="cantus">
+                        <h3>Cantus Auralis (Lagu Jiwa)</h3>
+                        <p>Cantus Auralis adalah mantra spiritual pribadi yang unik, lahir dari resonansi jiwa seseorang terhadap Virelai Aura. Ia tidak bisa disalin atau diwariskan.</p>
+                        
+                        <div class="cantus-info">
+                            <div class="cantus-feature">
+                                <h4>Slot Cantus</h4>
+                                <div class="slots-visualization">
+                                    <div class="slot active" data-tier="Tier 11-A">1</div>
+                                    <div class="slot" data-tier="Tier 8-A">2</div>
+                                    <div class="slot" data-tier="Tier 6-A">3</div>
+                                    <div class="slot" data-tier="Tier 4-A">4</div>
+                                    <div class="slot" data-tier="Tier 2-A">5</div>
+                                    <div class="slot" data-tier="Tier 1-A">6</div>
+                                </div>
+                                <p>Setiap individu memiliki maksimal 6 Slot Cantus Auralis. Saat lahir, seseorang otomatis memiliki 1 Cantus Auralis Pertama. Pembukaan slot berikutnya memerlukan <i>Ujian Jiwa</i>.</p>
+                            </div>
+                            
+                            <div class="cantus-feature">
+                                <h4>Karakteristik Cantus</h4>
+                                <ul>
+                                    <li><strong>Bersifat Permanent:</strong> Setelah terbentuk, tidak dapat diubah atau dihapus.</li>
+                                    <li><strong>Unik untuk setiap Individu:</strong> Bahkan dengan nama sama, efek akan berbeda.</li>
+                                    <li><strong>Berbasis Emosi:</strong> Sumber kekuatan dari puncak emosi atau keyakinan jiwa.</li>
+                                    <li><strong>Biaya Essence Besar:</strong> Mengonsumsi 1.000-2.000 Vir per teknik.</li>
+                                    <li><strong>Tidak Bisa Dipakai Sembarangan:</strong> Jika emosi/niat bertentangan, bisa gagal.</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="cantus-examples">
+                                <h4>Contoh Cantus Auralis</h4>
+                                <div class="example-card">
+                                    <h5>"Symphony of the Shattered Sky"</h5>
+                                    <p><strong>Pengguna:</strong> Liriel the Dawnbringer</p>
+                                    <p><strong>Efek:</strong> Menciptakan ribuan pedang cahaya yang menghujani area luas.</p>
+                                    <p><strong>Biaya:</strong> 1,800 Vir</p>
+                                </div>
+                                <div class="example-card">
+                                    <h5>"Requiem of the Fallen Star"</h5>
+                                    <p><strong>Pengguna:</strong> Dravok the Nightcrowned</p>
+                                    <p><strong>Efek:</strong> Menyerap semua cahaya di area dan meledakkannya dalam gelombang gravitasi.</p>
+                                    <p><strong>Biaya:</strong> 2,200 Vir</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="accordion-item">
-                        <button class="accordion-header">Drain of Essence (Batas Kekuatan)</button>
-                        <div class="accordion-content">
-                            <p>Mekanisme yang mengatur batas pemakaian Aura, setara dengan "mana" atau "chi".  Setiap makhluk memiliki <strong>Essentia Core</strong> yang terkuras saat menggunakan aura.  Penggunaan berlebih dapat menyebabkan kehilangan kesadaran atau kerusakan jiwa.  Diukur dalam satuan <strong>Vir</strong>. </p>
+                    
+                    <div class="power-tab-content" id="drain">
+                        <h3>Drain of Essence (Batas Kekuatan)</h3>
+                        <p>Mekanisme yang mengatur batas pemakaian Aura, setara dengan "mana" atau "chi". Setiap makhluk memiliki <strong>Essentia Core</strong> yang terkuras saat menggunakan aura secara berlebihan. Jika habis, individu akan mengalami kelelahan ekstrim atau unconscious.</p>
+                        
+                        <div class="drain-info">
+                            <div class="drain-scale">
+                                <h4>Skala Drain (dalam Vir)</h4>
+                                <div class="scale-visual">
+                                    <div class="scale-item" style="width: 10%">
+                                        <div class="scale-label">100 Vir</div>
+                                        <div class="scale-desc">Teknik aura ringan</div>
+                                    </div>
+                                    <div class="scale-item" style="width: 20%">
+                                        <div class="scale-label">1,000 Vir</div>
+                                        <div class="scale-desc">Teknik sedang</div>
+                                    </div>
+                                    <div class="scale-item" style="width: 30%">
+                                        <div class="scale-label">3,000 Vir</div>
+                                        <div class="scale-desc">Teknik kompleks</div>
+                                    </div>
+                                    <div class="scale-item" style="width: 40%">
+                                        <div class="scale-label">10,000+ Vir</div>
+                                        <div class="scale-desc">Teknik eksistensial</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="recovery-methods">
+                                <h4>Metode Pemulihan Essence</h4>
+                                <div class="method-card">
+                                    <h5>Istirahat Alami</h5>
+                                    <p><strong>Kecepatan:</strong> 5-10% Vir per jam</p>
+                                    <p><strong>Deskripsi:</strong> Pemulihan dasar saat tidak menggunakan aura.</p>
+                                </div>
+                                <div class="method-card">
+                                    <h5>Meditasi Khusus</h5>
+                                    <p><strong>Kecepatan:</strong> 20-30% Vir per jam</p>
+                                    <p><strong>Deskripsi:</strong> Memfokuskan pikiran untuk mempercepat regenerasi.</p>
+                                </div>
+                                <div class="method-card">
+                                    <h5>Relic/Aura Fountain</h5>
+                                    <p><strong>Kecepatan:</strong> 50-100% Vir per jam</p>
+                                    <p><strong>Deskripsi:</strong> Menggunakan artefak atau tempat khusus yang kaya aura.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="drain-effects">
+                                <h4>Efek Drain Berlebihan</h4>
+                                <div class="effect-level">
+                                    <h5>30-50% Essence Terkuras</h5>
+                                    <p>Kelelahan ringan, penurunan performa fisik.</p>
+                                </div>
+                                <div class="effect-level">
+                                    <h5>50-80% Essence Terkuras</h5>
+                                    <p>Kelelahan berat, gangguan konsentrasi, kemungkinan pingsan.</p>
+                                </div>
+                                <div class="effect-level">
+                                    <h5>80-100% Essence Terkuras</h5>
+                                    <p>Pingsan, kerusakan spiritual sementara, risiko koma.</p>
+                                </div>
+                                <div class="effect-level">
+                                    <h5>Overdrain (Melebihi 100%)</h5>
+                                    <p>Kerusakan permanen pada Essentia Core, kemungkinan kematian.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
             
+            <!-- STATS SYSTEM -->
             <section id="stats-system-section" class="content-section">
-                <h2>Stats System</h2>
-                <p>Stats adalah nilai numerik yang mewakili kapasitas fisik, spiritual, dan magis seorang individu.  Poin Stats diperoleh melalui quest, event, atau kenaikan Tier untuk didistribusikan secara bebas. </p>
-                <div class="accordion">
-                     <div class="accordion-item">
-                        <button class="accordion-header">Kategori Stats</button>
-                        <div class="accordion-content">
-                            <h4>I. GENERAL STATS </h4>
+                <h2 class="section-title">Stats System</h2>
+                <p class="intro-text">
+                    Stats adalah nilai numerik yang mewakili kapasitas fisik, spiritual, dan magis seorang individu. Poin Stats diperoleh melalui quest, event, atau kenaikan Tier untuk didistribusikan sesuai preferensi karakter.
+                </p>
+                
+                <div class="stats-tabs">
+                    <div class="stats-tab-buttons">
+                        <button class="stats-tab-button active" data-stats-tab="general">General Stats</button>
+                        <button class="stats-tab-button" data-stats-tab="defense">Defense Stats</button>
+                        <button class="stats-tab-button" data-stats-tab="damage">Damage Stats</button>
+                        <button class="stats-tab-button" data-stats-tab="distribution">Distribusi Stats</button>
+                    </div>
+                    
+                    <div class="stats-tab-content active" id="general">
+                        <h3>General Stats</h3>
+                        <p>Merupakan fondasi utama tubuh dan jiwa. Semakin tinggi nilai general stats, semakin optimal aktivasi Cantus Auralis dan kontrol atas Virelai Auralis.</p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <h4>VITALIS (VIT)</h4>
+                                <div class="stat-bar" data-value="75"></div>
+                                <ul>
+                                    <li>Menentukan HP atau ketahanan hidup.</li>
+                                    <li>Hanya bisa ditingkatkan melalui Tier.</li>
+                                    <li>Mempengaruhi ketahanan terhadap serangan fisik dan stamina harian.</li>
+                                    <li>Semakin tinggi VIT, semakin cepat regenerasi minor Drain of Essence.</li>
+                                    <li>Semakin tinggi VIT, semakin cepat regenerasi minor Drain of Essence.</li>
+                                </ul>
+                            </div>
+                            <div class="stat-card">
+                                <h4>DRAIN OF ESSENCE (VIR)</h4>
+                                <div class="stat-bar" data-value="70"></div>
+                                <ul>
+                                    <li>Kapasitas energi aura (Vir) yang dapat digunakan.</li>
+                                    <li>Hanya meningkat dengan naik Tier.</li>
+                                    <li>Makin besar VIR, makin banyak teknik/magis yang bisa digunakan tanpa kelelahan.</li>
+                                </ul>
+                            </div>
+                            <div class="stat-card">
+                                <h4>AETHERMIND (AEM)</h4>
+                                <div class="stat-bar" data-value="60"></div>
+                                <ul>
+                                    <li>Kapasitas fokus, akurasi, dan kecepatan aktivasi Cantus.</li>
+                                    <li>Memengaruhi kelancaran dalam mengatur Virelai Auralis serta menahan efek gangguan mental.</li>
+                                </ul>
+                            </div>
+                            <div class="stat-card">
+                                <h4>SPIRALIS (SPI)</h4>
+                                <div class="stat-bar" data-value="55"></div>
+                                <ul>
+                                    <li>Hubungan spiritual dengan dunia, memungkinkan interaksi Virelai.</li>
+                                    <li>Memengaruhi kekuatan Cantus berbasis spiritual dan komunikasi dengan entitas roh.</li>
+                                </ul>
+                            </div>
+                            <div class="stat-card">
+                                <h4>CELERIS (CEL)</h4>
+                                <div class="stat-bar" data-value="65"></div>
+                                <ul>
+                                    <li>Kecepatan gerak, kelincahan, dan casting speed.</li>
+                                    <li>Meningkatkan kemampuan menghindar dan fleksibilitas penggunaan teknik cepat.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-tab-content" id="defense">
+                        <h3>Defense Stats</h3>
+                        <p>Menentukan ketahanan karakter terhadap berbagai serangan baik fisik, magis, maupun mental.</p>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <h4>FERRUS GUARD (FRD)</h4>
+                                <div class="stat-bar" data-value="50"></div>
+                                <ul>
+                                    <li>Mengurangi damage serangan fisik/langsung.</li>
+                                    <li>Memberikan ketahanan ekstra terhadap senjata tajam dan benturan.</li>
+                                </ul>
+                            </div>
+                            <div class="stat-card">
+                                <h4>NULLWEAVE MANTEL (NWM)</h4>
+                                <div class="stat-bar" data-value="50"></div>
+                                <ul>
+                                    <li>Menyerap serangan dari Cantus Auralis/sihir.</li>
+                                    <li>Membantu menahan efek magis ringan hingga sedang.</li>
+                                </ul>
+                            </div>
+                            <div class="stat-card">
+                                <h4>WARDSOUL AEGIS (WAG)</h4>
+                                <div class="stat-bar" data-value="45"></div>
+                                <ul>
+                                    <li>Menahan efek mental seperti Fear, Confusion, dan Mind Control.</li>
+                                    <li>Sangat penting dalam pertarungan melawan pengguna sihir ilusi atau dominasi pikiran.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-tab-content" id="damage">
+                        <h3>Damage Stats</h3>
+                        <p>Menentukan seberapa efektif karakter dalam menghasilkan serangan fisik maupun magis.</p>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <h4>STRATON (STR)</h4>
+                                <div class="stat-bar" data-value="60"></div>
+                                <ul>
+                                    <li>Menambah kekuatan serangan fisik jarak dekat.</li>
+                                    <li>Semakin tinggi STR, semakin kuat efek Knockback atau Break pada musuh.</li>
+                                </ul>
+                            </div>
+                            <div class="stat-card">
+                                <h4>AURAVEX (AVX)</h4>
+                                <div class="stat-bar" data-value="55"></div>
+                                <ul>
+                                    <li>Meningkatkan damage dari Cantus Auralis.</li>
+                                    <li>Berpengaruh pada daya rusak sihir dan teknik berbasis aura.</li>
+                                </ul>
+                            </div>
+                            <div class="stat-card">
+                                <h4>TEMPUSGALE (TMP)</h4>
+                                <div class="stat-bar" data-value="50"></div>
+                                <ul>
+                                    <li>Menambah kecepatan serangan dan jumlah hit per second.</li>
+                                    <li>Penting untuk build karakter bertipe combo atau multi-hit.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-tab-content" id="distribution">
+                        <h3>Distribusi Stats dan Peningkatan</h3>
+                        <ul>
+                            <li>Stats diperoleh melalui quest, event, atau kenaikan Tier, dan didistribusikan sesuai dengan role atau gaya bertarung karakter.</li>
+                            <li>Beberapa stats hanya dapat naik lewat Tier atau pelatihan khusus (VIT, VIR).</li>
+                            <li>Setiap Class dan Ras memiliki distribusi awal stats yang berbeda, memengaruhi kekuatan dan kelemahan karakter sejak awal.</li>
+                        </ul>
+                        <div class="example-distribution">
+                            <h4>Contoh Distribusi Stat Awal (Class Valeforge):</h4>
                             <ul>
-                                <li><strong>VITALIS (VIT):</strong> Menentukan HP dan ketahanan hidup.  Hanya bisa ditingkatkan melalui Tier. </li>
-                                <li><strong>DRAIN OF ESSENCE (VIR):</strong> Kapasitas energi aura.  Hanya bisa ditingkatkan melalui Tier. </li>
-                                <li><strong>AETHERMIND (AEM):</strong> Kapasitas fokus, akurasi, dan kecepatan aktivasi Cantus. </li>
-                                <li><strong>SPIRALIS (SPI):</strong> Hubungan spiritual dengan dunia, memungkinkan interaksi Virelai. </li>
-                                <li><strong>CELERIS (CEL):</strong> Kecepatan gerak, kelincahan, dan casting speed. </li>
-                            </ul>
-                            <h4>II. DEFENSE STATS </h4>
-                             <ul>
-                                <li><strong>FERRUS GUARD (FRD):</strong> Mengurangi damage serangan fisik/langsung. </li>
-                                <li><strong>NULLWEAVE MANTEL (NWM):</strong> Menyerap serangan dari Cantus Auralis/sihir. </li>
-                                <li><strong>WARDSOUL AEGIS (WAG):</strong> Menahan efek mental seperti Fear, Confusion, dan Mind Control. </li>
-                            </ul>
-                            <h4>III. DAMAGE STATS </h4>
-                            <ul>
-                                <li><strong>STRATON (STR):</strong> Menambah kekuatan serangan fisik jarak dekat. </li>
-                                <li><strong>AURAVEX (AVX):</strong> Meningkatkan damage dari Cantus Auralis. </li>
-                                <li><strong>TEMPUSGALE (TMP):</strong> Menambah kecepatan serangan dan jumlah hit per second. </li>
+                                <li>VIT: 10</li>
+                                <li>VIR: 8</li>
+                                <li>AEM: 6</li>
+                                <li>SPI: 6</li>
+                                <li>CEL: 7</li>
+                                <li>FRD: 8</li>
+                                <li>NWM: 5</li>
+                                <li>WAG: 5</li>
+                                <li>STR: 8</li>
+                                <li>AVX: 4</li>
+                                <li>TMP: 3</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </section>
             
+            <!-- CLASS SYSTEM -->
             <section id="class-system-section" class="content-section">
-                <h2>Class System</h2>
-                <p>Class adalah manifestasi konsep eksistensial yang membentuk gaya bertarung, kemampuan, dan jalan spiritual karakter.  Ia menentukan Starting Stats dan preferensi Cantus Auralis. </p>
-                <div class="accordion">
-                    <div class="accordion-item">
-                        <button class="accordion-header">Daftar Class</button>
-                        <div class="accordion-content">
-                            <p>Setiap Class memiliki total stat dasar 60 poin yang didistribusikan secara unik. </p>
-                            <ul>
-                                <li><strong>Valeforge:</strong> Pendekar murni, teknik dan keberanian. </li>
-                                <li><strong>Aeronveil:</strong> Penombak lincah, menguasai medan vertikal. </li>
-                                <li><strong>Noctveil:</strong> Assassin, mengandalkan keheningan dan serangan mendadak. </li>
-                                <li><strong>Runesoul:</strong> Pemancar sihir, ahli Cantus jarak jauh. </li>
-                                <li><strong>Arcallion:</strong> Archer, penembak ulung dari kejauhan. </li>
-                                <li><strong>Gravehold:</strong> Berserker brutal, bertarung dengan insting. </li>
-                                <li><strong>Phantomglade:</strong> Pengendara, ahli mobilitas dengan tunggangan roh. </li>
-                                <li><strong>Sanctarium:</strong> Guardian, tank yang melindungi sekutu. </li>
-                                <li><strong>Dreadveil:</strong> Pendendam, pengguna Cantus Auralis yang destruktif. </li>
-                                <li><strong>Tenebralis:</strong> Beast, representasi kejatuhan dan kekacauan. </li>
-                            </ul>
+                <h2 class="section-title">Class System</h2>
+                <p>
+                    Class adalah manifestasi konsep eksistensial yang membentuk gaya bertarung, kemampuan, dan jalan spiritual karakter. Ia menentukan Starting Stats dan preferensi Cantus Auralis.
+                </p>
+                <div class="class-tabs">
+                    <div class="class-tab-buttons">
+                        <button class="class-tab-button active" data-class-tab="list">Daftar Class</button>
+                        <button class="class-tab-button" data-class-tab="class-details">Penjelasan Class</button>
+                        <button class="class-tab-button" data-class-tab="tier-system">Sistem Tier</button>
+                    </div>
+                    
+                    <div class="class-tab-content active" id="list">
+                        <h3>Daftar Class</h3>
+                        <p>Setiap Class memiliki total stat dasar 60 poin yang didistribusikan secara unik.</p>
+                        <div class="class-list">
+                            <div class="class-card">
+                                <h4>Valeforge</h4>
+                                <p>Pendekar murni, teknik dan keberanian.</p>
+                            </div>
+                            <div class="class-card">
+                                <h4>Aeronveil</h4>
+                                <p>Penombak lincah, menguasai medan vertikal.</p>
+                            </div>
+                            <div class="class-card">
+                                <h4>Noctveil</h4>
+                                <p>Assassin, mengandalkan keheningan dan serangan mendadak.</p>
+                            </div>
+                            <div class="class-card">
+                                <h4>Runesoul</h4>
+                                <p>Pemancar sihir, ahli Cantus jarak jauh.</p>
+                            </div>
+                            <div class="class-card">
+                                <h4>Arcallion</h4>
+                                <p>Archer, penembak ulung dari kejauhan.</p>
+                            </div>
+                            <div class="class-card">
+                                <h4>Gravehold</h4>
+                                <p>Berserker brutal, bertarung dengan insting.</p>
+                            </div>
+                            <div class="class-card">
+                                <h4>Phantomglade</h4>
+                                <p>Pengendara, ahli mobilitas dengan tunggangan roh.</p>
+                            </div>
+                            <div class="class-card">
+                                <h4>Sanctarium</h4>
+                                <p>Guardian, tank yang melindungi sekutu.</p>
+                            </div>
+                            <div class="class-card">
+                                <h4>Dreadveil</h4>
+                                <p>Pendendam, pengguna Cantus Auralis yang destruktif.</p>
+                            </div>
+                            <div class="class-card">
+                                <h4>Tenebralis</h4>
+                                <p>Beast, representasi kejatuhan dan kekacauan.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="class-tab-content" id="class-details">
+                        <h3>Penjelasan Singkat Tiap Class</h3>
+                        <div class="class-details-list">
+                            <div class="detail-card">
+                                <h4>Valeforge</h4>
+                                <ul>
+                                    <li>Fokus pada teknik pedang dan pertahanan.</li>
+                                    <li>Stat utama: VIT, STR, FRD.</li>
+                                </ul>
+                            </div>
+                            <div class="detail-card">
+                                <h4>Aeronveil</h4>
+                                <ul>
+                                    <li>Kemampuan mobilitas tinggi dan penguasaan tombak.</li>
+                                    <li>Stat utama: CEL, STR, TMP.</li>
+                                </ul>
+                            </div>
+                            <div class="detail-card">
+                                <h4>Noctveil</h4>
+                                <ul>
+                                    <li>Spesialisasi stealth dan serangan mendadak.</li>
+                                    <li>Stat utama: TMP, CEL, AVX.</li>
+                                </ul>
+                            </div>
+                            <div class="detail-card">
+                                <h4>Runesoul</h4>
+                                <ul>
+                                    <li>Menguasai Cantus jarak jauh dan manipulasi sihir.</li>
+                                    <li>Stat utama: AVX, AEM, SPI.</li>
+                                </ul>
+                            </div>
+                            <div class="detail-card">
+                                <h4>Arcallion</h4>
+                                <ul>
+                                    <li>Ahli panah, serangan dari jarak sangat jauh.</li>
+                                    <li>Stat utama: CEL, AVX, TMP.</li>
+                                </ul>
+                            </div>
+                            <div class="detail-card">
+                                <h4>Gravehold</h4>
+                                <ul>
+                                    <li>Berserker, kekuatan fisik dan daya tahan tinggi.</li>
+                                    <li>Stat utama: VIT, STR, FRD.</li>
+                                </ul>
+                            </div>
+                            <div class="detail-card">
+                                <h4>Phantomglade</h4>
+                                <ul>
+                                    <li>Ahli menunggangi makhluk roh, sangat mobile.</li>
+                                    <li>Stat utama: CEL, TMP, NWM.</li>
+                                </ul>
+                            </div>
+                            <div class="detail-card">
+                                <h4>Sanctarium</h4>
+                                <ul>
+                                    <li>Tank, pelindung utama party.</li>
+                                    <li>Stat utama: VIT, FRD, WAG.</li>
+                                </ul>
+                            </div>
+                            <div class="detail-card">
+                                <h4>Dreadveil</h4>
+                                <ul>
+                                    <li>Pengguna Cantus destruktif dan teknik berisiko.</li>
+                                    <li>Stat utama: AVX, VIR, STR.</li>
+                                </ul>
+                            </div>
+                            <div class="detail-card">
+                                <h4>Tenebralis</h4>
+                                <ul>
+                                    <li>Class beastial, kekuatan liar dan tidak stabil.</li>
+                                    <li>Stat utama: STR, TMP, VIT.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="class-tab-content" id="tier-system">
+                        <h3>Sistem Tier</h3>
+                        <p>
+                            Tier adalah tingkatan eksistensial yang menentukan batas stats maksimum, akses teknik, serta slot Cantus Auralis yang bisa digunakan oleh karakter.
+                        </p>
+                        <ul>
+                            <li>Setiap kenaikan Tier memberikan bonus stats dan membuka potensi baru.</li>
+                            <li>Tier dapat diperoleh melalui pencapaian besar, Ujian Jiwa, atau peristiwa dunia (event).</li>
+                            <li>Tier juga memengaruhi status sosial karakter di dunia Neravelle.</li>
+                        </ul>
+                        <div class="tier-table">
+                            <table>
+                                <tr>
+                                    <th>Tier</th>
+                                    <th>Deskripsi</th>
+                                    <th>Slot Cantus</th>
+                                    <th>Catatan</th>
+                                </tr>
+                                <tr>
+                                    <td>Tier 11-A</td>
+                                    <td>Pemula / Awakened</td>
+                                    <td>1</td>
+                                    <td>Semua karakter baru mulai di tier ini.</td>
+                                </tr>
+                                <tr>
+                                    <td>Tier 8-A</td>
+                                    <td>Intermediate / Adept</td>
+                                    <td>2</td>
+                                    <td>Ujian jiwa pertama.</td>
+                                </tr>
+                                <tr>
+                                    <td>Tier 6-A</td>
+                                    <td>Advanced</td>
+                                    <td>3</td>
+                                    <td>Mulai mengakses teknik tingkat lanjut.</td>
+                                </tr>
+                                <tr>
+                                    <td>Tier 4-A</td>
+                                    <td>Expert / Master</td>
+                                    <td>4</td>
+                                    <td>Diakui sebagai ahli di bidangnya.</td>
+                                </tr>
+                                <tr>
+                                    <td>Tier 2-A</td>
+                                    <td>Legend / Transcendent</td>
+                                    <td>5</td>
+                                    <td>Sedikit karakter bisa mencapai tier ini.</td>
+                                </tr>
+                                <tr>
+                                    <td>Tier 1-A</td>
+                                    <td>Myth / Origin</td>
+                                    <td>6</td>
+                                    <td>Legenda, entitas nyaris dewa.</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </section>
-
-             <section id="races-section" class="content-section">
-                <h2>Ras di Neravelle</h2>
-                 <p>Setiap pemain memilih satu Ras Awal yang akan menentukan asal, kekuatan bawaan (Trait Rasial), dan jati diri karakter mereka. </p>
-                 <div class="accordion">
-                    <div class="accordion-item">
-                        <button class="accordion-header">Vaelthane (Human)</button>
-                        <div class="accordion-content">
-                            <p>Ras yang paling fleksibel dan penuh potensi, dijuluki "Umat Terberkati".  Kekuatan mereka terletak pada kemauan, daya adaptasi, dan tekad.  Trait: <strong>Will of Becoming</strong> (Memiliki satu slot Trait tambahan yang bisa diperoleh melalui pencapaian). </p>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <button class="accordion-header">Elyndar (Elf)</button>
-                        <div class="accordion-content">
-                            <p>Ras penjaga keindahan dan kebijaksanaan, hidup berdampingan dengan cahaya dan sihir.  Trait: <strong>Radiant Attunement</strong> (Pemahaman sihir Cahaya & Alam, bisa menyembuhkan luka kecil atau meredam sihir gelap 1x per hari). </p>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <button class="accordion-header">Tharnok (Dwarf)</button>
-                        <div class="accordion-content">
-                            <p>Berasal dari perut bumi, ahli menempa logam suci dan pembangun kota bawah tanah.  Trait: <strong>Stoneborn Resilience</strong> (Daya tahan fisik tinggi, kebal racun ringan, bisa mengurangi kerusakan fisik 1x per hari). </p>
-                        </div>
-                    </div>
-                    </div>
-            </section>
-            
-            <section id="worldbuilding-section" class="content-section">
-                <h2>Worldbuilding</h2>
-                <div class="placeholder-content">
-                    <p>Coming Soon</p>
-                    <span>Informasi mendalam mengenai sejarah, geografi, dan faksi-faksi di dunia Neravelle sedang dalam penyusunan.</span>
-                </div>
-            </section>
-
-        </main>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    </section>
