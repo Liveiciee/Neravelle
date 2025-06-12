@@ -155,7 +155,7 @@ body {
 }
 
 /* === Content Sections === */
-.content-section {
+.section, .content-section {
     background: rgba(25, 20, 60, 0.4);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -364,59 +364,6 @@ body {
     50% { box-shadow: 0 0 50px rgba(224, 224, 255, 0.7); }
 }
 
-/* === Responsive Design === */
-@media (max-width: 1024px) {
-    #sidebar {
-        transform: translateX(-100%);
-    }
-    
-    #sidebar.open {
-        transform: translateX(0);
-        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
-    }
-    
-    #main-content {
-        padding-left: 2rem;
-        margin-left: 0;
-        width: 100%;
-    }
-    
-    .neravelle-time {
-        font-size: 2.5rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .content-section {
-        padding: 1.5rem;
-    }
-    
-    .clock-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .section-title {
-        font-size: 1.8rem;
-    }
-}
-
-/* === Print Styles === */
-@media print {
-    body {
-        background: white !important;
-        color: black !important;
-    }
-    
-    #sidebar, .sky-container {
-        display: none;
-    }
-    
-    #main-content {
-        padding: 0;
-        margin: 0;
-        width: 100%;
-    }
-}
 /* --- TAB NAVIGATION --- */
 .tab-buttons, .rules-tab-buttons, .power-tab-buttons, .stats-tab-buttons, .class-tab-buttons {
     display: flex;
@@ -691,4 +638,58 @@ body {
     background: var(--purple-glow);
     color: #25103a;
     font-weight: 600;
+}
+
+/* === Responsive Design === */
+@media (max-width: 1024px) {
+    #sidebar {
+        transform: translateX(-100%);
+    }
+    
+    #sidebar.open {
+        transform: translateX(0);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    #main-content {
+        padding-left: 2rem;
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .neravelle-time {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-section {
+        padding: 1.5rem;
+    }
+    
+    .clock-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+}
+
+/* === Print Styles === */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    #sidebar, .sky-container {
+        display: none;
+    }
+    
+    #main-content {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
 }
