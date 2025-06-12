@@ -37,7 +37,7 @@ function calculateNeravelleDate(realWorldDate) {
         while (remainingDays > 0) {
             const daysInMonth = 35;
             if (nvDay + remainingDays > daysInMonth) {
-                remainingDays -= (daysInMonth - nvDay + 1);
+                remainingDays -= (daysInMonth - nvDay);
                 nvDay = 1;
                 nvMonthIndex++;
                 if (nvMonthIndex >= MONTHS.length) {
@@ -75,7 +75,7 @@ function calculateNeravelleDate(realWorldDate) {
     }
 
     // Hitung hari dalam seminggu Neravelle
-    let totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed;
+    let totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed + (typeof nvDayOffset === "number" ? nvDayOffset : 0);
     if (totalDaysFromBaseInNeravelle < 0) {
         // Mundur, index harus tetap positif
         const baseIndex = DAYS.indexOf(BASE_NV_DAY_NAME);
