@@ -141,14 +141,13 @@ body {
 
 .star {
     position: absolute;
-    /* background-color: white; */ /* dihapus */
     border-radius: 50%;
     animation: twinkle 5s infinite alternate;
     user-select: none;
     pointer-events: none;
-    font-family: 'Orbitron', 'Cormorant Garamond', serif;
-    /* Warna, fontSize, textShadow diatur dari JS */
-    transition: color 1s, text-shadow 1s;
+    transition: background 1s, box-shadow 1s, opacity 1.5s, width 1.5s, height 1.5s;
+    z-index: -3;
+    /* width, height, background, box-shadow, opacity diatur lewat JS */
 }
 
 .nebula {
