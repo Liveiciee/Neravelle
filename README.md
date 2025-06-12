@@ -22,7 +22,7 @@ Neravelle Fantasy Calendar adalah web interaktif yang menampilkan sistem waktu d
 
 ## 🖼️ Preview
 
-![Preview Kalender Neravelle](https://imgur.com/a/CmyMwYe)  
+![Preview Kalender Neravelle](https://photos.app.goo.gl/fNxk4wiRsoXMJhmH7)  
 *Contoh tampilan utama aplikasi*
 
 ---
