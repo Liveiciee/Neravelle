@@ -187,7 +187,7 @@ function getMoonPhase(day) {
     return "crescent";
 }
 
-// Sky animation with optimized DOM operations
+// [PERBAIKAN] Fungsi updateSkyAnimation dengan class-based
 function updateSkyAnimation(nvHours, nvDay) {
     const sunMoon = domCache.sunMoon();
     const stars = domCache.stars();
@@ -216,7 +216,7 @@ function updateSkyAnimation(nvHours, nvDay) {
         celestialY = 20 + Math.sin((nightProgress / 10) * Math.PI) * 50;
     }
     
-    // Batch style updates
+    // Update sun/moon position
     Object.assign(sunMoon.style, {
         left: `${celestialX}%`,
         top: `${celestialY}%`,
@@ -224,23 +224,26 @@ function updateSkyAnimation(nvHours, nvDay) {
         height: `${CELESTIAL_CONFIG.size}px`
     });
     
+    // Update body class based on time
+    body.classList.remove('night-sky', 'dawn-sky', 'day-sky', 'sunset-sky');
+    
     if (isNight) {
         const moonPhase = getMoonPhase(nvDay);
         sunMoon.className = `sun-moon moon-${moonPhase}`;
         sunMoon.dataset.isSun = "false";
         stars.style.opacity = '1';
-        body.style.background = 'var(--purple-dark)';
+        body.classList.add('night-sky');
     } else {
         sunMoon.className = "sun-moon";
         sunMoon.dataset.isSun = "true";
         stars.style.opacity = '0';
         
         if (isDawn) {
-            body.style.background = 'var(--dawn-sky)';
+            body.classList.add('dawn-sky');
         } else if (isDay) {
-            body.style.background = 'var(--day-sky)';
+            body.classList.add('day-sky');
         } else if (isSunset) {
-            body.style.background = 'var(--sunset-sky)';
+            body.classList.add('sunset-sky');
         }
     }
 }
@@ -430,25 +433,48 @@ function initNavigation() {
     });
 }
 
-// ... Kalender, sky, birthday converter, sidebar, accordion, navigation (tidak berubah dari versi sebelumnya) ...
-
-// Helper: Tabs handler
+// [PERBAIKAN] Fungsi initTabs yang lebih robust
 function initTabs(tabClass, buttonClass, contentClass) {
     document.querySelectorAll(`.${tabClass}`).forEach(tabContainer => {
         const buttons = tabContainer.querySelectorAll(`.${buttonClass}`);
         const contents = tabContainer.querySelectorAll(`.${contentClass}`);
+        
         buttons.forEach(btn => {
             btn.addEventListener('click', () => {
+                // Nonaktifkan semua button dan content
                 buttons.forEach(b => b.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
+                
+                // Aktifkan button yang diklik
                 btn.classList.add('active');
-                const target = btn.dataset[buttonClass.replace('-button', 'Tab')];
+                
+                // Cari target content berdasarkan data attribute
+                let target = null;
+                const dataAttrs = Object.keys(btn.dataset);
+                
+                for (let i = 0; i < dataAttrs.length; i++) {
+                    const attr = dataAttrs[i];
+                    if (attr.endsWith('Tab')) {
+                        target = btn.dataset[attr];
+                        break;
+                    }
+                }
+                
+                // Aktifkan content target
                 if (target) {
                     const el = tabContainer.querySelector(`#${target}`);
                     if (el) el.classList.add('active');
                 }
             });
         });
+    });
+}
+
+// [PERBAIKAN] Fungsi untuk menginisialisasi stat bars
+function initStatBars() {
+    document.querySelectorAll('.stat-bar[data-value]').forEach(bar => {
+        const value = bar.getAttribute('data-value');
+        bar.style.setProperty('--value', value);
     });
 }
 
@@ -481,7 +507,7 @@ function initSearch() {
     });
 }
 
-// Init all
+// [PERBAIKAN] Init semua komponen
 function init() {
     createStars();
     setInterval(debouncedUpdateClock, 500);
@@ -490,14 +516,19 @@ function init() {
     initSidebar();
     initAccordion();
     initNavigation();
+    
+    // Inisialisasi semua jenis tab
     initTabs('info-tabs', 'tab-button', 'tab-content');
     initTabs('rules-tabs', 'rules-tab-button', 'rules-tab-content');
     initTabs('power-system-tabs', 'power-tab-button', 'power-tab-content');
     initTabs('stats-tabs', 'stats-tab-button', 'stats-tab-content');
     initTabs('class-tabs', 'class-tab-button', 'class-tab-content');
+    
     initSidebarSubmenu();
     initSearch();
-    window.addEventListener('resize', () => {
+    initStatBars(); // [BARU] Inisialisasi stat bars
+    
+        window.addEventListener('resize', () => {
         const sidebar = domCache.sidebar();
         if (window.innerWidth > 1024 && sidebar) {
             sidebar.classList.remove('open');
@@ -509,4 +540,4 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
     init();
-                                                      }
+}
