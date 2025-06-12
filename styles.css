@@ -102,10 +102,11 @@ body {
   z-index: 10;
 }
 
-.main-wrapper, #main-content {
-    max-width: 1040px;
-    margin: 0 auto;
-    width: 100%;
+.main-content {
+  position: relative;
+  z-index: 5;
+  padding-top: 1rem;
+}
 
 /* === TYPOGRAPHY === */
 h1, h2, h3, h4, h5, h6 {
@@ -424,26 +425,39 @@ a:hover {
   line-height: 1.8;
 }
 
-ul, ol {
-    list-style: none;
-    padding-left: 0;
-    margin-left: 0;
+.section ul, .section ol {
+  padding-left: 2rem;
+  margin-bottom: 2rem;
 }
-ul li, ol li {
-    position: relative;
-    padding-left: 1.7em;
-    margin-bottom: 0.5em;
+
+.section ul li, .section ol li {
+  margin-bottom: 0.8rem;
+  position: relative;
+  padding-left: 1.5rem;
 }
-ul li::before, ol li::before {
-    content: '✦';
-    position: absolute;
-    left: 0;
-    color: var(--purple-glow);
-    font-size: 1.1em;
-    line-height: 1;
-    top: 0.1em;
-    font-family: inherit;
-    font-weight: bold;
+
+.section ul li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--nebula-pink);
+  font-size: 0.8rem;
+}
+
+.section ol {
+  counter-reset: item;
+}
+
+.section ol li {
+  counter-increment: item;
+}
+
+.section ol li::before {
+  content: counter(item) ".";
+  position: absolute;
+  left: 0;
+  color: var(--nebula-pink);
+  font-weight: bold;
 }
 
 /* === SPECIAL TEXT STYLES === */
@@ -463,19 +477,19 @@ ul li::before, ol li::before {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -10;
+  width: 100%;
+  height: 100%;
+  z-index: -20;
   overflow: hidden;
   pointer-events: none;
 }
 
 .sun-moon {
-  position: fixed !important;
+  position: absolute;
   width: var(--sun-size);
   height: var(--sun-size);
   border-radius: 50%;
-  z-index: -5;
+  z-index: -15;
   transform: translate(-50%, -50%);
   transition: all var(--transition-slow);
   will-change: transform, box-shadow;
