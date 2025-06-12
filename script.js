@@ -75,7 +75,7 @@ function calculateNeravelleDate(realWorldDate) {
     }
 
     // Hitung hari dalam seminggu Neravelle
-    let totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed + (typeof nvDayOffset === "number" ? nvDayOffset : 1);
+    let totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed + (typeof nvDayOffset === "number" ? nvDayOffset : 2);
     if (totalDaysFromBaseInNeravelle < 0) {
         // Mundur, index harus tetap positif
         const baseIndex = DAYS.indexOf(BASE_NV_DAY_NAME);
