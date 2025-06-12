@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalender Surya Neravelle</title>
+    <title>Lobi Dunia Neravelle</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Lewati ke konten utama</a>
-    
     <!-- Sky Animation Elements -->
     <div class="sky-container" aria-hidden="true">
         <div class="sun-moon" id="sunMoon"></div>
@@ -18,102 +18,265 @@
         <div class="stars" id="stars"></div>
     </div>
 
-    <div class="main-wrapper">
-        <!-- Sidebar (Jika ada navigasi, bisa dipindah ke sini) -->
-        <!--
-        <nav id="sidebar" aria-label="Navigasi utama" tabindex="-1" hidden>
-            <!-- Sidebar content (future expansion) --
-        </nav>
-        -->
+    <button id="menu-toggle" aria-label="Buka menu">
+        <svg viewBox="0 0 100 80" width="30" height="30">
+          <rect width="100" height="15" rx="8"></rect>
+          <rect y="30" width="100" height="15" rx="8"></rect>
+          <rect y="60" width="100" height="15" rx="8"></rect>
+        </svg>
+    </button>
 
-        <main id="main-content" tabindex="-1">
-            <header class="header" role="banner">
-                <div class="header-decoration" aria-hidden="true">╔════*.·:·.✧ ✦ ✧.·:·.*════╗</div>
-                <h1 class="title">NERAVELLE FANTASY</h1>
-                <div class="header-decoration" aria-hidden="true">╚════*.·:·.✧ ✦ ✧.·:·.*════╝</div>
-                <div class="subtitle">Kalender Surya Neravelle</div>
-            </header>
-            
-            <div class="divider" aria-hidden="true"></div>
-            
-            <section class="clock-container" aria-label="Waktu & Konversi">
-                <section class="time-card" aria-labelledby="label-neravelle">
-                    <div class="time-label" id="label-neravelle">Waktu Neravelle</div>
-                    <div class="neravelle-time" id="neravelleTime">00:00:00</div>
-                    <div class="neravelle-date" id="neravelleDate">Elarion, 1 Luthenya 1045 KSN</div>
-                    <div class="day-description" id="dayDescription"></div>
-                </section>
-                <section class="time-card" aria-labelledby="label-nyata">
-                    <div class="time-label" id="label-nyata">Waktu Nyata</div>
-                    <div class="real-time" id="realWorldTime">00:00:00</div>
-                    <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
-                    <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
-                </section>
-                <section class="time-card" aria-labelledby="label-ultah">
-                    <div class="time-label" id="label-ultah">Konversi Ulang Tahun</div>
-                    <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;color:var(--text-secondary);font-weight:600;">
-                        Tanggal ulang tahun
-                    </label>
-                    <input 
-                        type="date" 
-                        id="birthdayInput"
-                        class="birthday-input" 
-                        placeholder="Pilih tanggal lahirmu"
-                        autocomplete="bday"
-                    >
-                    <div id="birthdayOutput"></div>
-                </section>
-            </section>
-            
-            <section class="calendar-info" aria-labelledby="judul-kalender">
-                <h2 class="section-title" id="judul-kalender">Kalender Surya Neravelle</h2>
-                <p><em>Di dunia magis yang penuh cahaya dan keajaiban ini, waktu mengalir bukan sekadar detik yang lewat, melainkan bagian dari siklus suci yang ditentukan oleh bintang, roh langit, dan ke[...]</em></p>
-                
-                <h3 class="section-title">Struktur Dasar Kalender</h3>
-                <ul style="list-style-type: none; padding-left: 20px;">
-                    <li>➣ 1 Minggu terdiri dari 7 Hari</li>
-                    <li>➣ 1 Bulan terdiri dari 5 Minggu (35 Hari)</li>
-                    <li>➣ 1 Tahun terdiri dari 12 Bulan</li>
-                    <li>➣ Total dalam 1 Tahun: 420 Hari</li>
+    <div class="main-wrapper">
+        <aside id="sidebar">
+            <div class="sidebar-header">
+                <h3>NERAVELLE FANTASY</h3>
+                <p>Ensiklopedia Dunia</p>
+            </div>
+            <a href="https://chat.whatsapp.com/" target="_blank" class="cta-button">Gabung Komunitas</a>
+            <nav>
+                <ul>
+                    <li><a href="#welcome-section" class="nav-link">Beranda & Kalender</a></li>
+                    <li><a href="#rules-section" class="nav-link">Peraturan Komunitas</a></li>
+                    <li><a href="#power-system-section" class="nav-link">Power System</a></li>
+                    <li><a href="#stats-system-section" class="nav-link">Stats System</a></li>
+                    <li><a href="#class-system-section" class="nav-link">Class System</a></li>
+                    <li><a href="#races-section" class="nav-link">Ras di Neravelle</a></li>
+                    <li><a href="#traits-section" class="nav-link">Traits System</a></li>
+                    <li><a href="#titles-section" class="nav-link">Titles System</a></li>
+                    <li><a href="#job-section" class="nav-link">Job & Profesi</a></li>
+                    <li><a href="#inventory-section" class="nav-link">Inventory</a></li>
+                    <li><a href="#financial-section" class="nav-link">Sistem Keuangan</a></li>
+                    <li><a href="#rp-guide-section" class="nav-link">Panduan Roleplay</a></li>
+                    <li><a href="#worldbuilding-section" class="nav-link">Worldbuilding</a></li>
                 </ul>
-                
-                <h3 class="section-title">Nama-nama Hari</h3>
-                <div style="columns: 1; column-gap: 40px;">
-                    <p><strong>Elarion</strong> ⌇ Hari cahaya awal. Melambangkan harapan dan permulaan.</p>
-                    <p><strong>Velmora</strong> ⌇ Hari angin dan bisikan. Hari untuk merenung dan menerima ilham.</p>
-                    <p><strong>Tarsilune</strong> ⌇ Hari bulan jatuh. Menggambarkan keindahan malam dan kelembutan hati.</p>
-                    <p><strong>Dravendei</strong> ⌇ Hari kekuatan. Didedikasikan untuk semangat, kerja keras, dan keberanian.</p>
-                    <p><strong>Esmiradyn</strong> ⌇ Hari kristal dan sihir. Hari para penyihir dan pemurnian jiwa.</p>
-                    <p><strong>Lapliel</strong> ⌇ Hari langit dan roh. Digunakan untuk berdoa, bermeditasi, dan terhubung dengan kekuatan luhur.</p>
-                    <p><strong>Noxverra</strong> ⌇ Hari bintang dan malam hidup. Hari perayaan, kenangan, dan malam penuh makna.</p>
+            </nav>
+            <footer class="sidebar-footer">
+                <p>© Neravelle Fantasy Team</p>
+            </footer>
+        </aside>
+
+        <main id="main-content">
+            <section id="welcome-section" class="content-section">
+                <div class="header">
+                    <div class="header-decoration">╔════*.·:·.✧ ✦ ✧.·:·.*════╗</div>
+                    <h1 class="title">KALENDER SURYA NERAVELLE</h1>
+                    <div class="header-decoration">╚════*.·:·.✧ ✦ ✧.·:·.*════╝</div>
                 </div>
-                
-                <h3 class="section-title">Nama-nama Bulan</h3>
-                <div style="columns: 2; column-gap: 40px;">
-                    <p><strong>1. Luthenya</strong> ⌇ Bulan bunga mekar. Menandai awal musim semi dan kelahiran baru.</p>
-                    <p><strong>2. Caelurest</strong> ⌇ Bulan langit jernih. Waktu kedamaian dan penyembuhan.</p>
-                    <p><strong>3. Virellan</strong> ⌇ Bulan kehidupan hijau. Simbol pertumbuhan, cinta, dan keberkahan.</p>
-                    <p><strong>4. Emberleth</strong> ⌇ Bulan bara suci. Awal musim panas, gairah dan kekuatan membara.</p>
-                    <p><strong>5. Solmareth</strong> ⌇ Bulan ombak matahari. Waktu petualangan dan pelayaran besar.</p>
-                    <p><strong>6. Ashdelyr</strong> ⌇ Bulan bayangan terang. Awal musim gugur, masa renungan dan pertarungan batin.</p>
-                    <p><strong>7. Zephandor</strong> ⌇ Bulan angin ilahi. Hari-hari penuh mimpi dan angan roh langit.</p>
-                    <p><strong>8. Thundareen</strong> ⌇ Bulan gemuruh suci. Saat badai dan perubahan besar datang.</p>
-                    <p><strong>9. Mystralis</strong> ⌇ Bulan kabut sakral. Musim ketika sihir meresap ke seluruh alam.</p>
-                    <p><strong>10. Velouren</strong> ⌇ Bulan kesedihan indah. Waktu nostalgia, perpisahan, dan refleksi.</p>
-                    <p><strong>11. Aurevanthe</strong> ⌇ Bulan emas malam. Puncak kreativitas dan seni.</p>
-                    <p><strong>12. Nyxoria</strong> ⌇ Bulan roh abadi. Bulan penutup tahun, ketika semua jiwa kembali pada cahaya.</p>
+                <div class="clock-container">
+                    <div class="time-card">
+                        <div class="time-label">Waktu Neravelle</div>
+                        <div class="neravelle-time" id="neravelleTime">00:00:00</div>
+                        <div class="neravelle-date" id="neravelleDate">Elarion, 1 Luthenya 1045 KSN</div>
+                        <div class="day-description" id="dayDescription"></div>
+                    </div>
+                    <div class="time-card">
+                        <div class="time-label">Waktu Nyata</div>
+                        <div class="real-time" id="realWorldTime">00:00:00</div>
+                        <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
+                        <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
+                    </div>
+                    <div class="time-card">
+                        <div class="time-label">Konversi Ulang Tahun</div>
+                        <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;color:var(--text-secondary);font-weight:600;">
+                            Tanggal ulang tahun
+                        </label>
+                        <input type="date" id="birthdayInput" class="birthday-input" placeholder="Pilih tanggal lahirmu" autocomplete="bday">
+                        <div id="birthdayOutput"></div>
+                    </div>
                 </div>
-                
-                <h3 class="section-title">Makna Simbolik</h3>
-                <p><em>Setiap hari dan bulan dalam kalender ini bukan hanya unit waktu, tetapi juga mengandung makna spiritual, budaya, dan historis. Warga Neravelle percaya bahwa setiap jiwa memiliki har[...]</em></p>
+            </section>
+
+            <section id="rules-section" class="content-section">
+                <h2>Peraturan Komunitas</h2>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header">Peraturan OOC (Out of Character)</button>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>Dilarang keras melakukan SARA, ujaran kebencian, atau diskriminasi terhadap sesama anggota. </li>
+                                <li>Selalu bersikap sopan dan saling menghargai di luar peran (OOC). </li>
+                                <li>Jangan menyebarkan informasi pribadi orang lain tanpa izin. </li>
+                                <li>Gunakan (OOC) jika ingin berbicara di luar karakter dalam grup IC. </li>
+                                <li>Tidak diperkenankan spam pesan, stiker, atau gambar yang tidak relevan di grup roleplay. </li>
+                                <li>Gunakan jalur pribadi atau hubungi admin bila ada masalah. </li>
+                                <li>Perselisihan antar pemain harus diselesaikan secara dewasa dan tidak dibawa ke dalam RP. </li>
+                                <li>Jangan menuntut balasan cepat. </li>
+                                <li>Tidak ada kasta sosial OOC. </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Peraturan IC (In Character)</button>
+                        <div class="accordion-content">
+                             <ul>
+                                <li>Dilarang melakukan godmodding (mengontrol karakter orang lain tanpa izin). </li>
+                                <li>Hindari powerplaying (membuat karakter terlalu sempurna/OP tanpa kelemahan). </li>
+                                <li>Jangan metagaming (menggunakan informasi OOC untuk keuntungan IC). </li>
+                                <li>Roleplay harus sesuai dengan setting dunia Neravelle. </li>
+                                <li>Karakter yang mati hanya jika disetujui oleh pemiliknya (kecuali event khusus dan kehendak Narator). </li>
+                                <li>Waktu IC disesuaikan dengan waktu event atau timeline dunia Neravelle. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="power-system-section" class="content-section">
+                 <h2>Power System: Virelai Auralis</h2>
+                 <p>Virelai Auralis adalah seni kuno pengendalian Aura Magis, energi tak kasatmata yang mengalir dari dalam tubuh maupun dari lingkungan sekitar.  Aura ini menjadi fondasi dari segala bentuk kekuatan di dunia Neravelle. </p>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header">Dua Sumber Aura</button>
+                        <div class="accordion-content">
+                            <p>Setiap karakter hanya dapat memilih salah satu dari dua jenis Auralis sebagai sumber Aura Magis mereka. </p>
+                            <h4>Aura Magis Alam (Auralis Naturae)</h4>
+                            <p>Aura yang berasal dari energi dunia seperti pepohonan, angin, api, dan sungai.  Penggunanya disebut <strong>Naturalis</strong>.  Kekuatan ini cenderung eksternal, tidak stabil, namun memiliki daya ledak yang luas. </p>
+                            <h4>Aura Magis Spiritual (Auralis Anima)</h4>
+                            <p>Aura yang berasal dari dalam diri seseorang, merupakan pantulan dari jiwa, emosi, dan kehendak.  Penggunanya disebut <strong>Animant</strong>.  Kekuatan ini lebih internal, personal, terkontrol, dan unik bagi penggunanya. </p>
+                        </div>
+                    </div>
+                     <div class="accordion-item">
+                        <button class="accordion-header">5 Tahap Penguasaan Virelai Auralis</button>
+                        <div class="accordion-content">
+                            <p>Terdapat 5 Tahap Fundamental dalam penguasaan Virelai Auralis yang harus dipahami setiap pemain. </p>
+                            <ul>
+                                <li><strong>Exhale (Pelepasan):</strong> Proses menyebarkan Aura keluar dari tubuh. </li>
+                                <li><strong>Veil (Selubung):</strong> Menyelubungi bagian tubuh tertentu dengan Aura untuk bertahan atau menyerang. </li>
+                                <li><strong>Pulse (Denyut):</strong> Melepaskan aura dalam bentuk gelombang atau getaran magis. </li>
+                                <li><strong>Weave (Tenun):</strong> Menggabungkan aura dengan objek, senjata, atau mantra. </li>
+                                <li><strong>Trace (Jejak):</strong> Menghubungkan aura ke aura lain untuk membaca, melacak, atau mengganggu. </li>
+                            </ul>
+                        </div>
+                    </div>
+                     <div class="accordion-item">
+                        <button class="accordion-header">Spesialisasi (Affinity)</button>
+                        <div class="accordion-content">
+                            <p>Setelah menguasai 5 tahap fundamental, setiap individu akan menentukan Jalur Aura (Affinity) mereka. Penentuan ini melalui keputusan Admin. </p>
+                            <ul>
+                                <li><strong>Arkhant (Penyerapan):</strong> Menyerap energi dari objek atau musuh. </li>
+                                <li><strong>Veltarius (Manipulasi):</strong> Memanipulasi objek, elemen, atau makhluk hidup. </li>
+                                <li><strong>Zenair (Proyeksi):</strong> Memancarkan aura sebagai tembakan, sinar, atau ledakan. </li>
+                                <li><strong>Gaevan (Reinforcement):</strong> Memperkuat tubuh, refleks, dan serangan. </li>
+                                <li><strong>Eidrix (Transformasi):</strong> Mengubah bentuk atau struktur biologis diri sendiri. </li>
+                                <li><strong>Myrrdin (Manifestasi):</strong> Mewujudkan aura menjadi bentuk fisik terbatas seperti roh atau senjata. </li>
+                            </ul>
+                        </div>
+                    </div>
+                     <div class="accordion-item">
+                        <button class="accordion-header">Cantus Auralis (Lagu Jiwa)</button>
+                        <div class="accordion-content">
+                            <p>Cantus Auralis adalah mantra spiritual pribadi yang unik, lahir dari resonansi jiwa seseorang terhadap Virelai Aura.  Ia tidak bisa disalin atau diwariskan. </p>
+                             <ul>
+                                <li>Setiap individu memiliki maksimal 6 Slot Cantus Auralis. </li>
+                                <li>Saat lahir, seseorang otomatis memiliki 1 Cantus Auralis Pertama. </li>
+                                <li>Pembukaan slot berikutnya memerlukan *Ujian Jiwa*. </li>
+                                <li>Sumber kekuatannya berasal dari puncak emosi atau keyakinan jiwa. </li>
+                                <li>Mengonsumsi Essence (Vir) dalam jumlah besar, rata-rata 1.000-2.000 Vir per teknik. </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Drain of Essence (Batas Kekuatan)</button>
+                        <div class="accordion-content">
+                            <p>Mekanisme yang mengatur batas pemakaian Aura, setara dengan "mana" atau "chi".  Setiap makhluk memiliki <strong>Essentia Core</strong> yang terkuras saat menggunakan aura.  Penggunaan berlebih dapat menyebabkan kehilangan kesadaran atau kerusakan jiwa.  Diukur dalam satuan <strong>Vir</strong>. </p>
+                        </div>
+                    </div>
+                </div>
             </section>
             
-            <footer class="footer" role="contentinfo">
-                <p>© NeraVelle Fantasy Team</p>
-            </footer>
+            <section id="stats-system-section" class="content-section">
+                <h2>Stats System</h2>
+                <p>Stats adalah nilai numerik yang mewakili kapasitas fisik, spiritual, dan magis seorang individu.  Poin Stats diperoleh melalui quest, event, atau kenaikan Tier untuk didistribusikan secara bebas. </p>
+                <div class="accordion">
+                     <div class="accordion-item">
+                        <button class="accordion-header">Kategori Stats</button>
+                        <div class="accordion-content">
+                            <h4>I. GENERAL STATS </h4>
+                            <ul>
+                                <li><strong>VITALIS (VIT):</strong> Menentukan HP dan ketahanan hidup.  Hanya bisa ditingkatkan melalui Tier. </li>
+                                <li><strong>DRAIN OF ESSENCE (VIR):</strong> Kapasitas energi aura.  Hanya bisa ditingkatkan melalui Tier. </li>
+                                <li><strong>AETHERMIND (AEM):</strong> Kapasitas fokus, akurasi, dan kecepatan aktivasi Cantus. </li>
+                                <li><strong>SPIRALIS (SPI):</strong> Hubungan spiritual dengan dunia, memungkinkan interaksi Virelai. </li>
+                                <li><strong>CELERIS (CEL):</strong> Kecepatan gerak, kelincahan, dan casting speed. </li>
+                            </ul>
+                            <h4>II. DEFENSE STATS </h4>
+                             <ul>
+                                <li><strong>FERRUS GUARD (FRD):</strong> Mengurangi damage serangan fisik/langsung. </li>
+                                <li><strong>NULLWEAVE MANTEL (NWM):</strong> Menyerap serangan dari Cantus Auralis/sihir. </li>
+                                <li><strong>WARDSOUL AEGIS (WAG):</strong> Menahan efek mental seperti Fear, Confusion, dan Mind Control. </li>
+                            </ul>
+                            <h4>III. DAMAGE STATS </h4>
+                            <ul>
+                                <li><strong>STRATON (STR):</strong> Menambah kekuatan serangan fisik jarak dekat. </li>
+                                <li><strong>AURAVEX (AVX):</strong> Meningkatkan damage dari Cantus Auralis. </li>
+                                <li><strong>TEMPUSGALE (TMP):</strong> Menambah kecepatan serangan dan jumlah hit per second. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="class-system-section" class="content-section">
+                <h2>Class System</h2>
+                <p>Class adalah manifestasi konsep eksistensial yang membentuk gaya bertarung, kemampuan, dan jalan spiritual karakter.  Ia menentukan Starting Stats dan preferensi Cantus Auralis. </p>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header">Daftar Class</button>
+                        <div class="accordion-content">
+                            <p>Setiap Class memiliki total stat dasar 60 poin yang didistribusikan secara unik. </p>
+                            <ul>
+                                <li><strong>Valeforge:</strong> Pendekar murni, teknik dan keberanian. </li>
+                                <li><strong>Aeronveil:</strong> Penombak lincah, menguasai medan vertikal. </li>
+                                <li><strong>Noctveil:</strong> Assassin, mengandalkan keheningan dan serangan mendadak. </li>
+                                <li><strong>Runesoul:</strong> Pemancar sihir, ahli Cantus jarak jauh. </li>
+                                <li><strong>Arcallion:</strong> Archer, penembak ulung dari kejauhan. </li>
+                                <li><strong>Gravehold:</strong> Berserker brutal, bertarung dengan insting. </li>
+                                <li><strong>Phantomglade:</strong> Pengendara, ahli mobilitas dengan tunggangan roh. </li>
+                                <li><strong>Sanctarium:</strong> Guardian, tank yang melindungi sekutu. </li>
+                                <li><strong>Dreadveil:</strong> Pendendam, pengguna Cantus Auralis yang destruktif. </li>
+                                <li><strong>Tenebralis:</strong> Beast, representasi kejatuhan dan kekacauan. </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <section id="races-section" class="content-section">
+                <h2>Ras di Neravelle</h2>
+                 <p>Setiap pemain memilih satu Ras Awal yang akan menentukan asal, kekuatan bawaan (Trait Rasial), dan jati diri karakter mereka. </p>
+                 <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header">Vaelthane (Human)</button>
+                        <div class="accordion-content">
+                            <p>Ras yang paling fleksibel dan penuh potensi, dijuluki "Umat Terberkati".  Kekuatan mereka terletak pada kemauan, daya adaptasi, dan tekad.  Trait: <strong>Will of Becoming</strong> (Memiliki satu slot Trait tambahan yang bisa diperoleh melalui pencapaian). </p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Elyndar (Elf)</button>
+                        <div class="accordion-content">
+                            <p>Ras penjaga keindahan dan kebijaksanaan, hidup berdampingan dengan cahaya dan sihir.  Trait: <strong>Radiant Attunement</strong> (Pemahaman sihir Cahaya & Alam, bisa menyembuhkan luka kecil atau meredam sihir gelap 1x per hari). </p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">Tharnok (Dwarf)</button>
+                        <div class="accordion-content">
+                            <p>Berasal dari perut bumi, ahli menempa logam suci dan pembangun kota bawah tanah.  Trait: <strong>Stoneborn Resilience</strong> (Daya tahan fisik tinggi, kebal racun ringan, bisa mengurangi kerusakan fisik 1x per hari). </p>
+                        </div>
+                    </div>
+                    </div>
+            </section>
+            
+            <section id="worldbuilding-section" class="content-section">
+                <h2>Worldbuilding</h2>
+                <div class="placeholder-content">
+                    <p>Coming Soon</p>
+                    <span>Informasi mendalam mengenai sejarah, geografi, dan faksi-faksi di dunia Neravelle sedang dalam penyusunan.</span>
+                </div>
+            </section>
+
         </main>
     </div>
 
     <script src="script.js"></script>
 </body>
-    </html>
+</html>
