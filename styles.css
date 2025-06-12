@@ -611,3 +611,84 @@ body {
         padding: 0.8em 0.4em;
     }
     }
+
+/* === KONDISI LANGIT & PERBAIKAN STYLES === */
+
+/* [PERBAIKAN] Class untuk berbagai kondisi langit */
+.night-sky {
+    background: var(--purple-dark);
+}
+
+.dawn-sky {
+    background: var(--dawn-sky);
+}
+
+.day-sky {
+    background: var(--day-sky);
+}
+
+.sunset-sky {
+    background: var(--sunset-sky);
+}
+
+/* [PERBAIKAN] Style untuk stat bars */
+.stat-bar[data-value] {
+    position: relative;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(157, 78, 221, 0.16);
+    margin: 0.6em 0 0.9em 0;
+    overflow: hidden;
+}
+
+.stat-bar[data-value]::before {
+    content: '';
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    background: var(--purple-light);
+    width: calc(var(--value, 0) * 1%);
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: width 0.5s ease;
+}
+
+/* [PERBAIKAN] Style untuk submenu yang terbuka */
+.has-submenu.open > .submenu {
+    display: block;
+    max-height: 500px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.submenu {
+    display: none;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+    padding-left: 1.5rem;
+}
+
+.has-submenu > a > .fa-chevron-down {
+    transition: transform 0.3s ease;
+    margin-left: auto;
+    padding-left: 10px;
+}
+
+.has-submenu.open > a > .fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+/* [PERBAIKAN] Style untuk tab aktif */
+.tab-button.active,
+.rules-tab-button.active,
+.power-tab-button.active,
+.stats-tab-button.active,
+.class-tab-button.active {
+    background: var(--purple-glow);
+    color: #25103a;
+    font-weight: 600;
+}
