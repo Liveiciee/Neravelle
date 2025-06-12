@@ -1,55 +1,100 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Neravelle System</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalender Surya Neravelle</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="sky-container" aria-hidden="true">
-  <div class="sun-moon" id="sunMoon"></div>
-  <div class="stars" id="stars"></div>
-  </div>
-  <a href="#main-content" class="skip-link">Lewati ke konten utama</a>
-  <div class="main-wrapper">
-    <main id="main-content" tabindex="-1">
-      <header>
-        <h1>Neravelle Fantasy</h1>
-      </header>
+    <!-- Sky Animation Elements -->
+    <div class="sky-container">
+        <div class="sun-moon" id="sunMoon"></div>
+        <div class="sunset-glow" id="sunsetGlow"></div>
+        <div class="dawn-glow" id="dawnGlow"></div>
+        <div class="stars" id="stars"></div>
+    </div>
 
-      
-      <section class="clock-container" aria-label="Waktu & Konversi">
-        <section class="time-card" aria-labelledby="label-neravelle">
-          <div class="time-label" id="label-neravelle">Waktu Neravelle</div>
-          <div class="neravelle-time" id="neravelleTime">00:00:00</div>
-          <div class="neravelle-date" id="neravelleDate">Elarion, 1 Luthenya 1045 KSN</div>
-          <div class="day-description" id="dayDescription"></div>
-        </section>
-        <section class="time-card" aria-labelledby="label-nyata">
-          <div class="time-label" id="label-nyata">Waktu Nyata</div>
-          <div class="real-time" id="realWorldTime">00:00:00</div>
-          <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
-          <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
-        </section>
-        <section class="time-card" aria-labelledby="label-ultah">
-          <div class="time-label" id="label-ultah">Konversi Ulang Tahun</div>
-          <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;color:var(--text-secondary);font-weight:600;">
-            Tanggal ulang tahun
-          </label>
-          <input 
-            type="date" 
-            id="birthdayInput"
-            class="birthday-input" 
-            placeholder="Pilih tanggal lahirmu"
-            autocomplete="bday"
-          >
-          <div id="birthdayOutput"></div>
-        </section>
-      </section>
-      
-      
+    <div class="container">
+        <div class="header">
+            <div class="header-decoration">╔════*.·:·.✧ ✦ ✧.·:·.*════╗</div>
+            <h1 class="title">NERAVELLE FANTASY</h1>
+            <div class="header-decoration">╚════*.·:·.✧ ✦ ✧.·:·.*════╝</div>
+            <div class="subtitle">Kalender Surya Neravelle</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="clock-container">
+            <div class="time-card">
+                <div class="time-label">Waktu Neravelle</div>
+                <div class="neravelle-time" id="neravelleTime">00:00:00</div>
+                <div class="neravelle-date" id="neravelleDate">Elarion, 1 Luthenya 1045 KSN</div>
+                <div class="day-description" id="dayDescription"></div>
+            </div>
+            <div class="time-card">
+                <div class="time-label">Waktu Nyata</div>
+                <div class="real-time" id="realWorldTime">00:00:00</div>
+                <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
+                <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
+            </div>
+            <div class="time-card">
+    <div class="time-label">Konversi Ulang Tahun</div>
+    <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;color:var(--text-secondary);font-weight:600;">
+        Tanggal ulang tahun
+    </label>
+    <input 
+        type="date" 
+        id="birthdayInput"
+        class="birthday-input" 
+        placeholder="Pilih tanggal lahirmu"
+        autocomplete="bday"
+    >
+    <div id="birthdayOutput"></div>
+            </div>
+        </div>
+        <div class="calendar-info">
+            <h2 class="section-title">Kalender Surya Neravelle</h2>
+            <p><em>Di dunia magis yang penuh cahaya dan keajaiban ini, waktu mengalir bukan sekadar detik yang lewat, melainkan bagian dari siklus suci yang ditentukan oleh bintang, roh langit, dan kehendak alam semesta. Maka dari itu, lahirlah sistem penanggalan kuno yang disebut sebagai <strong>Kalender Surya Neravelle</strong>.</em></p>
+            <h3 class="section-title">Struktur Dasar Kalender</h3>
+            <ul style="list-style-type: none; padding-left: 20px;">
+                <li>➣ 1 Minggu terdiri dari 7 Hari</li>
+                <li>➣ 1 Bulan terdiri dari 5 Minggu (35 Hari)</li>
+                <li>➣ 1 Tahun terdiri dari 12 Bulan</li>
+                <li>➣ Total dalam 1 Tahun: 420 Hari</li>
+            </ul>
+            
+            <h3 class="section-title">Nama-nama Hari</h3>
+            <div style="columns: 1; column-gap: 40px;">
+                <p><strong>Elarion</strong> ⌇ Hari cahaya awal. Melambangkan harapan dan permulaan.</p>
+                <p><strong>Velmora</strong> ⌇ Hari angin dan bisikan. Hari untuk merenung dan menerima ilham.</p>
+                <p><strong>Tarsilune</strong> ⌇ Hari bulan jatuh. Menggambarkan keindahan malam dan kelembutan hati.</p>
+                <p><strong>Dravendei</strong> ⌇ Hari kekuatan. Didedikasikan untuk semangat, kerja keras, dan keberanian.</p>
+                <p><strong>Esmiradyn</strong> ⌇ Hari kristal dan sihir. Hari para penyihir dan pemurnian jiwa.</p>
+                <p><strong>Lapliel</strong> ⌇ Hari langit dan roh. Digunakan untuk berdoa, bermeditasi, dan terhubung dengan kekuatan luhur.</p>
+                <p><strong>Noxverra</strong> ⌇ Hari bintang dan malam hidup. Hari perayaan, kenangan, dan malam penuh makna.</p>
+            </div>
+            
+            <h3 class="section-title">Nama-nama Bulan</h3>
+            <div style="columns: 2; column-gap: 40px;">
+                <p><strong>1. Luthenya</strong> ⌇ Bulan bunga mekar. Menandai awal musim semi dan kelahiran baru.</p>
+                <p><strong>2. Caelurest</strong> ⌇ Bulan langit jernih. Waktu kedamaian dan penyembuhan.</p>
+                <p><strong>3. Virellan</strong> ⌇ Bulan kehidupan hijau. Simbol pertumbuhan, cinta, dan keberkahan.</p>
+                <p><strong>4. Emberleth</strong> ⌇ Bulan bara suci. Awal musim panas, gairah dan kekuatan membara.</p>
+                <p><strong>5. Solmareth</strong> ⌇ Bulan ombak matahari. Waktu petualangan dan pelayaran besar.</p>
+                <p><strong>6. Ashdelyr</strong> ⌇ Bulan bayangan terang. Awal musim gugur, masa renungan dan pertarungan batin.</p>
+                <p><strong>7. Zephandor</strong> ⌇ Bulan angin ilahi. Hari-hari penuh mimpi dan angan roh langit.</p>
+                <p><strong>8. Thundareen</strong> ⌇ Bulan gemuruh suci. Saat badai dan perubahan besar datang.</p>
+                <p><strong>9. Mystralis</strong> ⌇ Bulan kabut sakral. Musim ketika sihir meresap ke seluruh alam.</p>
+                <p><strong>10. Velouren</strong> ⌇ Bulan kesedihan indah. Waktu nostalgia, perpisahan, dan refleksi.</p>
+                <p><strong>11. Aurevanthe</strong> ⌇ Bulan emas malam. Puncak kreativitas dan seni.</p>
+                <p><strong>12. Nyxoria</strong> ⌇ Bulan roh abadi. Bulan penutup tahun, ketika semua jiwa kembali pada cahaya.</p>
+            </div>
+            
+            <h3 class="section-title">Makna Simbolik</h3>
+            <p><em>Setiap hari dan bulan dalam kalender ini bukan hanya unit waktu, tetapi juga mengandung makna spiritual, budaya, dan historis. Warga Neravelle percaya bahwa setiap jiwa memiliki hari lahir yang selaras dengan kekuatan kosmis tertentu, dan oleh karenanya nasib dan kekuatan seseorang pun terpengaruh oleh tanggal lahir mereka.</em></p>
+                     </div>
   <div class="section">
     <h2>Community Rules</h2>
     <h3>Peraturan OOC</h3>
