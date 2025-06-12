@@ -40,10 +40,18 @@
                 <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
             </div>
             <div class="time-card">
-                <div class="time-label">Konversi Ulang Tahun</div>
-                <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;">Tanggal ulang tahun </label>
-                <input type="date" id="birthdayInput" style="margin-bottom:10px;">
-                <div id="birthdayOutput" class="day-description" style="margin-top:12px;min-height:2em;"></div>
+    <div class="time-label">Konversi Ulang Tahun</div>
+    <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;color:var(--text-secondary);font-weight:600;">
+        Tanggal ulang tahun
+    </label>
+    <input 
+        type="date" 
+        id="birthdayInput"
+        class="birthday-input" 
+        placeholder="Pilih tanggal lahirmu"
+        autocomplete="bday"
+    >
+    <div id="birthdayOutput"></div>
             </div>
         </div>
         <div class="calendar-info">
