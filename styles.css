@@ -315,7 +315,7 @@ body {
     outline: none;
     border-color: var(--purple-light);
     box-shadow: none;
-    background: rgba(58, 28, 113, 0.95);
+    background: rgba(58, 28, 113, 0.45);
 }
 
 .birthday-input:disabled {
