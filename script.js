@@ -207,7 +207,7 @@ function createStars() {
         neb.style.animationDelay = `${Math.random()*12}s`;
         starsContainer.appendChild(neb);
     }
-          }                                                          }
+}
 
 // Get moon phase based on day of month
 function getMoonPhase(day) {
