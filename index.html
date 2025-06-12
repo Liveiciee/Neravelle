@@ -5,88 +5,42 @@
   <title>Neravelle System</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    main {
-      background: rgba(25, 20, 60, 0.4);
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      max-width: 860px;
-      margin: 40px auto 40px auto;
-      padding: 40px 30px;
-      color: var(--text-primary, #f3e5ff);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.7;
-    }
-    h1 {
-      color: var(--purple-glow, #e0aaff);
-      font-size: 2.25em;
-      margin-bottom: 1.2em;
-      font-family: 'Cormorant Garamond', serif;
-      text-align: center;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px var(--purple-light, #9d4edd);
-    }
-    h2 {
-      color: var(--purple-light, #9d4edd);
-      border-bottom: 2px solid rgba(224,170,255,0.12);
-      padding-bottom: 2px;
-      font-size: 1.4em;
-      margin-top: 2.1em;
-      margin-bottom: 1em;
-      font-family: 'Cormorant Garamond', serif;
-      letter-spacing: 1px;
-    }
-    h3 {
-      color: var(--purple-glow, #e0aaff);
-      margin-top: 1.5em;
-      font-size: 1.15em;
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 500;
-    }
-    h4 {
-      color: var(--text-secondary, #c77dff);
-      font-size: 1.05em;
-      margin: 1em 0 0.3em 0;
-      font-weight: 500;
-    }
-    ul, ol {
-      margin-left: 1.5em;
-      margin-bottom: 1.15em;
-    }
-    li {
-      margin-bottom: 4px;
-    }
-    p {
-      margin: 0.7em 0 0.7em 0;
-      color: var(--text-primary, #f3e5ff);
-    }
-    .section {
-      margin-top: 2.8em;
-      background: rgba(25, 20, 60, 0.21);
-      border-radius: 10px;
-      padding: 22px 18px 18px 18px;
-      box-shadow: 0 1px 7px rgba(157,78,221,0.05);
-    }
-    .arkaelith {
-      font-weight: bold;
-      color: #bb8734;
-      letter-spacing: 1px;
-      font-size: 1.13em;
-      margin-bottom: 4px;
-    }
-    i, em {
-      color: var(--text-secondary, #c77dff);
-    }
-    @media (max-width: 700px) {
-      main { padding: 15px 2vw; }
-      h1 { font-size: 1.3em; }
-      h2 { font-size: 1.08em; }
-      .section { padding: 10px 5px 10px 5px; }
-    }
-  </style>
 </head>
 <body>
-<main>
+  <!-- SKY & CELESTIAL ANIMATION -->
+  <div class="sky-container">
+    <div id="stars" class="stars"></div>
+    <div id="sunMoon" class="sun-moon"></div>
+    <!-- Glow overlays if needed -->
+    <div id="sunsetGlow"></div>
+    <div id="dawnGlow"></div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <h1>Neravelle Fantasy</h1>
+
+    <!-- KALENDER & WAKTU NERAVELLE -->
+    <div class="content-section" style="margin-bottom:2.5em;">
+      <div class="clock-container">
+        <div class="time-card">
+          <div class="time-label">Waktu Neravelle</div>
+          <div id="neravelleTime" class="neravelle-time">00:00:00</div>
+          <div id="neravelleDate" class="neravelle-date"></div>
+        </div>
+        <div class="time-card">
+          <div class="time-label">Waktu Dunia Nyata</div>
+          <div id="realWorldTime" class="neravelle-time">00:00:00</div>
+          <div id="dayDescription" style="margin-top:1em; color:var(--text-secondary);font-style:italic;"></div>
+        </div>
+      </div>
+      <!-- Konversi Tanggal -->
+      <div style="margin-top:2em;">
+        <label for="birthdayInput" style="font-weight:600;color:var(--purple-glow);font-size:1.07em;">Konversi Tanggal Lahir ke Kalender Neravelle:</label>
+        <input id="birthdayInput" class="birthday-input" type="date" style="margin:0.8em 0;width:220px;max-width:100%;">
+        <div id="birthdayOutput" style="margin-top:0.6em;color:var(--text-secondary);font-style:italic;"></div>
+      </div>
+    </div>
 
   <h1>Neravelle Fantasy</h1>
 
