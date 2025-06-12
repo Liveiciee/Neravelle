@@ -166,7 +166,7 @@ function createStars() {
         star.style.left = `${x}%`;
         star.style.top = `${y}%`;
         // Random font size (12-28px)
-        const size = Math.random() * 16 + 12;
+        const size = Math.random() * 8 + 6;
         star.style.fontSize = `${size}px`;
         // Random warna (soft)
         const colors = [
@@ -270,7 +270,7 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
         sunMoon.className = `sun-moon moon-${moonPhase}`;
         sunMoon.setAttribute('data-is-sun', "false");
         sunMoon.style.animation = 'moon-glow 4s infinite';
-        stars.style.opacity = 0.1; 
+        stars.style.opacity = 1; 
         body.style.background = 'var(--purple-dark)';
         sunsetGlow.style.opacity = 0;
         dawnGlow.style.opacity = 0;
