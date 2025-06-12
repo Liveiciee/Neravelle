@@ -14,7 +14,7 @@ const DAY_DESCRIPTIONS = {
 };
 
 // Base date for Neravelle calendar (real world date when Neravelle calendar started)
-const BASE_REAL_DATE = new Date('2025-05-16T00:00:00');
+const BASE_REAL_DATE = new Date('2025-05-16T12:00:00');
 const BASE_NV_YEAR = 1045;
 const BASE_NV_MONTH = 0; // Luthenya
 const BASE_NV_DAY = 1;
