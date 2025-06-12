@@ -417,3 +417,197 @@ body {
         width: 100%;
     }
 }
+/* --- TAB NAVIGATION --- */
+.tab-buttons, .rules-tab-buttons, .power-tab-buttons, .stats-tab-buttons, .class-tab-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.3rem;
+    flex-wrap: wrap;
+}
+.tab-button, .rules-tab-button, .power-tab-button, .stats-tab-button, .class-tab-button {
+    background: rgba(157, 78, 221, 0.08);
+    color: var(--text-primary);
+    border: none;
+    border-radius: var(--border-radius-small);
+    padding: 0.6em 1.2em;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: background var(--transition-fast), color var(--transition-fast);
+    cursor: pointer;
+    font-family: inherit;
+    outline: none;
+}
+.tab-button.active, .rules-tab-button.active, .power-tab-button.active, .stats-tab-button.active, .class-tab-button.active {
+    background: var(--purple-glow);
+    color: #25103a;
+}
+.tab-content, .rules-tab-content, .power-tab-content, .stats-tab-content, .class-tab-content {
+    display: none;
+    animation: fadeIn 0.5s;
+}
+.tab-content.active, .rules-tab-content.active, .power-tab-content.active, .stats-tab-content.active, .class-tab-content.active {
+    display: block;
+}
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(16px);}
+    100% { opacity: 1; transform: none;}
+}
+
+/* --- CARD & GRID COMPONENTS --- */
+.stats-grid, .class-list, .class-details-list, .stages-container, .affinity-grid, .slots-visualization, .days-months-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+}
+.stats-grid .stat-card, .class-list .class-card, .class-details-list .detail-card, .stage-card, .affinity-card, .example-card, .method-card, .effect-level {
+    background: rgba(157, 78, 221, 0.08);
+    border-radius: var(--border-radius-small);
+    box-shadow: 0 1px 8px rgba(157,78,221,0.06);
+    padding: 1.1em 1.3em;
+    flex: 1 1 220px;
+    min-width: 200px;
+    max-width: 340px;
+    margin-bottom: 0.8em;
+    transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+.stats-grid .stat-card:hover, .class-list .class-card:hover, .affinity-card:hover, .stage-card:hover {
+    box-shadow: 0 2px 18px rgba(157,78,221,0.13);
+    transform: translateY(-4px) scale(1.02);
+}
+.stat-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--purple-light) 0%, var(--purple-glow) 100%);
+    margin: 0.6em 0 0.9em 0;
+    position: relative;
+}
+.stat-bar[data-value]::after {
+    content: "";
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    background: var(--purple-glow);
+    width: attr(data-value percentage, 100%);
+    max-width: 100%;
+}
+.stat-bar[data-value] {
+    width: 100%;
+    background: rgba(157,78,221,0.16);
+    position: relative;
+}
+.stat-bar[data-value]:before {
+    content: '';
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    background: var(--purple-light);
+    width: calc(var(--value, 70) * 1%);
+    max-width: 100%;
+    position: absolute;
+    left: 0; top: 0;
+}
+.stat-bar[data-value="75"]:before { width: 75%; }
+.stat-bar[data-value="70"]:before { width: 70%; }
+.stat-bar[data-value="65"]:before { width: 65%; }
+.stat-bar[data-value="60"]:before { width: 60%; }
+.stat-bar[data-value="55"]:before { width: 55%; }
+.stat-bar[data-value="50"]:before { width: 50%; }
+.stat-bar[data-value="45"]:before { width: 45%; }
+.stat-bar[data-value="40"]:before { width: 40%; }
+.stat-bar[data-value="35"]:before { width: 35%; }
+.stat-bar[data-value="30"]:before { width: 30%; }
+.stat-bar[data-value="25"]:before { width: 25%; }
+.stat-bar[data-value="20"]:before { width: 20%; }
+.stat-bar[data-value="15"]:before { width: 15%; }
+.stat-bar[data-value="10"]:before { width: 10%; }
+/* Untuk stat yang nilainya lain, tambahkan sesuai kebutuhan */
+
+.class-card, .class-details-list .detail-card {
+    min-width: 180px;
+    max-width: 270px;
+    text-align: center;
+    border: 1px solid rgba(157,78,221,0.11);
+}
+.class-card h4, .detail-card h4 { color: var(--purple-glow); margin-bottom: 0.1em;}
+.class-card p, .detail-card ul { color: var(--text-secondary); font-size: 1em; }
+
+.stage-card, .affinity-card {
+    min-width: 220px;
+    max-width: 340px;
+    border-left: 5px solid var(--purple-light);
+}
+.stage-number {
+    width: 2.3em; height: 2.3em;
+    background: var(--purple-glow);
+    color: #25103a;
+    font-weight: bold;
+    font-size: 1.2em;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 0.7em;
+}
+.stage-example, .affinity-details, .cantus-feature ul, .cantus-feature p { font-size: 0.98em; color: var(--text-secondary); }
+.affinity-card h4 { color: var(--purple-glow); }
+
+.slots-visualization {
+    display: flex; gap: 0.35em; margin-bottom: 0.6em;
+}
+.slot {
+    width: 2em; height: 2em;
+    border-radius: 50%;
+    background: rgba(224,170,255,0.22);
+    color: var(--purple-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600;
+    border: 2px solid var(--purple-glow);
+    font-size: 1em;
+    opacity: 0.64;
+    transition: background var(--transition-fast);
+}
+.slot.active {
+    background: var(--purple-glow);
+    color: #25103a;
+    opacity: 1;
+    border-width: 3px;
+}
+
+.days-list, .months-list {
+    flex: 1 1 260px;
+    min-width: 210px;
+    background: rgba(157,78,221,0.09);
+    border-radius: var(--border-radius-small);
+    padding: 1.1em 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.calendar-structure, .distribution-example, .tier-table, .example-distribution {
+    margin: 1.1em 0;
+    background: rgba(157, 78, 221, 0.07);
+    border-radius: var(--border-radius-small);
+    padding: 1.2em 1.1em;
+}
+
+.tier-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.97em;
+    margin-top: 0.6em;
+}
+.tier-table th, .tier-table td {
+    padding: 0.55em 0.6em;
+    border: 1px solid rgba(157,78,221,0.1);
+    text-align: left;
+}
+.tier-table th { background: rgba(157,78,221,0.17); color: var(--purple-glow);}
+.tier-table td { background: rgba(157,78,221,0.04);}
+.tier-table tr:nth-child(even) td { background: rgba(224,170,255,0.06); }
+
+@media (max-width: 768px) {
+    .stats-grid, .class-list, .class-details-list, .stages-container, .affinity-grid, .slots-visualization, .days-months-grid {
+        flex-direction: column;
+        gap: 0.7em;
+    }
+    .calendar-structure, .distribution-example, .tier-table, .example-distribution {
+        padding: 0.8em 0.4em;
+    }
+    }
