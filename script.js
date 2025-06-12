@@ -79,11 +79,11 @@ function calculateNeravelleDate(realWorldDate) {
     if (totalDaysFromBaseInNeravelle < 0) {
         // Mundur, index harus tetap positif
         const baseIndex = DAYS.indexOf(BASE_NV_DAY_NAME);
-        let dayIndex = (baseIndex + totalDaysFromBaseInNeravelle + 1) % DAYS.length;
+        let dayIndex = (baseIndex + totalDaysFromBaseInNeravelle) % DAYS.length;
         if (dayIndex < 0) dayIndex += DAYS.length;
         var nvDayName = DAYS[dayIndex];
     } else {
-        const dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalDaysFromBaseInNeravelle + 1) % DAYS.length;
+        const dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalDaysFromBaseInNeravelle) % DAYS.length;
         var nvDayName = DAYS[dayIndex];
     }
 
