@@ -5,45 +5,47 @@
   <title>Neravelle System</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- SKY & CELESTIAL ANIMATION -->
-  <div class="sky-container">
-    <div id="stars" class="stars"></div>
-    <div id="sunMoon" class="sun-moon"></div>
-    <!-- Glow overlays if needed -->
-    <div id="sunsetGlow"></div>
-    <div id="dawnGlow"></div>
-  </div>
+  <a href="#main-content" class="skip-link">Lewati ke konten utama</a>
+  <div class="main-wrapper">
+    <main id="main-content" tabindex="-1">
+      <header>
+        <h1>Neravelle Fantasy</h1>
+      </header>
 
-  <!-- MAIN CONTENT -->
-  <main id="main-content">
-    <h1>Neravelle Fantasy</h1>
-
-    <!-- KALENDER & WAKTU NERAVELLE -->
-    <div class="content-section" style="margin-bottom:2.5em;">
-      <div class="clock-container">
-        <div class="time-card">
-          <div class="time-label">Waktu Neravelle</div>
-          <div id="neravelleTime" class="neravelle-time">00:00:00</div>
-          <div id="neravelleDate" class="neravelle-date"></div>
-        </div>
-        <div class="time-card">
-          <div class="time-label">Waktu Dunia Nyata</div>
-          <div id="realWorldTime" class="neravelle-time">00:00:00</div>
-          <div id="dayDescription" style="margin-top:1em; color:var(--text-secondary);font-style:italic;"></div>
-        </div>
-      </div>
-      <!-- Konversi Tanggal -->
-      <div style="margin-top:2em;">
-        <label for="birthdayInput" style="font-weight:600;color:var(--purple-glow);font-size:1.07em;">Konversi Tanggal Lahir ke Kalender Neravelle:</label>
-        <input id="birthdayInput" class="birthday-input" type="date" style="margin:0.8em 0;width:220px;max-width:100%;">
-        <div id="birthdayOutput" style="margin-top:0.6em;color:var(--text-secondary);font-style:italic;"></div>
-      </div>
-    </div>
-
-  <h1>Neravelle Fantasy</h1>
-
+      
+      <section class="clock-container" aria-label="Waktu & Konversi">
+        <section class="time-card" aria-labelledby="label-neravelle">
+          <div class="time-label" id="label-neravelle">Waktu Neravelle</div>
+          <div class="neravelle-time" id="neravelleTime">00:00:00</div>
+          <div class="neravelle-date" id="neravelleDate">Elarion, 1 Luthenya 1045 KSN</div>
+          <div class="day-description" id="dayDescription"></div>
+        </section>
+        <section class="time-card" aria-labelledby="label-nyata">
+          <div class="time-label" id="label-nyata">Waktu Nyata</div>
+          <div class="real-time" id="realWorldTime">00:00:00</div>
+          <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
+          <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
+        </section>
+        <section class="time-card" aria-labelledby="label-ultah">
+          <div class="time-label" id="label-ultah">Konversi Ulang Tahun</div>
+          <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;color:var(--text-secondary);font-weight:600;">
+            Tanggal ulang tahun
+          </label>
+          <input 
+            type="date" 
+            id="birthdayInput"
+            class="birthday-input" 
+            placeholder="Pilih tanggal lahirmu"
+            autocomplete="bday"
+          >
+          <div id="birthdayOutput"></div>
+        </section>
+      </section>
+      
+      
   <div class="section">
     <h2>Community Rules</h2>
     <h3>Peraturan OOC</h3>
@@ -735,7 +737,11 @@
     <h2>Worldbuilding</h2>
     <p><i>Coming soon.</i></p>
   </div>
+<footer style="text-align:center; margin-top:3em; color:var(--text-secondary); font-size:0.96em;">
+        © NeraVelle Fantasy Team
+      </footer>
+    </main>
+  </div>
   <script src="script.js"></script>
-</main>
 </body>
 </html>
