@@ -32,25 +32,60 @@ function calculateNeravelleDate(realWorldDate) {
     let nvMonthIndex = BASE_NV_MONTH;
     let nvDay = BASE_NV_DAY;
 
-    while (remainingDays > 0) {
-        const daysInMonth = 35;
-        if (nvDay + remainingDays > daysInMonth) {
-            remainingDays -= (daysInMonth - nvDay + 1);
-            nvDay = 1;
-            nvMonthIndex++;
-            if (nvMonthIndex >= MONTHS.length) {
-                nvMonthIndex = 0;
-                nvYear++;
+    // Mundur ke masa lalu jika remainingDays negatif
+    if (remainingDays >= 0) {
+        while (remainingDays > 0) {
+            const daysInMonth = 35;
+            if (nvDay + remainingDays > daysInMonth) {
+                remainingDays -= (daysInMonth - nvDay + 1);
+                nvDay = 1;
+                nvMonthIndex++;
+                if (nvMonthIndex >= MONTHS.length) {
+                    nvMonthIndex = 0;
+                    nvYear++;
+                }
+            } else {
+                nvDay += remainingDays;
+                remainingDays = 0;
             }
-        } else {
-            nvDay += remainingDays;
-            remainingDays = 0;
+        }
+    } else {
+        // Mundur ke masa lalu
+        while (remainingDays < 0) {
+            if (nvDay + remainingDays > 0) {
+                nvDay += remainingDays;
+                remainingDays = 0;
+            } else {
+                remainingDays += (nvDay - 1);
+                nvMonthIndex--;
+                if (nvMonthIndex < 0) {
+                    nvMonthIndex = MONTHS.length - 1;
+                    nvYear--;
+                }
+                nvDay = 35;
+            }
         }
     }
 
-    const totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed;
-    const dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalDaysFromBaseInNeravelle + 1) % DAYS.length;
-    const nvDayName = DAYS[dayIndex];
+    // Batas minimal 0 KSN
+    if (nvYear < 0) {
+        nvYear = 0;
+        nvMonthIndex = 0;
+        nvDay = 1;
+    }
+
+    // Hitung hari dalam seminggu Neravelle
+    let totalDaysFromBaseInNeravelle = totalNeravelleDaysPassed;
+    if (totalDaysFromBaseInNeravelle < 0) {
+        // Mundur, index harus tetap positif
+        const baseIndex = DAYS.indexOf(BASE_NV_DAY_NAME);
+        let dayIndex = (baseIndex + totalDaysFromBaseInNeravelle + 1) % DAYS.length;
+        if (dayIndex < 0) dayIndex += DAYS.length;
+        var nvDayName = DAYS[dayIndex];
+    } else {
+        const dayIndex = (DAYS.indexOf(BASE_NV_DAY_NAME) + totalDaysFromBaseInNeravelle + 1) % DAYS.length;
+        var nvDayName = DAYS[dayIndex];
+    }
 
     return {
         year: nvYear,
@@ -200,7 +235,7 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
         sunMoon.className = `sun-moon moon-${moonPhase}`;
         sunMoon.setAttribute('data-is-sun', "false");
         sunMoon.style.animation = 'moon-glow 4s infinite';
-        stars.style.opacity = 1;
+        stars.style.opacity = 0.1; 
         body.style.background = 'var(--purple-dark)';
         sunsetGlow.style.opacity = 0;
         dawnGlow.style.opacity = 0;
@@ -208,7 +243,7 @@ function updateSkyAnimation(nvHours, nvDay, nvDayName) {
         // Efek khusus hari Tarsilune
         if (nvDayName === "Tarsilune") {
             sunMoon.style.boxShadow = '0 0 80px var(--moon-color), 0 0 160px rgba(224, 224, 255, 0.7)';
-            stars.style.opacity = 1;
+            stars.style.opacity = 0.1; 
         } else {
             sunMoon.style.boxShadow = '';
         }
