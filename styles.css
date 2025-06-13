@@ -425,50 +425,41 @@ a:hover {
   line-height: 1.8;
 }
 
-.section ul, .section ol {
+ul, ol {
+  list-style: none;
+  margin: 0 0 1.5rem 0;
   padding-left: 2rem;
-  margin-bottom: 2rem;
-  list-style: none
 }
-
-.section ul li, .section ol li {
-  margin-bottom: 0.8rem;
+ul li {
   position: relative;
   padding-left: 1.5rem;
 }
-
-.section ul li::before {
+ul li::before {
   content: '✦';
   position: absolute;
   left: 0;
-  color: var(--nebula-pink);
-  font-size: 0.8rem;
+  top: 0.22em;
+  color: var(--nebula-pink, #c77dff);
+  font-size: 0.85em;
   line-height: 1;
-  top: 0.25em;
 }
-
-.section ol {
+ol {
   counter-reset: item;
 }
-
-.section ol li {
+ol li {
+  position: relative;
   counter-increment: item;
+  padding-left: 1.5rem;
 }
-
-.section ol li::before {
+ol li::before {
   content: counter(item) ".";
   position: absolute;
   left: 0;
-  color: var(--nebula-pink);
+  top: 0.05em;
+  color: var(--nebula-pink, #c77dff);
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1em;
   line-height: 1;
-  top: 0.1em;
-}
-
-/* === REMOVE DEFAULT NUMBERS/BULLETS FOR SPECIAL <ol> === */
-ul, ol {
-  list-style: none;
 }
 
 /* === SPECIAL TEXT STYLES === */
