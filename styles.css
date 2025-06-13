@@ -57,6 +57,8 @@
   --pulse-speed: 4s;
   --twinkle-speed: 5s;
   --nebula-speed: 30s;
+
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap');
 }
 
 /* === BASE STYLES === */
@@ -171,12 +173,16 @@ a:hover {
 }
 
 .header-decoration {
+  font-family: 'Cormorant Garamond', serif !important;
   font-size: 1.3rem;
   color: var(--nebula-pink);
   margin: 0.5rem 0;
   letter-spacing: 2px;
-  opacity: 0.8;
-  text-shadow: 0 0 8px rgba(199, 125, 255, 0.4);
+  opacity: 0.95;
+  text-shadow:
+    0 0 8px var(--nebula-pink),
+    0 0 15px var(--stellar-violet),
+    0 0 20px #fff;
 }
 
 .title {
@@ -186,7 +192,10 @@ a:hover {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 15px rgba(199, 125, 255, 0.3);
+  text-shadow:
+    0 0 15px var(--nebula-pink),
+    0 0 30px var(--stellar-violet),
+    0 0 40px #fff;
   margin: 0.5rem 0;
   position: relative;
   display: inline-block;
@@ -284,11 +293,16 @@ a:hover {
 }
 
 .time-label {
+  font-family: 'Cormorant Garamond', serif !important;
   font-size: 1.2rem;
   color: var(--text-accent);
   margin-bottom: 0.8rem;
   font-weight: 600;
   letter-spacing: 1px;
+  text-shadow:
+    0 0 8px var(--text-accent),
+    0 0 16px var(--nebula-pink),
+    0 0 20px #fff;
 }
 
 .neravelle-time {
