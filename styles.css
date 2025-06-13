@@ -898,3 +898,19 @@ footer::before {
   opacity: 1;
   transform: translateY(0);
 }
+
+/*biar gak ada area kosong*/
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden !important;
+}
+
+.container,
+.main-content,
+.section,
+.clock-container {
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
