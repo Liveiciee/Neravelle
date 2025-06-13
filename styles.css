@@ -428,6 +428,7 @@ a:hover {
 .section ul, .section ol {
   padding-left: 2rem;
   margin-bottom: 2rem;
+  list-style: none
 }
 
 .section ul li, .section ol li {
@@ -442,6 +443,8 @@ a:hover {
   left: 0;
   color: var(--nebula-pink);
   font-size: 0.8rem;
+  line-height: 1;
+  top: 0.25em;
 }
 
 .section ol {
@@ -458,13 +461,14 @@ a:hover {
   left: 0;
   color: var(--nebula-pink);
   font-weight: bold;
+  font-size: 1rem;
+  line-height: 1;
+  top: 0.1em;
 }
 
 /* === REMOVE DEFAULT NUMBERS/BULLETS FOR SPECIAL <ol> === */
-ol {
+ul, ol {
   list-style: none;
-  padding-left: 0;
-  margin-left: 0;
 }
 
 /* === SPECIAL TEXT STYLES === */
