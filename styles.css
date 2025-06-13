@@ -421,19 +421,19 @@ a:hover {
 }
 
 .section p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0rem;
   line-height: 1.8;
 }
 
 .section ul, .section ol {
-  padding-left: 2rem;
-  margin-bottom: 2rem;
+  padding-left: 0rem;
+  margin-bottom: 0rem;
 }
 
 .section ul li, .section ol li {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0rem;
   position: relative;
-  padding-left: 1.5rem;
+  padding-left: 0rem;
 }
 
 .section ul li::before {
@@ -446,6 +446,7 @@ a:hover {
 
 .section ol {
   counter-reset: item;
+  list-style: none;
 }
 
 .section ol li {
