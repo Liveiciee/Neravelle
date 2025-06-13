@@ -421,19 +421,19 @@ a:hover {
 }
 
 .section p {
-  margin-bottom: 0rem;
+  margin-bottom: 1.5rem;
   line-height: 1.8;
 }
 
 .section ul, .section ol {
-  padding-left: 0rem;
-  margin-bottom: 0rem;
+  padding-left: 2rem;
+  margin-bottom: 2rem;
 }
 
 .section ul li, .section ol li {
-  margin-bottom: 0rem;
+  margin-bottom: 0.8rem;
   position: relative;
-  padding-left: 0rem;
+  padding-left: 1.5rem;
 }
 
 .section ul li::before {
@@ -446,7 +446,6 @@ a:hover {
 
 .section ol {
   counter-reset: item;
-  list-style: none;
 }
 
 .section ol li {
@@ -459,6 +458,13 @@ a:hover {
   left: 0;
   color: var(--nebula-pink);
   font-weight: bold;
+}
+
+/* === REMOVE DEFAULT NUMBERS/BULLETS FOR SPECIAL <ol> === */
+ol {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
 }
 
 /* === SPECIAL TEXT STYLES === */
@@ -896,20 +902,4 @@ footer::before {
 [data-animate="fade-in"].animate {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* No Void/Black/Empty space*/
-html, body {
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden !important;
-}
-
-.container,
-.main-content,
-.section,
-.clock-container {
-  max-width: 100vw;
-  box-sizing: border-box;
-  overflow-x: hidden;
 }
