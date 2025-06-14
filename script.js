@@ -324,39 +324,81 @@ if (document.readyState === 'loading') {
     init();
 }
 
-// Inisialisasi galaksi (Three.js)
+// initGalaxy:
 function initGalaxy() {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('cosmic-canvas') });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    // Bintang
-    const geometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(10000 * 3);
-    for (let i = 0; i < 10000; i++) {
-        positions[i*3] = (Math.random() - 0.5) * 2000;
-        positions[i*3+1] = (Math.random() - 0.5) * 2000;
-        positions[i*3+2] = (Math.random() - 0.5) * 2000;
+    // Periksa apakah Three.js tersedia
+    if (typeof THREE === 'undefined') {
+        console.warn('Three.js not loaded, skipping galaxy effect');
+        return;
     }
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const stars = new THREE.Points(geometry, new THREE.PointsMaterial({ size: 2, color: 0x7b4ec5 }));
-    scene.add(stars);
-
-    camera.position.z = 500;
-    function animate() {
-        requestAnimationFrame(animate);
-        stars.rotation.x += 0.0005;
-        stars.rotation.y += 0.001;
-        renderer.render(scene, camera);
+    
+    const canvas = document.getElementById('cosmic-canvas');
+    if (!canvas) {
+        console.warn('Canvas element not found');
+        return;
     }
-    animate();
 
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
+    try {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ 
+            canvas: canvas,
+            alpha: true,
+            antialias: true
+        });
         renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+
+        // Bintang
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(5000 * 3);
+        const colors = new Float32Array(5000 * 3);
+        
+        for (let i = 0; i < 5000; i++) {
+            positions[i*3] = (Math.random() - 0.5) * 2000;
+            positions[i*3+1] = (Math.random() - 0.5) * 2000;
+            positions[i*3+2] = (Math.random() - 0.5) * 2000;
+            
+            // Warna acak dari palette yang ada
+            const color = new THREE.Color(CELESTIAL_CONFIG.colors[Math.floor(Math.random() * CELESTIAL_CONFIG.colors.length)]);
+            colors[i*3] = color.r;
+            colors[i*3+1] = color.g;
+            colors[i*3+2] = color.b;
+        }
+        
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        
+        const stars = new THREE.Points(
+            geometry,
+            new THREE.PointsMaterial({ 
+                size: 1.5,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.8,
+                sizeAttenuation: true
+            })
+        );
+        scene.add(stars);
+
+        camera.position.z = 500;
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            stars.rotation.x += 0.0005;
+            stars.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    } catch (e) {
+        console.error('Error initializing galaxy:', e);
+    }
 }
 
 // Meteor shower
@@ -398,14 +440,38 @@ class MagicParticle {
     }
 }
 
-// Jalankan efek setelah konten utama siap
+// event listener load:
 window.addEventListener('load', () => {
-    initGalaxy();
-    createMeteors();
-    const particles = Array.from({ length: 50 }, () => new MagicParticle());
-    function animateParticles() {
-        particles.forEach(p => p.update());
-        requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
+    // Tunggu sebentar untuk memastikan semua resource siap
+    setTimeout(() => {
+        try {
+            initGalaxy();
+            createMeteors();
+            
+            // Magic particles
+            const particleField = document.querySelector('.magic-particle-field');
+            if (particleField) {
+                const particles = Array.from({ length: 30 }, () => new MagicParticle());
+                
+                function animateParticles() {
+                    particles.forEach(p => {
+                        p.x += (Math.random() - 0.5) * 2;
+                        p.y += (Math.random() - 0.5) * 2;
+                        p.life++;
+                        
+                        if (p.life >= p.maxLife) {
+                            p.reset();
+                        } else {
+                            p.element.style.transform = `translate(${p.x}px, ${p.y}px)`;
+                            p.element.style.opacity = 1 - (p.life / p.maxLife);
+                        }
+                    });
+                    requestAnimationFrame(animateParticles);
+                }
+                animateParticles();
+            }
+        } catch (e) {
+            console.error('Error initializing effects:', e);
+        }
+    }, 500);
 });
