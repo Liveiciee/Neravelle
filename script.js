@@ -308,8 +308,7 @@ function initBirthdayConverter() {
             output.textContent = `Di NeraVelle, lahirmu pada: ${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KSN`;
         } catch (e) {
             output.textContent = "Format tanggal tidak valid";
-        }
-    });
+        });
 }
 // [PERBAIKAN] Init semua komponen
 function init() {
@@ -317,8 +316,6 @@ function init() {
     setInterval(debouncedUpdateClock, 500);
     debouncedUpdateClock();
     initBirthdayConverter();
-        }
-    });
 }
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
