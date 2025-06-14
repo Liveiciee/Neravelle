@@ -1,4 +1,4 @@
-// Kalender dan waktu Neravelle - Fully Optimized
+//  Kalender dan waktu Neravelle - Fully Optimized
 const DAYS = Object.freeze(["Elarion", "Velmora", "Tarsilune", "Dravendei", "Esmiradyn", "Lapliel", "Noxverra"]);
 const MONTHS = Object.freeze(["Luthenya", "Caelurest", "Virellan", "Emberleth", "Solmareth", "Ashdelyr",
     "Zephandor", "Thundareen", "Mystralis", "Velouren", "Aurevanthe", "Nyxoria"
