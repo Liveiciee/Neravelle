@@ -771,28 +771,44 @@ footer::before {
   white-space: nowrap;
   border-width: 0;
 }
-/* Cosmic Cihuy */
-#cosmic-canvas {
+/* Cosmic Effects */
+.cosmic-effects {
     position: fixed;
-    top: 0; left: 0;
-    z-index: -100;
-    width: 100vw; height: 100vh;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -19;
+    pointer-events: none;
 }
+
+.meteor-shower, 
+.magic-particle-field {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 .meteor {
-    position: fixed;
-    width: 2px; height: 2px;
+    position: absolute;
+    width: 2px;
+    height: 2px;
     background: linear-gradient(90deg, transparent, #c77dff);
     animation: meteorGlide 3s linear infinite;
     pointer-events: none;
 }
+
 @keyframes meteorGlide {
     0% { transform: translateX(0) translateY(0); opacity: 0; }
     10% { opacity: 1; }
     100% { transform: translateX(-100vw) translateY(100vh); opacity: 0; }
 }
+
 .magic-particle {
+    position: absolute;
     pointer-events: none;
     opacity: 0.8;
     border-radius: 50%;
-    position: absolute;
-        }
+    animation: float 6s infinite ease-in-out;
+}
