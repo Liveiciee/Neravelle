@@ -188,7 +188,7 @@ a:hover {
     0 0 14px var(--nebula-pink),
     0 0 28px var(--stellar-violet),
     0 0 36px #fff;
-  background: linear-gradient(180deg, rgba(15, 12, 41, 0.8) 0%, transparent 100%);
+  background: linear-gradient(90deg, transparent, var(--nebula-pink));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -771,3 +771,28 @@ footer::before {
   white-space: nowrap;
   border-width: 0;
 }
+/* Cosmic Cihuy */
+#cosmic-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: -100;
+    width: 100vw; height: 100vh;
+}
+.meteor {
+    position: fixed;
+    width: 2px; height: 2px;
+    background: linear-gradient(90deg, transparent, #c77dff);
+    animation: meteorGlide 3s linear infinite;
+    pointer-events: none;
+}
+@keyframes meteorGlide {
+    0% { transform: translateX(0) translateY(0); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateX(-100vw) translateY(100vh); opacity: 0; }
+}
+.magic-particle {
+    pointer-events: none;
+    opacity: 0.8;
+    border-radius: 50%;
+    position: absolute;
+        }
