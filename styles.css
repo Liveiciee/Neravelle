@@ -1,7 +1,3 @@
-/* ============================= */
-/* NERAVELLE FANTASY - CLEAN CSS */
-/* ============================= */
-
 /* === GLOBAL VARIABLES === */
 :root {
   /* Color Palette */
@@ -183,15 +179,25 @@ a:hover {
 
 .header-decoration {
   font-family: 'Cormorant Garamond', serif !important;
-  font-size: 1.3rem;
+  font-size: 2.3rem;
   color: var(--nebula-pink);
-  margin: 0.5rem 0;
-  letter-spacing: 2px;
-  opacity: 0.95;
+  margin: 1.2rem 0;
+  letter-spacing: 3px;
+  opacity: 1;
   text-shadow:
-    0 0 8px var(--nebula-pink),
-    0 0 15px var(--stellar-violet),
-    0 0 20px #fff;
+    0 0 14px var(--nebula-pink),
+    0 0 28px var(--stellar-violet),
+    0 0 36px #fff;
+  animation: floatHeader 4.5s ease-in-out infinite;
+  background: linear-gradient(90deg, var(--nebula-pink), var(--star-gold), var(--stellar-violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+@keyframes floatHeader {
+  0%, 100% { transform: translateY(0);}
+  50% { transform: translateY(-10px);}
+}
 }
 
 .title {
