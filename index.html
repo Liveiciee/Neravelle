@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalender Heliora Luminari</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Sky Animation Elements -->
+    <div class="sky-container">
+        <div class="sun-moon" id="sunMoon"></div>
+        <div class="stars" id="stars"></div>
+    </div>
+
+    <div class="cosmic-effects">
+        <canvas id="cosmic-canvas"></canvas>
+        <div class="meteor-shower"></div>
+        <div class="magic-particle-field"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Kalender Heliora Luminari</h1>
+            <div class="subtitle">Sistem penanggalan resmi Kerajaan Neravelle</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="clock-container">
+            <div class="time-card">
+                <div class="time-label">Waktu Heliora</div>
+                <div class="neravelle-time" id="neravelleTime">00:00:00</div>
+                <div class="neravelle-date" id="neravelleDate">Elarion, 1 Aethera 1045 KSN</div>
+                <div class="day-description" id="dayDescription"></div>
+            </div>
+            <div class="time-card">
+                <div class="time-label">Waktu Nyata</div>
+                <div class="real-world-time" id="realWorldTime">00:00:00</div>
+                <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
+                <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
+            </div>
+            <div class="time-card">
+                <div class="time-label">Konversi Ulang Tahun</div>
+                <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;color:var(--text-secondary);font-weight:600;">
+                    Tanggal ulang tahun
+                </label>
+                <input 
+                    type="date" 
+                    id="birthdayInput"
+                    class="birthday-input" 
+                    placeholder="Pilih tanggal lahirmu"
+                    autocomplete="bday"
+                >
+                <div id="birthdayOutput"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Susunan Hari dalam Satu Minggu</h2>
+            <ul>
+                <li><b>Elarion:</b> Hari cahaya baru, awal dari segala usaha.</li>
+                <li><b>Velmora:</b> Waktu ilmu pengetahuan dan kebijaksanaan.</li>
+                <li><b>Tarsilune:</b> Hari refleksi, meditasi, dan ritual kecil.</li>
+                <li><b>Dravendei:</b> Hari kekuatan, kehormatan, dan keteguhan hati.</li>
+                <li><b>Esmiradyn:</b> Hari keberuntungan dan kemakmuran.</li>
+                <li><b>Lapliel:</b> Hari kedamaian dan ekspresi seni.</li>
+                <li><b>Noxverra:</b> Hari istirahat dan doa yang sakral.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Susunan Bulan dalam Satu Tahun</h2>
+            <ol>
+                <li><b>Aethera:</b> Bulan pembuka penuh harapan dan doa.</li>
+                <li><b>Crystallina:</b> Waktu merenung dan mengukuhkan tekad.</li>
+                <li><b>Aerius:</b> Bulan perubahan dan petualangan baru.</li>
+                <li><b>Floraison:</b> Bulan mekar bunga dan cinta alam.</li>
+                <li><b>Luminosa:</b> Bulan cahaya dan festival rakyat.</li>
+                <li><b>Solaria:</b> Bulan kekuatan dan kemenangan matahari.</li>
+                <li><b>Ignifera:</b> Bulan semangat yang tak padam.</li>
+                <li><b>Abundantia:</b> Bulan panen dan berbagi kemakmuran.</li>
+                <li><b>Vestalia:</b> Masa persiapan dan penghargaan keluarga.</li>
+                <li><b>Terraverdea:</b> Bulan keseimbangan antara bumi dan langit.</li>
+                <li><b>Nestaria:</b> Bulan introspeksi dan kedamaian.</li>
+                <li><b>Glimmeria:</b> Bulan penutup dengan harapan baru.</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>Struktur Kalender</h2>
+            <ul>
+                <li>1 minggu terdiri dari <b>7 hari</b>.</li>
+                <li>1 bulan terdiri dari <b>25 hari</b> (5 minggu).</li>
+                <li>1 tahun terdiri dari <b>12 bulan</b>.</li>
+                <li><b>Total dalam 1 tahun: 300 hari</b>.</li>
+            </ul>
+            <p>Contoh format penulisan tanggal: <i>"Esmiradyn, Ignifera tanggal 12, Tahun 1048 Heliora Luminari"</i></p>
+        </div>
+
+        <footer>
+            &copy; 2023 Kerajaan Neravelle | Kalender Heliora Luminari adalah bagian dari dunia fiksi Arkalethia
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+                                 </html>
