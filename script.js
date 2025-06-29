@@ -15,12 +15,12 @@ const DAY_DESCRIPTIONS = Object.freeze({
 
 // Constants for date calculations
 const BASE_REAL_DATE = new Date('2025-05-17T04:00:00');
-const BASE_NV_YEAR = 1045;
-const BASE_NV_MONTH = 0;
+const BASE_NV_YEAR = 800;
+const BASE_NV_MONTH = 1;
 const BASE_NV_DAY = 1;
 const BASE_NV_DAY_NAME = "Elarion";
 const BASE_DAY_INDEX = DAYS.indexOf(BASE_NV_DAY_NAME);
-const DAYS_IN_MONTH = 25;
+const DAYS_IN_MONTH = 30;
 const DAYS_IN_YEAR = DAYS_IN_MONTH * MONTHS.length;
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
