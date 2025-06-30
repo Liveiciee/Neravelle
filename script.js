@@ -46,7 +46,7 @@ const calculateNeravelleDate = (() => {
         
         // Apply the 4-hour offset
         const adjustedDate = new Date(realWorldDate);
-        adjustedDate.setHours(adjustedDate.getHours() + 4);
+        adjustedDate.setHours(adjustedDate.getHours() + 0);
         
         const timeDiff = adjustedDate - BASE_REAL_DATE;
         const totalNeravelleDaysPassed = Math.floor((timeDiff * 2) / MS_PER_DAY);
