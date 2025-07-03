@@ -74,21 +74,25 @@ const calculateNeravelleDate = (() => {
 })();
 
 function getNeravelleTime(realWorldDate = new Date()) {
-    const realHours = realWorldDate.getHours();
-    const realMinutes = realWorldDate.getMinutes();
-    const realSeconds = realWorldDate.getSeconds();
+    // Calculate exact millisecond difference from base date
+    const timeDiff = realWorldDate - BASE_REAL_DATE;
     
-    const totalNeravelleSeconds = ((realHours * 3600 + realMinutes * 60 + realSeconds) * 2) + (4 * 3600 * 2);
+    // Convert to Neravelle time (2x faster)
+    const totalNeravelleMs = timeDiff * 2;
+    const totalNeravelleSeconds = Math.floor(totalNeravelleMs / 1000);
+    
     const nvHours = Math.floor(totalNeravelleSeconds / 3600) % 24;
     const nvMinutes = Math.floor((totalNeravelleSeconds % 3600) / 60);
     const nvSeconds = Math.floor(totalNeravelleSeconds % 60);
     
+    // Calculate date components
+    const totalNeravelleDaysPassed = Math.floor(totalNeravelleSeconds / 86400);
     const nvDate = calculateNeravelleDate(realWorldDate);
     
     return {
         time: `${String(nvHours).padStart(2, '0')}:${String(nvMinutes).padStart(2, '0')}:${String(nvSeconds).padStart(2, '0')}`,
-        date: `${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KSN`,
-        realTime: `${String(realHours).padStart(2, '0')}:${String(realMinutes).padStart(2, '0')}:${String(realSeconds).padStart(2, '0')}`,
+        date: `${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KHL`,
+        realTime: realWorldDate.toLocaleTimeString(),
         dayName: nvDate.dayName,
         nvHours: nvHours,
         nvDay: nvDate.day
@@ -252,16 +256,28 @@ function initBirthdayConverter() {
             const realDate = new Date(this.value + 'T00:00:00');
             if (isNaN(realDate.getTime())) throw new Error("Invalid date");
             
-            const adjustedDate = new Date(realDate);
-            adjustedDate.setHours(adjustedDate.getHours() + 4);
+            // Calculate the exact time difference
+            const timeDiff = realDate - BASE_REAL_DATE;
+            const totalNeravelleDaysPassed = Math.floor((timeDiff * 2) / MS_PER_DAY);
             
-            const nvDate = calculateNeravelleDate(adjustedDate);
-            output.textContent = `Di NeraVelle, lahirmu pada: ${nvDate.dayName}, ${nvDate.day} ${nvDate.month} ${nvDate.year} KSN`;
+            // Calculate Neravelle date components
+            const yearsPassed = Math.floor(totalNeravelleDaysPassed / DAYS_IN_YEAR);
+            const remainingDays = totalNeravelleDaysPassed % DAYS_IN_YEAR;
+            
+            const nvYear = BASE_NV_YEAR + yearsPassed;
+            const nvMonthIndex = Math.floor(remainingDays / DAYS_IN_MONTH);
+            const nvDay = (remainingDays % DAYS_IN_MONTH) + 1;
+            
+            const dayIndex = (BASE_DAY_INDEX + totalNeravelleDaysPassed) % DAYS.length;
+            const nvDayName = DAYS[dayIndex < 0 ? dayIndex + DAYS.length : dayIndex];
+            
+            output.textContent = `Di NeraVelle, lahirmu pada: ${nvDayName}, ${nvDay} ${MONTHS[nvMonthIndex]} ${nvYear} KSN`;
         } catch (e) {
             output.textContent = "Format tanggal tidak valid";
         }
     });
 }
+
 
 function init() {
     createStars();
