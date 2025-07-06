@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator HP & MP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .calculator {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 18px;
+            text-align: center;
+        }
+        .hp-result {
+            background-color: #ffdddd;
+            color: #d32f2f;
+        }
+        .mp-result {
+            background-color: #ddddff;
+            color: #303f9f;
+        }
+        .formula {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-left: 4px solid #4CAF50;
+            margin: 10px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kalkulator Persentase HP & MP</h1>
+    
+    <div class="calculator">
+        <h2>Health Point (HP)</h2>
+        <div class="formula">
+            Rumus: (HP saat ini ÷ Max HP) × 100%
+        </div>
+        <div class="form-group">
+            <label for="current-hp">HP Saat Ini:</label>
+            <input type="number" id="current-hp" placeholder="Masukkan HP saat ini">
+        </div>
+        <div class="form-group">
+            <label for="max-hp">Max HP:</label>
+            <input type="number" id="max-hp" placeholder="Masukkan Max HP">
+        </div>
+        <button onclick="calculateHP()">Hitung Persentase HP</button>
+        <div id="hp-result" class="result hp-result" style="display: none;">
+            Persentase HP: <span id="hp-percentage"></span>%
+        </div>
+    </div>
+    
+    <div class="calculator">
+        <h2>Mana Point (MP)</h2>
+        <div class="formula">
+            Rumus: (MP saat ini ÷ Max MP) × 100%
+        </div>
+        <div class="form-group">
+            <label for="current-mp">MP Saat Ini:</label>
+            <input type="number" id="current-mp" placeholder="Masukkan MP saat ini">
+        </div>
+        <div class="form-group">
+            <label for="max-mp">Max MP:</label>
+            <input type="number" id="max-mp" placeholder="Masukkan Max MP">
+        </div>
+        <button onclick="calculateMP()">Hitung Persentase MP</button>
+        <div id="mp-result" class="result mp-result" style="display: none;">
+            Persentase MP: <span id="mp-percentage"></span>%
+        </div>
+    </div>
+
+    <script>
+        function calculateHP() {
+            const currentHP = parseFloat(document.getElementById('current-hp').value);
+            const maxHP = parseFloat(document.getElementById('max-hp').value);
+            
+            if (isNaN(currentHP) || isNaN(maxHP) || maxHP === 0) {
+                alert("Masukkan nilai HP yang valid!");
+                return;
+            }
+            
+            const percentage = (currentHP / maxHP) * 100;
+            const rounded = percentage.toFixed(2);
+            
+            document.getElementById('hp-percentage').textContent = rounded;
+            document.getElementById('hp-result').style.display = 'block';
+        }
+        
+        function calculateMP() {
+            const currentMP = parseFloat(document.getElementById('current-mp').value);
+            const maxMP = parseFloat(document.getElementById('max-mp').value);
+            
+            if (isNaN(currentMP) || isNaN(maxMP) || maxMP === 0) {
+                alert("Masukkan nilai MP yang valid!");
+                return;
+            }
+            
+            const percentage = (currentMP / maxMP) * 100;
+            const rounded = percentage.toFixed(2);
+            
+            document.getElementById('mp-percentage').textContent = rounded;
+            document.getElementById('mp-result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
