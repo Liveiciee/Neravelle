@@ -21,7 +21,7 @@ const MS_PER_DAY = 86400000;
 
 // Optimized particle creation with throttling
 let resizeTimeout;
-const particleCount = Math.min(30, Math.floor(window.innerWidth / 30));
+let lastScrollPosition = 0;
 
 function getNeravelleTime(realDate = new Date()) {
     const timeDiff = realDate - BASE_DATE;
@@ -101,9 +101,13 @@ function initBirthdayConverter() {
 
 function createParticles() {
     const container = document.querySelector('.particles');
+    if (!container) return;
+    
     container.innerHTML = '';
     
-    for (let i = 0; i < particleCount; i++) {
+    const count = Math.min(30, Math.floor(window.innerWidth / 30));
+    
+    for (let i = 0; i < count; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
         
@@ -121,61 +125,68 @@ function createParticles() {
             animation-duration: ${duration}s;
             animation-delay: ${delay}s;
             opacity: ${opacity};
+            will-change: transform;
         `;
         
         container.appendChild(particle);
     }
 }
 
-function handleScroll() {
-    document.querySelectorAll('.section').forEach(section => {
-        const rect = section.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight * 0.8;
-        
-        if (isVisible) {
-            section.classList.add('visible');
-        } else {
-            // Optional: Uncomment if you want sections to hide when scrolled past
-            // section.classList.remove('visible');
-        }
-    });
-}
 function createBubbles() {
-  const container = document.body;
-  const bubbleCount = 15;
-  
-  for (let i = 0; i < bubbleCount; i++) {
-    const bubble = document.createElement('div');
-    bubble.classList.add('bubble');
+    const container = document.body;
+    const bubbleCount = 15;
     
-    const size = Math.random() * 20 + 5;
-    const posX = Math.random() * 100;
-    const duration = Math.random() * 15 + 10;
-    const delay = Math.random() * -20;
-    const opacity = Math.random() * 0.3 + 0.1;
-    
-    bubble.style.cssText = `
-      width: ${size}px;
-      height: ${size}px;
-      left: ${posX}%;
-      bottom: -${size}px;
-      animation-duration: ${duration}s;
-      animation-delay: ${delay}s;
-      opacity: ${opacity};
-    `;
-    
-    container.appendChild(bubble);
-  }
+    for (let i = 0; i < bubbleCount; i++) {
+        const bubble = document.createElement('div');
+        bubble.classList.add('bubble');
+        
+        const size = Math.random() * 20 + 5;
+        const posX = Math.random() * 100;
+        const duration = Math.random() * 15 + 10;
+        const delay = Math.random() * -20;
+        const opacity = Math.random() * 0.3 + 0.1;
+        
+        bubble.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${posX}%;
+            bottom: -${size}px;
+            animation-duration: ${duration}s;
+            animation-delay: ${delay}s;
+            opacity: ${opacity};
+            will-change: transform;
+        `;
+        
+        container.appendChild(bubble);
+    }
 }
 
+function handleScroll() {
+    const currentScroll = window.scrollY;
+    
+    // Only check every 100px scroll
+    if (Math.abs(currentScroll - lastScrollPosition) > 100) {
+        document.querySelectorAll('.section').forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight * 0.8;
+            
+            if (isVisible) {
+                section.classList.add('visible');
+            }
+        });
+        
+        lastScrollPosition = currentScroll;
+    }
+}
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     createParticles();
+    createBubbles();
     updateClock();
     initBirthdayConverter();
     handleScroll();
-    createBubbles();
+    
     // Throttled resize handler
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
@@ -184,6 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 200);
     });
     
+    // Optimized scroll handler
     window.addEventListener('scroll', handleScroll);
 });
 
