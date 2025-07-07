@@ -52,23 +52,36 @@ function updateClock() {
 }
 
 function convertBirthday(birthdate) {
+    if (!birthdate) throw new Error("Tanggal tidak boleh kosong");
+    
     const realDate = new Date(birthdate.replace(/-/g, '/') + 'T00:00:00');
     if (isNaN(realDate.getTime())) throw new Error("Format tanggal salah");
 
-    // Hitung selisih hari (termasuk negatif)
-    const totalDays = Math.floor((realDate - BASE_DATE) * 2 / MS_PER_DAY);
+    // Hitung selisih hari
+    const timeDiff = (realDate - BASE_DATE) * 2;
+    const daysPassed = Math.floor(timeDiff / MS_PER_DAY);
     
-    // Normalisasi untuk tanggal sebelum BASE_DATE
-    const normalizedDays = totalDays < 0 
-        ? DAYS_IN_YEAR + (totalDays % DAYS_IN_YEAR)
-        : totalDays;
-
-    const year = BASE_YEAR + Math.floor(normalizedDays / DAYS_IN_YEAR);
-    const monthIdx = Math.floor((normalizedDays % DAYS_IN_YEAR) / DAYS_IN_MONTH);
-    const day = (normalizedDays % DAYS_IN_MONTH) + 1;
-    const dayName = DAYS[(DAYS.indexOf("Elarion") + normalizedDays) % DAYS.length];
-
-    return `${dayName}, ${day} ${MONTHS[monthIdx]} ${year} KHL`;
+    if (daysPassed < 0) {
+        // Tanggal sebelum BASE_DATE
+        const positiveDays = Math.abs(daysPassed);
+        const yearsBefore = Math.floor(positiveDays / DAYS_IN_YEAR);
+        const remainingDays = positiveDays % DAYS_IN_YEAR;
+        
+        const year = BASE_YEAR - yearsBefore - (remainingDays > 0 ? 1 : 0);
+        const monthIdx = (MONTHS.length - 1) - Math.floor((remainingDays || DAYS_IN_YEAR) / DAYS_IN_MONTH);
+        const day = DAYS_IN_MONTH - ((remainingDays || DAYS_IN_YEAR) % DAYS_IN_MONTH);
+        const dayName = DAYS[(DAYS.length - (daysPassed % DAYS.length)) % DAYS.length];
+        
+        return `${dayName}, ${day} ${MONTHS[monthIdx]} ${year} KHL (Sebelum Era Heliora)`;
+    } else {
+        // Tanggal setelah BASE_DATE
+        const year = BASE_YEAR + Math.floor(daysPassed / DAYS_IN_YEAR);
+        const monthIdx = Math.floor((daysPassed % DAYS_IN_YEAR) / DAYS_IN_MONTH);
+        const day = (daysPassed % DAYS_IN_MONTH) + 1;
+        const dayName = DAYS[(DAYS.indexOf("Elarion") + daysPassed) % DAYS.length];
+        
+        return `${dayName}, ${day} ${MONTHS[monthIdx]} ${year} KHL`;
+    }
 }
 
 // Init
