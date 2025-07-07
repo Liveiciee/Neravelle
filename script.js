@@ -52,29 +52,23 @@ function updateClock() {
 }
 
 function convertBirthday(birthdate) {
-    const realDate = new Date(birthdate + 'T00:00:00');
-    if (isNaN(realDate.getTime())) throw new Error("Invalid date");
+    const realDate = new Date(birthdate.replace(/-/g, '/') + 'T00:00:00');
+    if (isNaN(realDate.getTime())) throw new Error("Format tanggal salah");
+
+    // Hitung selisih hari (termasuk negatif)
+    const totalDays = Math.floor((realDate - BASE_DATE) * 2 / MS_PER_DAY);
     
-    const timeDiff = (realDate - BASE_DATE) * 2;
-    const daysPassed = Math.floor(timeDiff / MS_PER_DAY);
-    
-    // Handle tanggal sebelum BASE_DATE (hari negatif)
-    if (daysPassed < 0) {
-        const cycles = Math.ceil(Math.abs(daysPassed) / DAYS_IN_YEAR);
-        daysPassed += cycles * DAYS_IN_YEAR;
-    }
-    
-    const year = BASE_YEAR + Math.floor(daysPassed / DAYS_IN_YEAR);
-    const monthIdx = (Math.floor((daysPassed % DAYS_IN_YEAR) / DAYS_IN_MONTH) % MONTHS.length;
-    const day = (daysPassed % DAYS_IN_MONTH) + 1;
-    const dayName = DAYS[(DAYS.indexOf("Elarion") + daysPassed) % DAYS.length];
-    
-    return { 
-        dayName,
-        day: Math.abs(day), // Pastikan hari positif
-        month: MONTHS[Math.max(0, monthIdx)], // Pastikan index tidak negatif
-        year: Math.max(BASE_YEAR, year) // Tahun tidak kurang dari 800 KHL
-    };
+    // Normalisasi untuk tanggal sebelum BASE_DATE
+    const normalizedDays = totalDays < 0 
+        ? DAYS_IN_YEAR + (totalDays % DAYS_IN_YEAR)
+        : totalDays;
+
+    const year = BASE_YEAR + Math.floor(normalizedDays / DAYS_IN_YEAR);
+    const monthIdx = Math.floor((normalizedDays % DAYS_IN_YEAR) / DAYS_IN_MONTH);
+    const day = (normalizedDays % DAYS_IN_MONTH) + 1;
+    const dayName = DAYS[(DAYS.indexOf("Elarion") + normalizedDays) % DAYS.length];
+
+    return `${dayName}, ${day} ${MONTHS[monthIdx]} ${year} KHL`;
 }
 
 // Init
