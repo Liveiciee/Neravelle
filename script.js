@@ -140,6 +140,34 @@ function handleScroll() {
         }
     });
 }
+function createBubbles() {
+  const container = document.body;
+  const bubbleCount = 15;
+  
+  for (let i = 0; i < bubbleCount; i++) {
+    const bubble = document.createElement('div');
+    bubble.classList.add('bubble');
+    
+    const size = Math.random() * 20 + 5;
+    const posX = Math.random() * 100;
+    const duration = Math.random() * 15 + 10;
+    const delay = Math.random() * -20;
+    const opacity = Math.random() * 0.3 + 0.1;
+    
+    bubble.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${posX}%;
+      bottom: -${size}px;
+      animation-duration: ${duration}s;
+      animation-delay: ${delay}s;
+      opacity: ${opacity};
+    `;
+    
+    container.appendChild(bubble);
+  }
+}
+
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -147,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateClock();
     initBirthdayConverter();
     handleScroll();
-    
+    createBubbles();
     // Throttled resize handler
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
