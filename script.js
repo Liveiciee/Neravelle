@@ -56,15 +56,17 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function generateParticles(container, type) {
-    const count = type === 'sunny' ? 15 : 80;
-    for (let i = 0; i < count; i++) {
-      const span = document.createElement('span');
-      span.className = type === 'rain' ? 'drop' : type === 'snow' ? 'flake' : 'ray';
-      span.style.left = Math.random() * 100 + 'vw';
-      span.style.animationDelay = Math.random() + 's';
-      container.appendChild(span);
-    }
+  container.innerHTML = '';
+  const count = type === 'sunny' ? 15 : type === 'snow' ? 100 : 80; // ❄️ tambahin jadi 120
+  for (let i = 0; i < count; i++) {
+    const span = document.createElement('span');
+    span.className = type === 'rain' ? 'drop' : type === 'snow' ? 'flake' : 'ray';
+    span.style.left = Math.random() * 100 + 'vw';
+    span.style.animationDelay = Math.random() * 5 + 's';
+    container.appendChild(span);
   }
+}
+
 
   function getWeatherIcon(type) {
     return { rain: '🌧️', snow: '❄️', sunny: '☀️' }[type] || '✨';
