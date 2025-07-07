@@ -1,286 +1,155 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
-
-:root {
-  /* Bright Ocean Color Palette - Neo Classic */
-  --sky-blue: #e0f7ff;
-  --cerulean: #88ccee;
-  --azure: #4aa8ff;
-  --deep-sapphire: #1a6fc9;
-  --classic-gold: #d4af37;
-  
-  /* Neo-Classic Elements */
-  --marble: #f8f9fa;
-  --antique-white: #faebd7;
-  
-  /* Typography */
-  --serif: 'Cormorant Garamond', serif;
-  --sans-serif: 'Montserrat', sans-serif;
-  
-  /* Spacing */
-  --space-unit: 1rem;
-  --space-xs: calc(0.5 * var(--space-unit));
-  --space-sm: var(--space-unit);
-  --space-md: calc(1.5 * var(--space-unit));
-  --space-lg: calc(2 * var(--space-unit));
-  --space-xl: calc(3 * var(--space-unit));
-}
-
-/* Base Styles */
-body {
-  background: linear-gradient(160deg, var(--sky-blue), var(--cerulean));
-  color: #2c3e50;
-  font-family: var(--sans-serif);
-  min-height: 100vh;
-  padding: var(--space-xl);
-  line-height: 1.6;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* Header - Neo-Classic Style */
-.header {
-  text-align: center;
-  margin-bottom: var(--space-xl);
-  border-bottom: 2px solid var(--classic-gold);
-  padding-bottom: var(--space-md);
-}
-
-.title {
-  font-family: var(--serif);
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--deep-sapphire);
-  margin-bottom: var(--space-sm);
-  letter-spacing: 1px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-}
-
-.subtitle {
-  font-family: var(--serif);
-  font-size: 1.2rem;
-  color: var(--deep-sapphire);
-  font-style: italic;
-}
-
-/* Divider - Classic Ornamental */
-.divider {
-  height: 2px;
-  background: linear-gradient(90deg, 
-    transparent, 
-    var(--classic-gold), 
-    transparent);
-  margin: var(--space-lg) 0;
-  position: relative;
-}
-
-.divider::after {
-  content: "✻";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: var(--sky-blue);
-  color: var(--classic-gold);
-  padding: 0 var(--space-sm);
-  font-size: 1.2rem;
-}
-
-/* Clock Cards - Neo-Classic with Blue Theme */
-.clock-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-lg);
-  margin-bottom: var(--space-xl);
-}
-
-.time-card {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-  padding: var(--space-lg);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.time-card::before {
+/* === Floating Islands === */
+body::before {
   content: '';
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, var(--azure), var(--deep-sapphire));
+  height: 100%;
+  background: 
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" opacity="0.03"><path d="M0 200 Q100 100 200 200 T400 200 T600 200 T800 200" fill="none" stroke="%2307689f" stroke-width="2"/></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" opacity="0.02"><circle cx="250" cy="250" r="200" fill="%23ffc93c"/></svg>');
+  background-repeat: no-repeat;
+  background-position: 
+    20% 30%,
+    80% 70%;
+  z-index: -1;
+  animation: float 25s infinite ease-in-out alternate;
 }
 
-.time-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+@keyframes float {
+  0% { transform: translateY(0) rotate(0.5deg); }
+  100% { transform: translateY(30px) rotate(-0.5deg); }
 }
 
-.time-label {
-  font-family: var(--serif);
-  font-size: 1.2rem;
-  color: var(--deep-sapphire);
-  margin-bottom: var(--space-sm);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-.neravelle-time {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 2.2rem;
-  color: var(--azure);
-  margin-bottom: var(--space-xs);
-  font-weight: 700;
-}
-
-.neravelle-date {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  color: #4a5568;
-  margin-bottom: var(--space-md);
-  font-style: italic;
-}
-
-.day-description {
-  font-size: 0.95rem;
-  color: #4a5568;
-  line-height: 1.5;
-}
-
-/* Birthday Converter - Classic Form */
-.birthday-input {
+/* === Magical Waves === */
+.wave-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  padding: var(--space-sm);
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-family: var(--sans-serif);
-  margin-bottom: var(--space-sm);
+  height: 100px;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%234fb3f6" opacity=".25"/></path></svg>');
+  animation: wave 15s linear infinite;
+}
+
+.wave:nth-child(2) {
+  animation-delay: -5s;
+  opacity: 0.5;
+}
+
+@keyframes wave {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* === Glitter Particles === */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: 
+    radial-gradient(circle, var(--gilded-sun) 20%, transparent 70%);
+  border-radius: 50%;
+  animation: floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+  to { transform: translateY(-100vh); }
+}
+
+function createParticles() {
+  const count = 30;
+  for (let i = 0; i < count; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    
+    // Random properties
+    const size = Math.random() * 5 + 1;
+    const posX = Math.random() * 100;
+    const duration = Math.random() * 20 + 10;
+    const delay = Math.random() * -20;
+    const opacity = Math.random() * 0.5 + 0.1;
+    
+    particle.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${posX}%;
+      top: 100%;
+      animation-duration: ${duration}s;
+      animation-delay: ${delay}s;
+      opacity: ${opacity};
+    `;
+    
+    document.querySelector('.particles').appendChild(particle);
+  }
+}
+
+/* === Enhanced Hover Effects === */
+.time-card:hover {
+  transform: translateY(-8px) rotateX(5deg) scale(1.02);
+  box-shadow: 
+    0 15px 50px rgba(7, 104, 159, 0.3),
+    var(--spell-glow),
+    0 0 0 3px rgba(255, 201, 60, 0.3);
+}
+
+.time-card:hover::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
   background: white;
-  transition: all 0.3s ease;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 
+    0 0 15px 5px rgba(255, 255, 255, 0.8),
+    0 0 30px 15px rgba(79, 179, 246, 0.5);
+  animation: pulse 2s infinite;
 }
 
-.birthday-input:focus {
-  outline: none;
-  border-color: var(--azure);
-  box-shadow: 0 0 0 2px rgba(74, 168, 255, 0.2);
+@keyframes pulse {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3); }
 }
 
-#birthdayOutput {
-  min-height: 3rem;
-  padding: var(--space-sm);
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 4px;
-  font-family: var(--serif);
-  font-size: 0.95rem;
-  color: #4a5568;
-  border-left: 3px solid var(--classic-gold);
-}
-
-/* Sections - Classic Elegance */
+/* === Scroll Animations === */
 .section {
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 8px;
-  padding: var(--space-lg);
-  margin-bottom: var(--space-lg);
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
 }
 
-.section h2 {
-  font-family: var(--serif);
-  font-size: 1.8rem;
-  color: var(--deep-sapphire);
-  margin-bottom: var(--space-md);
-  position: relative;
-  padding-bottom: var(--space-xs);
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.section h2::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--classic-gold), transparent);
-}
-
-.section ul, .section ol {
-  padding-left: var(--space-md);
-}
-
-.section li {
-  margin-bottom: var(--space-sm);
-  position: relative;
-  padding-left: var(--space-sm);
-}
-
-.section li::before {
-  content: '•';
-  position: absolute;
-  left: 0;
-  color: var(--classic-gold);
-}
-
-.section b {
-  color: var(--deep-sapphire);
-  font-weight: 600;
-}
-
-/* Footer - Classic Elegance */
-footer {
-  text-align: center;
-  padding: var(--space-md);
-  font-family: var(--serif);
-  color: var(--deep-sapphire);
-  font-size: 0.9rem;
-  margin-top: var(--space-xl);
-  border-top: 1px solid rgba(26, 111, 201, 0.2);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  body {
-    padding: var(--space-md);
-  }
-  
-  .title {
-    font-size: 2.2rem;
-  }
-  
-  .clock-container {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .title {
-    font-size: 1.8rem;
-  }
-  
-  .neravelle-time {
-    font-size: 1.8rem;
-  }
-  
-  .section h2 {
-    font-size: 1.5rem;
-  }
-}
-
-/* Neo-Classic Ornaments */
-.time-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 30px;
-  height: 30px;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%231a6fc9"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>') no-repeat;
-  opacity: 0.1;
+function handleScroll() {
+  document.querySelectorAll('.section').forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.8) {
+      section.classList.add('visible');
+    }
+  });
 }
