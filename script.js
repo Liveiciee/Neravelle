@@ -6,7 +6,11 @@ const MONTHS = Object.freeze([
 const DAY_DESCRIPTIONS = {
     "Elarion": "Hari cahaya baru, awal dari segala usaha.",
     "Velmora": "Waktu ilmu pengetahuan dan kebijaksanaan.",
-    // ... (deskripsi hari lainnya tetap sama)
+    "Tarsilune": "Hari refleksi, meditasi, dan ritual kecil.",
+    "Dravendei": "Hari kekuatan, kehormatan, dan keteguhan hati.",
+    "Esmiradyn": "Hari keberuntungan dan kemakmuran.",
+    "Lapliel": "Hari kedamaian dan ekspresi seni.",
+    "Noxverra": "Hari istirahat dan doa yang sakral."
 };
 
 const BASE_DATE = new Date('2025-06-29T00:00:00');
