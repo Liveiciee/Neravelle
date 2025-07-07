@@ -1,29 +1,23 @@
-/* === GLOBAL VARIABLES === */
 :root {
-  /* Color Palette */
   --deep-space: #000000;
   --cosmic-white: #ffffff;
   --stellar-violet: #c77dff;
   --text-primary: #ffffff;
   --text-secondary: #d8b4fe;
   --text-accent: #ff9e58;
-  /* Layout */
   --content-max-width: 1920px;
   --section-padding: 2.5rem;
-  /* Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
   --shadow-xl: 0 12px 36px rgba(0, 0, 0, 0.25);
   --glow-purple: 0 0 15px rgba(199, 125, 255, 0.6);
   --glow-gold: 0 0 20px rgba(255, 158, 88, 0.4);
-  /* Transitions */
   --transition-slow: 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   --transition-medium: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   --transition-fast: 0.2s ease-out;
 }
 
-/* === BASE STYLES === */
 *,
 *::before,
 *::after {
@@ -38,7 +32,7 @@ html {
   background-color: var(--deep-space);
   width: 100%;
   max-width: 100vw;
-  overflow-x: hidden !important;
+  overflow-x: hidden;
 }
 
 body {
@@ -60,7 +54,6 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* === FLEXBOX LAYOUT === */
 .flex-container {
   display: flex;
   flex-wrap: wrap;
@@ -81,7 +74,6 @@ body {
   align-items: center;
 }
 
-/* === LAYOUT STRUCTURE === */
 .container {
   max-width: var(--content-max-width);
   margin: 0 auto;
@@ -96,7 +88,6 @@ body {
   padding-top: 1rem;
 }
 
-/* === TYPOGRAPHY === */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 700;
@@ -136,7 +127,6 @@ a:hover {
   color: var(--text-accent);
 }
 
-/* === HEADER STYLES === */
 .header {
   text-align: center;
   margin-bottom: 3rem;
@@ -181,7 +171,6 @@ a:hover {
   letter-spacing: 1px;
 }
 
-/* === DIVIDER === */
 .divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--stellar-violet), transparent);
@@ -202,7 +191,6 @@ a:hover {
 .divider::before { left: 20%; }
 .divider::after { right: 20%; }
 
-/* === CLOCK & CALENDAR STYLES === */
 .clock-container {
   display: flex;
   flex-wrap: wrap;
@@ -257,7 +245,6 @@ a:hover {
   font-style: italic;
 }
 
-/* === FORM ELEMENTS === */
 .birthday-input {
   width: 100%;
   padding: 1rem;
@@ -292,7 +279,6 @@ a:hover {
   border-left: 3px solid var(--stellar-violet);
 }
 
-/* === SECTION STYLES === */
 .section {
   background: rgba(25, 20, 60, 0.4);
   backdrop-filter: blur(12px);
@@ -347,7 +333,43 @@ a:hover {
   border-radius: 2px;
 }
 
-/* === RESPONSIVE DESIGN === */
+footer {
+  text-align: center;
+  margin-top: 4rem;
+  padding: 2rem 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  position: relative;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--stellar-violet), transparent);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--deep-space);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--stellar-violet);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--stellar-violet);
+}
+
 @media (max-width: 1200px) {
   .container { padding: 1.5rem; }
 }
@@ -379,43 +401,4 @@ a:hover {
   .time-card { padding: 1.5rem; }
   .neravelle-time { font-size: 2rem; }
   .neravelle-date { font-size: 1.2rem; }
-}
-
-/* === FOOTER STYLES === */
-footer {
-  text-align: center;
-  margin-top: 4rem;
-  padding: 2rem 0;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  position: relative;
-}
-
-footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--stellar-violet), transparent);
-}
-
-/* === SCROLLBAR STYLES === */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--deep-space);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--stellar-violet);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--stellar-violet);
 }
