@@ -142,24 +142,27 @@ function initBirthdayConverter() {
             const realDate = new Date(this.value + 'T00:00:00');
             if (isNaN(realDate.getTime())) throw new Error("Invalid date");
             
-            // Calculate the exact time difference
+            // Calculate the exact time difference (bisa negatif untuk tanggal sebelum base date)
             const timeDiff = realDate - BASE_REAL_DATE;
             const totalNeravelleDaysPassed = Math.floor((timeDiff * 2) / MS_PER_DAY);
             
-            // Calculate Neravelle date components
+            // Hitung tahun Neravelle (bisa sebelum tahun 800 KHL)
             const yearsPassed = Math.floor(totalNeravelleDaysPassed / DAYS_IN_YEAR);
-            const remainingDays = totalNeravelleDaysPassed % DAYS_IN_YEAR;
-            
             const nvYear = BASE_NV_YEAR + yearsPassed;
+            
+            // Hitung sisa hari setelah dikurangi tahun penuh
+            const remainingDays = ((totalNeravelleDaysPassed % DAYS_IN_YEAR) + DAYS_IN_YEAR) % DAYS_IN_YEAR;
+            
             const nvMonthIndex = Math.floor(remainingDays / DAYS_IN_MONTH);
             const nvDay = (remainingDays % DAYS_IN_MONTH) + 1;
             
-            const dayIndex = (BASE_DAY_INDEX + totalNeravelleDaysPassed) % DAYS.length;
-            const nvDayName = DAYS[dayIndex < 0 ? dayIndex + DAYS.length : dayIndex];
+            // Hitung hari dengan penanganan index negatif yang benar
+            const dayIndex = ((BASE_DAY_INDEX + totalNeravelleDaysPassed) % DAYS.length + DAYS.length) % DAYS.length;
+            const nvDayName = DAYS[dayIndex];
             
-            output.textContent = `Di NeraVelle, lahirmu pada: ${nvDayName}, ${nvDay} ${MONTHS[nvMonthIndex]} ${nvYear} KSN`;
+            output.textContent = `Di Neravelle, lahirmu pada: ${nvDayName}, ${nvDay} ${MONTHS[nvMonthIndex]} ${nvYear} KHL`;
         } catch (e) {
-            output.textContent = "Format tanggal tidak valid";
+            output.textContent = "Format tanggal tidak valid (Gunakan format YYYY-MM-DD)";
         }
     });
 }
