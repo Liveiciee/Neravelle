@@ -63,26 +63,56 @@ document.addEventListener('DOMContentLoaded', function () {
   // Weather functions
   function toggleWeather(type) {
     if (currentWeather === type) {
+      // Fade out current weather
       document.documentElement.style.setProperty('--weather-opacity', '0');
+      setTimeout(() => {
+        weatherTypes.forEach(t => {
+          document.getElementById(`${t}-overlay`).style.display = 'none';
+        });
+      }, 500); // Match this with CSS transition duration
       currentWeather = null;
       stopWeatherAudio();
     } else {
-      document.documentElement.style.setProperty('--weather-opacity', '1');
-      weatherTypes.forEach(t => {
-        const el = document.getElementById(`${t}-overlay`);
-        el.style.display = t === type ? 'block' : 'none';
-        el.innerHTML = '';
-        if (t === type) generateParticles(el, t);
-      });
-      currentWeather = type;
-      playWeatherAudio(type);
+      // First fade out current weather if any
+      if (currentWeather) {
+        document.documentElement.style.setProperty('--weather-opacity', '0');
+        setTimeout(() => {
+          weatherTypes.forEach(t => {
+            const el = document.getElementById(`${t}-overlay`);
+            el.style.display = 'none';
+            el.innerHTML = '';
+          });
+          // Then fade in new weather
+          fadeInNewWeather(type);
+        }, 500);
+      } else {
+        // No current weather, just fade in new one
+        fadeInNewWeather(type);
+      }
     }
 
     document.querySelectorAll('.weather-btn').forEach(btn => {
       btn.classList.toggle('active', btn.innerHTML === getWeatherIcon(type) && currentWeather === type);
     });
   }
+  
+function fadeInNewWeather(type) {
+    weatherTypes.forEach(t => {
+      const el = document.getElementById(`${t}-overlay`);
+      el.style.display = t === type ? 'block' : 'none';
+      el.innerHTML = '';
+      if (t === type) generateParticles(el, t);
+    });
+    currentWeather = type;
+    // Start opacity at 0 and animate to 1
+    document.documentElement.style.setProperty('--weather-opacity', '0');
+    setTimeout(() => {
+      document.documentElement.style.setProperty('--weather-opacity', '1');
+    }, 10);
+    playWeatherAudio(type);
+        }
 
+  
   function generateParticles(container, type) {
     container.innerHTML = '';
     const count = type === 'sunny' ? 15 : type === 'snow' ? 120 : 80;
@@ -105,37 +135,63 @@ document.addEventListener('DOMContentLoaded', function () {
     return { rain: '🌧️', snow: '❄️', sunny: '☀️' }[type] || '✨';
   }
 
-  function toggleAudio() {
-    audioEnabled = !audioEnabled;
-    audioControl.innerHTML = audioEnabled ? '🔊' : '🔇';
-    if (audioEnabled && currentWeather) playWeatherAudio(currentWeather);
-    else stopWeatherAudio();
-  }
+let audioUnlocked = false; // Track audio context status
 
-  function playWeatherAudio(type) {
-    if (!audioEnabled) return;
+function toggleAudio() {
+  // Unlock audio on first interaction
+  if (!audioUnlocked) {
+    audioUnlocked = true;
+    // Play silent audio to unlock context
+    new Audio().play().catch(e => console.log('Audio unlock attempt:', e));
+  }
+  
+  audioEnabled = !audioEnabled;
+  audioControl.innerHTML = audioEnabled ? '🔊' : '🔇';
+  
+  if (audioEnabled && currentWeather) {
+    playWeatherAudio(currentWeather);
+  } else {
     stopWeatherAudio();
-    const sounds = {
-      rain: 'https://assets.mixkit.co/sfx/preview/mixkit-rain-loop-1246.mp3',
-      snow: 'https://assets.mixkit.co/sfx/preview/mixkit-cold-wind-rain-loop-2406.mp3',
-      sunny: 'https://assets.mixkit.co/sfx/preview/mixkit-summer-forest-birds-1250.mp3'
-    };
-    if (sounds[type]) {
-      weatherAudio = new Audio(sounds[type]);
-      weatherAudio.loop = true;
-      weatherAudio.volume = 0.3;
-      weatherAudio.play().catch(() => {});
+  }
+}
+
+function playWeatherAudio(type) {
+  if (!audioEnabled || !audioUnlocked) return;
+  
+  stopWeatherAudio();
+  
+  const sounds = {
+    rain: 'https://assets.mixkit.co/sfx/preview/mixkit-rain-loop-1246.mp3',
+    snow: 'https://assets.mixkit.co/sfx/preview/mixkit-cold-wind-rain-loop-2406.mp3',
+    sunny: 'https://assets.mixkit.co/sfx/preview/mixkit-summer-forest-birds-1250.mp3'
+  };
+  
+  if (sounds[type]) {
+    weatherAudio = new Audio(sounds[type]);
+    weatherAudio.loop = true;
+    weatherAudio.volume = 0.3;
+    
+    // Better error handling
+    weatherAudio.play().catch(e => {
+      console.error('Audio play failed:', e);
+      // Show user feedback if needed
+      if (e.name === 'NotAllowedError') {
+        alert('Please click anywhere on page first to enable audio');
+      }
+    });
+  }
+}
+
+// Unlock audio on any user interaction
+document.addEventListener('click', function initAudio() {
+  if (!audioUnlocked) {
+    audioUnlocked = true;
+    if (currentWeather && audioEnabled) {
+      playWeatherAudio(currentWeather);
     }
   }
-
-  function stopWeatherAudio() {
-    if (weatherAudio) {
-      weatherAudio.pause();
-      weatherAudio.currentTime = 0;
-      weatherAudio = null;
-    }
-  }
-
+  document.removeEventListener('click', initAudio);
+}, { once: true });
   // Clock functions
   setInterval(updateClock, 1000);
   updateClock();
