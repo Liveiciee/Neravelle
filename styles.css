@@ -1,4 +1,4 @@
-/* === Floating Islands === */
+/* === Oceanic Majesty === */
 body::before {
   content: '';
   position: fixed;
@@ -7,30 +7,55 @@ body::before {
   width: 100%;
   height: 100%;
   background: 
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" opacity="0.03"><path d="M0 200 Q100 100 200 200 T400 200 T600 200 T800 200" fill="none" stroke="%2307689f" stroke-width="2"/></svg>'),
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" opacity="0.02"><circle cx="250" cy="250" r="200" fill="%23ffc93c"/></svg>');
+    /* Islands */
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" opacity="0.05"><path d="M0 200 Q100 100 200 200 T400 200 T600 200 T800 200" fill="none" stroke="%2307689f" stroke-width="2"/></svg>'),
+    /* Sun reflection */
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" opacity="0.03"><circle cx="250" cy="250" r="200" fill="%23ffc93c"/></svg>'),
+    /* Underwater light */
+    linear-gradient(180deg, rgba(162,213,242,0.1) 0%, transparent 100%);
   background-repeat: no-repeat;
   background-position: 
     20% 30%,
-    80% 70%;
+    80% 70%,
+    0 0;
   z-index: -1;
-  animation: float 25s infinite ease-in-out alternate;
+  animation: oceanFloat 30s infinite ease-in-out alternate;
 }
 
-@keyframes float {
-  0% { transform: translateY(0) rotate(0.5deg); }
-  100% { transform: translateY(30px) rotate(-0.5deg); }
+@keyframes oceanFloat {
+  0% { 
+    transform: translateY(0) rotate(0.5deg);
+    background-position: 
+      20% 30%,
+      80% 70%,
+      0 0;
+  }
+  50% {
+    background-position: 
+      25% 35%,
+      75% 65%,
+      0 0;
+  }
+  100% { 
+    transform: translateY(30px) rotate(-0.5deg);
+    background-position: 
+      15% 25%,
+      85% 75%,
+      0 0;
+  }
 }
 
-/* === Magical Waves === */
+/* === Tsunami Waves === */
 .wave-container {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100px;
+  height: 150px; /* Lebih tinggi untuk efek lebih dramatis */
   z-index: -1;
   overflow: hidden;
+  transform-origin: bottom;
+  animation: waveScale 15s infinite ease-in-out;
 }
 
 .wave {
@@ -39,88 +64,69 @@ body::before {
   left: 0;
   width: 200%;
   height: 100%;
-  background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%234fb3f6" opacity=".25"/></path></svg>');
-  animation: wave 15s linear infinite;
+  background: 
+    url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%234fb3f6" opacity=".3"/></path></svg>'),
+    linear-gradient(180deg, rgba(79,179,246,0.2) 0%, rgba(7,104,159,0.4) 100%);
+  animation: waveMove 20s linear infinite;
 }
 
 .wave:nth-child(2) {
   animation-delay: -5s;
-  opacity: 0.5;
+  opacity: 0.6;
+  background-size: 50% 100%, cover;
+  height: 120%;
+  bottom: -10%;
 }
 
-@keyframes wave {
+.wave:nth-child(3) {
+  animation-delay: -2s;
+  opacity: 0.3;
+  background-size: 30% 80%, cover;
+  height: 80%;
+  bottom: 10%;
+}
+
+@keyframes waveMove {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-/* === Glitter Particles === */
-.particles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
+@keyframes waveScale {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.2); }
 }
 
-.particle {
+/* === Bubbles === */
+.bubble {
   position: absolute;
-  background: 
-    radial-gradient(circle, var(--gilded-sun, #ffc93c) 20%, transparent 70%);
   border-radius: 50%;
-  animation: floatParticle linear infinite;
+  background: rgba(255,255,255,0.2);
+  animation: bubbleRise linear infinite;
+  z-index: -1;
 }
 
-@keyframes floatParticle {
-  to { transform: translateY(-100vh); }
+@keyframes bubbleRise {
+  to { 
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
 }
 
-/* === Enhanced Hover Effects === */
-.time-card:hover {
-  transform: translateY(-8px) rotateX(5deg) scale(1.02);
-  box-shadow: 
-    0 15px 50px rgba(7, 104, 159, 0.3),
-    var(--spell-glow, 0 0 20px rgba(79, 179, 246, 0.7)),
-    0 0 0 3px rgba(255, 201, 60, 0.3);
-}
-
-.time-card:hover::after {
+/* === Ship Element === */
+.header::after {
   content: '';
   position: absolute;
-  top: 50%;
+  bottom: -40px;
   left: 50%;
-  width: 5px;
-  height: 5px;
-  background: white;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 
-    0 0 15px 5px rgba(255, 255, 255, 0.8),
-    0 0 30px 15px rgba(79, 179, 246, 0.5);
-  animation: pulse 2s infinite;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 60px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60"><path d="M10,40 Q60,10 110,40 L110,50 Q60,60 10,50 Z" fill="%2307689f" opacity="0.3"/><path d="M60,10 L60,0" stroke="%23ffc93c" stroke-width="2"/></svg>');
+  background-repeat: no-repeat;
+  animation: shipFloat 8s infinite ease-in-out;
 }
 
-@keyframes pulse {
-  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(3); }
-}
-
-/* === Scroll Animations === */
-.section {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease-out;
-}
-
-.section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* === CSS Variables === */
-:root {
-  --gilded-sun: #ffc93c;
-  --spell-glow: 0 0 20px rgba(79, 179, 246, 0.7);
-  --text-secondary: #6c757d;
+@keyframes shipFloat {
+  0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+  50% { transform: translateX(-50%) rotate(2deg); }
 }
