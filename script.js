@@ -70,7 +70,7 @@ function convertBirthday(birthdate) {
         const day = DAYS_IN_MONTH - ((remainingDays || DAYS_IN_YEAR) % DAYS_IN_MONTH);
         const dayName = DAYS[(DAYS.length - (daysPassed % DAYS.length)) % DAYS.length];
         
-        return `${dayName}, ${day} ${MONTHS[monthIdx]} ${year} KHL (Sebelum Era Heliora)`;
+        return `${dayName}, ${day} ${MONTHS[monthIdx]} ${year} KHL`;
     } else {
         const year = BASE_YEAR + Math.floor(daysPassed / DAYS_IN_YEAR);
         const monthIdx = Math.floor((daysPassed % DAYS_IN_YEAR) / DAYS_IN_MONTH);
@@ -98,3 +98,56 @@ function initBirthdayConverter() {
 setInterval(updateClock, 1000);
 updateClock();
 initBirthdayConverter();
+
+// Initialize effects - Letakkan di akhir file script.js
+document.addEventListener('DOMContentLoaded', () => {
+  // Particle system
+  function createParticles() {
+    const count = 30;
+    const container = document.querySelector('.particles');
+    
+    // Hapus existing particles jika ada
+    container.innerHTML = '';
+    
+    for (let i = 0; i < count; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      
+      const size = Math.random() * 5 + 1;
+      const posX = Math.random() * 100;
+      const duration = Math.random() * 20 + 10;
+      const delay = Math.random() * -20;
+      const opacity = Math.random() * 0.5 + 0.1;
+      
+      particle.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        left: ${posX}%;
+        top: 100%;
+        animation-duration: ${duration}s;
+        animation-delay: ${delay}s;
+        opacity: ${opacity};
+      `;
+      
+      container.appendChild(particle);
+    }
+  }
+
+  // Scroll animations
+  function handleScroll() {
+    document.querySelectorAll('.section').forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.8) {
+        section.classList.add('visible');
+      }
+    });
+  }
+
+  // Initialize
+  createParticles();
+  window.addEventListener('scroll', handleScroll);
+  handleScroll(); // Trigger immediately
+
+  // Refresh particles on resize
+  window.addEventListener('resize', createParticles);
+});
