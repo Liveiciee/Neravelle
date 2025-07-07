@@ -51,20 +51,30 @@ function updateClock() {
     document.getElementById('dayDescription').textContent = DAY_DESCRIPTIONS[nv.dayName] || "";
 }
 
-function initBirthdayConverter() {
-    const input = document.getElementById('birthdayInput');
-    input.addEventListener('input', function() {
-        const output = document.getElementById('birthdayOutput');
-        if (!this.value) return output.textContent = "";
-        
-        try {
-            const realDate = new Date(this.value + 'T00:00:00');
-            const nv = getNeravelleTime(realDate);
-            output.textContent = `Di Neravelle: ${nv.date}`;
-        } catch {
-            output.textContent = "Format tanggal tidak valid (Gunakan YYYY-MM-DD)";
-        }
-    });
+function convertBirthday(birthdate) {
+    const realDate = new Date(birthdate + 'T00:00:00');
+    if (isNaN(realDate.getTime())) throw new Error("Invalid date");
+    
+    const timeDiff = (realDate - BASE_DATE) * 2;
+    const daysPassed = Math.floor(timeDiff / MS_PER_DAY);
+    
+    // Handle tanggal sebelum BASE_DATE (hari negatif)
+    if (daysPassed < 0) {
+        const cycles = Math.ceil(Math.abs(daysPassed) / DAYS_IN_YEAR);
+        daysPassed += cycles * DAYS_IN_YEAR;
+    }
+    
+    const year = BASE_YEAR + Math.floor(daysPassed / DAYS_IN_YEAR);
+    const monthIdx = (Math.floor((daysPassed % DAYS_IN_YEAR) / DAYS_IN_MONTH) % MONTHS.length;
+    const day = (daysPassed % DAYS_IN_MONTH) + 1;
+    const dayName = DAYS[(DAYS.indexOf("Elarion") + daysPassed) % DAYS.length];
+    
+    return { 
+        dayName,
+        day: Math.abs(day), // Pastikan hari positif
+        month: MONTHS[Math.max(0, monthIdx)], // Pastikan index tidak negatif
+        year: Math.max(BASE_YEAR, year) // Tahun tidak kurang dari 800 KHL
+    };
 }
 
 // Init
