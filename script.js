@@ -20,13 +20,13 @@ const DAYS_IN_YEAR = DAYS_IN_MONTH * MONTHS.length;
 const MS_PER_DAY = 86400000;
 
 function getNeravelleTime(realDate = new Date()) {
-    const timeDiff = (realDate - BASE_DATE) * 2;
+    const timeDiff = realDate - BASE_DATE;
     const daysPassed = Math.floor(timeDiff / MS_PER_DAY);
     
     const year = BASE_YEAR + Math.floor(daysPassed / DAYS_IN_YEAR);
     const monthIdx = Math.floor((daysPassed % DAYS_IN_YEAR) / DAYS_IN_MONTH);
     const day = (daysPassed % DAYS_IN_MONTH) + 1;
-    const dayName = DAYS[(DAYS.indexOf("Elarion") + daysPassed) % DAYS.length];
+    const dayName = DAYS[daysPassed % DAYS.length];
     
     const totalSecs = Math.floor(timeDiff / 1000);
     const time = [
@@ -52,17 +52,15 @@ function updateClock() {
 }
 
 function convertBirthday(birthdate) {
-    if (!birthdate) throw new Error("Tanggal tidak boleh kosong");
+    if (!birthdate) return "Tanggal tidak boleh kosong";
     
-    const realDate = new Date(birthdate.replace(/-/g, '/') + 'T00:00:00');
-    if (isNaN(realDate.getTime())) throw new Error("Format tanggal salah");
+    const realDate = new Date(birthdate);
+    if (isNaN(realDate.getTime())) return "Format tanggal salah";
 
-    // Hitung selisih hari
-    const timeDiff = (realDate - BASE_DATE) * 2;
+    const timeDiff = realDate - BASE_DATE;
     const daysPassed = Math.floor(timeDiff / MS_PER_DAY);
     
     if (daysPassed < 0) {
-        // Tanggal sebelum BASE_DATE
         const positiveDays = Math.abs(daysPassed);
         const yearsBefore = Math.floor(positiveDays / DAYS_IN_YEAR);
         const remainingDays = positiveDays % DAYS_IN_YEAR;
@@ -74,17 +72,29 @@ function convertBirthday(birthdate) {
         
         return `${dayName}, ${day} ${MONTHS[monthIdx]} ${year} KHL (Sebelum Era Heliora)`;
     } else {
-        // Tanggal setelah BASE_DATE
         const year = BASE_YEAR + Math.floor(daysPassed / DAYS_IN_YEAR);
         const monthIdx = Math.floor((daysPassed % DAYS_IN_YEAR) / DAYS_IN_MONTH);
         const day = (daysPassed % DAYS_IN_MONTH) + 1;
-        const dayName = DAYS[(DAYS.indexOf("Elarion") + daysPassed) % DAYS.length];
+        const dayName = DAYS[daysPassed % DAYS.length];
         
         return `${dayName}, ${day} ${MONTHS[monthIdx]} ${year} KHL`;
     }
 }
 
-// Init
+function initBirthdayConverter() {
+    const input = document.getElementById('birthdayInput');
+    const output = document.getElementById('birthdayOutput');
+    
+    input.addEventListener('change', (e) => {
+        try {
+            output.textContent = convertBirthday(e.target.value);
+        } catch (error) {
+            output.textContent = error.message;
+        }
+    });
+}
+
+// Initialize
 setInterval(updateClock, 1000);
 updateClock();
 initBirthdayConverter();
