@@ -67,7 +67,7 @@ body::before {
 .particle {
   position: absolute;
   background: 
-    radial-gradient(circle, var(--gilded-sun) 20%, transparent 70%);
+    radial-gradient(circle, var(--gilded-sun, #ffc93c) 20%, transparent 70%);
   border-radius: 50%;
   animation: floatParticle linear infinite;
 }
@@ -76,39 +76,12 @@ body::before {
   to { transform: translateY(-100vh); }
 }
 
-function createParticles() {
-  const count = 30;
-  for (let i = 0; i < count; i++) {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    
-    // Random properties
-    const size = Math.random() * 5 + 1;
-    const posX = Math.random() * 100;
-    const duration = Math.random() * 20 + 10;
-    const delay = Math.random() * -20;
-    const opacity = Math.random() * 0.5 + 0.1;
-    
-    particle.style.cssText = `
-      width: ${size}px;
-      height: ${size}px;
-      left: ${posX}%;
-      top: 100%;
-      animation-duration: ${duration}s;
-      animation-delay: ${delay}s;
-      opacity: ${opacity};
-    `;
-    
-    document.querySelector('.particles').appendChild(particle);
-  }
-}
-
 /* === Enhanced Hover Effects === */
 .time-card:hover {
   transform: translateY(-8px) rotateX(5deg) scale(1.02);
   box-shadow: 
     0 15px 50px rgba(7, 104, 159, 0.3),
-    var(--spell-glow),
+    var(--spell-glow, 0 0 20px rgba(79, 179, 246, 0.7)),
     0 0 0 3px rgba(255, 201, 60, 0.3);
 }
 
@@ -145,11 +118,9 @@ function createParticles() {
   transform: translateY(0);
 }
 
-function handleScroll() {
-  document.querySelectorAll('.section').forEach(section => {
-    const rect = section.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.8) {
-      section.classList.add('visible');
-    }
-  });
+/* === CSS Variables === */
+:root {
+  --gilded-sun: #ffc93c;
+  --spell-glow: 0 0 20px rgba(79, 179, 246, 0.7);
+  --text-secondary: #6c757d;
 }
