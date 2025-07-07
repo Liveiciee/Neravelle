@@ -161,10 +161,10 @@ function playWeatherAudio(type) {
   stopWeatherAudio();
   
   const sounds = {
-    rain: 'https://assets.mixkit.co/sfx/preview/mixkit-rain-loop-1246.mp3',
-    snow: 'https://assets.mixkit.co/sfx/preview/mixkit-cold-wind-rain-loop-2406.mp3',
-    sunny: 'https://assets.mixkit.co/sfx/preview/mixkit-summer-forest-birds-1250.mp3'
-  };
+  rain: 'assets/audio/rain.mp3',
+  snow: 'assets/audio/snow.mp3',
+  sunny: 'assets/audio/sunny.mp3'
+};
   
   if (sounds[type]) {
     weatherAudio = new Audio(sounds[type]);
