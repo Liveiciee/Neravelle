@@ -10,7 +10,7 @@
   --text-secondary: #6c757d;
 }
 
-/* === Oceanic Majesty === */
+/* == Oceanic Majesty == */
 body {
   background: linear-gradient(180deg, #0a2a3d 0%, #0c4a6e 100%);
   color: var(--pearl-white);
