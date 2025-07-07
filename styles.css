@@ -1,6 +1,5 @@
 /* === CSS Variables - Enhanced World Building Theme === */
 :root {
-  /* Warna Tema Dunia Fantasi */
   --celestial-blue: #a2d5f2;
   --luminous-azure: #4fb3f6;
   --abyssal-sapphire: #07689f;
@@ -8,150 +7,74 @@
   --pearl-white: #f8f9fa;
   --mystic-purple: #9d4edd;
   --arcane-green: #2d6a4f;
+  --spell-glow: 0 0 15px rgba(79, 179, 246, 0.6);
   --ancient-paper: rgba(248, 240, 227, 0.95);
   --text-secondary: #6c757d;
-
-  /* Efek Glow & Transisi */
-  --spell-glow: 0 0 15px rgba(79, 179, 246, 0.6);
   --weather-opacity: 0;
-  --transition-speed: 2s;
-  --particle-color: var(--luminous-azure);
 }
 
 /* == Cosmic Ocean Background == */
 body {
-  margin: 0;
-  padding: 0;
   background: linear-gradient(180deg, #0a2a3d 0%, #0c4a6e 100%);
   color: var(--pearl-white);
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
+  padding-bottom: 50px;
   position: relative;
-  animation: breathe 10s ease-in-out infinite alternate;
-}
-
-/* Animasi Pernapasan Latar Belakang */
-@keyframes breathe {
-  from { background-color: #0a2a3d; }
-  to { background-color: #0c4a6e; }
-}
-
-/* Efek Bintang di Langit Malam */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0;
-  width: 200vw;
-  height: 200vh;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.3) 0%, transparent 50%),
-    radial-gradient(circle at 60% 70%, rgba(255,255,255,0.2) 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
-  z-index: -3;
-  animation: starTwinkle 20s infinite ease-in-out alternate;
-}
-
-/* Efek Kedip Bintang */
-@keyframes starTwinkle {
-  0% { opacity: 0.9; transform: scale(1); }
-  100% { opacity: 0.6; transform: scale(1.05); }
 }
 
 /* Weather Overlay Effects */
 .weather-overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: -1;
   opacity: var(--weather-opacity);
-  transition: opacity var(--transition-speed) ease;
-  backdrop-filter: blur(1px);
+  transition: opacity 1.5s ease;
 }
 
-/* Hujan */
+/* Rain Effect */
 .rain {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 20"><path d="M1 0v20" stroke="%23a2d5f2" stroke-width="0.5"/></svg>') repeat;
-  animation: rainFall var(--transition-speed) linear infinite;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 20" opacity="0.3"><path d="M1 0v20" stroke="%23a2d5f2" stroke-width="0.5"/></svg>');
+  animation: rain 0.8s linear infinite;
 }
 
-@keyframes rainFall {
+/* Snow Effect */
+.snow {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" opacity="0.5"><circle cx="5" cy="5" r="2" fill="%23f8f9fa"/></svg>');
+  animation: snow 12s linear infinite;
+}
+
+/* Sunny Effect */
+.sunny {
+  background: radial-gradient(circle at 20% 30%, rgba(255, 201, 60, 0.1) 0%, transparent 50%);
+  animation: sunny 15s alternate infinite;
+}
+
+@keyframes rain {
   to { background-position: 0 20px; }
 }
 
-/* Salju */
-.snow {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><circle cx="5" cy="5" r="2" fill="%23f8f9fa"/></svg>') repeat;
-  animation: snowFall 12s linear infinite;
-}
-
-@keyframes snowFall {
+@keyframes snow {
   to { background-position: 0 100vh; }
 }
 
-/* Cerah */
-.sunny {
-  background: radial-gradient(circle at 20% 30%, rgba(255, 201, 60, 0.2) 0%, transparent 50%);
-  animation: sunGlow 15s alternate infinite;
+@keyframes sunny {
+  to { background-position: 30% 40%; }
 }
 
-@keyframes sunGlow {
-  0% { background-position: 20% 30%; }
-  100% { background-position: 30% 40%; }
-}
-
-/* Sinar Matahari Bergerak */
-.sun-beam {
-  position: fixed;
-  top: 0; left: 0;
-  width: 200%;
-  height: 200%;
-  background: repeating-linear-gradient(
-    45deg,
-    transparent,
-    rgba(255, 201, 60, 0.05) 20px,
-    transparent 40px
-  );
-  animation: beamSweep 10s linear infinite;
-  z-index: -2;
-  pointer-events: none;
-  opacity: 0.3;
-}
-
-@keyframes beamSweep {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Particle Magis */
-.glow-particle {
-  position: fixed;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--particle-color), transparent);
-  width: 10px;
-  height: 10px;
-  animation: floatParticle 15s infinite ease-in-out alternate;
-  z-index: -1;
-}
-
-@keyframes floatParticle {
-  0% { transform: translateY(0px) translateX(0px); opacity: 0.4; }
-  100% { transform: translateY(-100vh) translateX(100vw); opacity: 0; }
-}
-
-/* Tombol Cuaca */
+/* === Weather Controls === */
 .weather-controls {
   position: fixed;
   bottom: 20px;
   right: 20px;
   display: flex;
   gap: 10px;
-  z-index: 1000;
-  backdrop-filter: blur(5px);
-  padding: 10px;
-  border-radius: 12px;
-  background: rgba(0,0,0,0.3);
+  z-index: 100;
 }
 
 .weather-btn {
@@ -167,7 +90,6 @@ body::before {
   justify-content: center;
   box-shadow: 0 2px 10px rgba(0,0,0,0.3);
   transition: all 0.3s ease;
-  font-size: 1.2em;
 }
 
 .weather-btn:hover {
@@ -177,10 +99,9 @@ body::before {
 .weather-btn.active {
   background: var(--gilded-sun);
   box-shadow: 0 0 10px var(--gilded-sun);
-  transform: scale(1.2);
 }
 
-/* Tombol Suara */
+/* Audio Controls */
 .audio-control {
   position: fixed;
   bottom: 20px;
@@ -195,73 +116,107 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 100;
   box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
 }
 
-.audio-control:hover {
-  transform: scale(1.1);
-}
-
-.audio-control.muted {
-  background: red;
-  box-shadow: 0 0 10px red;
-}
-
-/* Kalender Fantasi */
-#neravelleDate {
+/* === Enhanced Cosmic Effects === */
+body::before {
+  content: '';
   position: fixed;
-  bottom: 20px;
-  left: 80px;
-  padding: 0.5rem 1rem;
-  background: rgba(7, 104, 159, 0.3);
-  border-radius: 20px;
-  font-weight: 500;
-  font-size: 0.95rem;
-  backdrop-filter: blur(5px);
-  z-index: 1000;
-  animation: popIn 1s ease-out;
-  cursor: help;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" opacity="0.05"><path d="M0 200 Q100 100 200 200 T400 200 T600 200 T800 200" fill="none" stroke="%2307689f" stroke-width="2"/></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" opacity="0.03"><circle cx="250" cy="250" r="200" fill="%23ffc93c"/></svg>'),
+    linear-gradient(180deg, rgba(162,213,242,0.1) 0%, transparent 100%);
+  background-repeat: no-repeat;
+  background-position: 
+    20% 30%,
+    80% 70%,
+    0 0;
+  z-index: -1;
+  animation: oceanFloat 30s infinite ease-in-out alternate;
 }
 
-/* Tooltip Hari Fantasi */
-#day-description-tooltip {
-  position: fixed;
-  bottom: 70px;
-  left: 80px;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 10px 15px;
-  border-radius: 12px;
-  font-style: italic;
-  font-size: 0.9rem;
-  max-width: 300px;
-  display: none;
-  z-index: 1001;
-  backdrop-filter: blur(5px);
-  transition: opacity 0.3s ease;
+@keyframes oceanFloat {
+  0% { 
+    transform: translateY(0) rotate(0.5deg);
+    background-position: 
+      20% 30%,
+      80% 70%,
+      0 0;
+  }
+  50% {
+    background-position: 
+      25% 35%,
+      75% 65%,
+      0 0;
+  }
+  100% { 
+    transform: translateY(30px) rotate(-0.5deg);
+    background-position: 
+      15% 25%,
+      85% 75%,
+      0 0;
+  }
 }
 
-@keyframes popIn {
-  from { transform: scale(0.5); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-/* Section Animation */
-.section {
+/* === Enhanced Time Cards === */
+.time-card {
   position: relative;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1s ease, transform 1s ease;
-  padding: 2rem;
+  overflow: hidden;
 }
 
-.section.visible {
-  opacity: 1;
-  transform: translateY(0);
+.time-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><path d="M0 0 L100 100 M100 0 L0 100" stroke="%2307689f" stroke-width="1"/></svg>');
+  pointer-events: none;
 }
 
-/* Floating Islands */
+/* === Calendar Enhancements === */
+.neravelle-date {
+  position: relative;
+  padding: 0.5rem;
+  background: rgba(7, 104, 159, 0.1);
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.neravelle-date::before {
+  content: '📅';
+  margin-right: 5px;
+}
+
+/* === Responsive Adjustments === */
+@media (max-width: 768px) {
+  .weather-controls {
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .weather-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 0.8rem;
+  }
+  
+  .audio-control {
+    bottom: 10px;
+    left: 10px;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* === New Floating Islands === */
 .floating-island {
   position: fixed;
   width: 200px;
@@ -284,35 +239,20 @@ body::before {
   100% { transform: translateX(-200px) translateY(30vh); }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .section {
-    padding: 1rem;
-  }
+/* === Enhanced Section Styling === */
+.section {
+  position: relative;
+}
 
-  #neravelleDate {
-    left: 10px;
-    bottom: 70px;
-    font-size: 0.85rem;
-  }
-
-  .weather-controls {
-    bottom: 10px;
-    right: 10px;
-    padding: 8px;
-    border-radius: 10px;
-  }
-
-  .weather-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
-  }
-
-  .audio-control {
-    bottom: 10px;
-    left: 10px;
-    width: 35px;
-    height: 35px;
-  }
+.section::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 1px solid rgba(79, 179, 246, 0.2);
+  border-radius: 15px;
+  pointer-events: none;
+  z-index: -1;
 }
