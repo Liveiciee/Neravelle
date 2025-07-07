@@ -1,171 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css');
+
 :root {
-  /* Ultra-Modern Water Palette */
-  --deep-abyss: #0b1a30;
-  --midnight-ocean: #162b4d;
-  --electric-blue: #00e0ff;
-  --soft-aqua: #7fffd4;
-  --wave-highlight: #1e90ff;
+  /* Deep Ocean Color Palette */
+  --ocean-deep: #0a1a2e;
+  --ocean-mid: #152a47;
+  --ocean-light: #1e3a6a;
+  --aqua-bright: #00d4ff;
+  --aqua-pale: #7fffd4;
+  --wave-accent: #1e90ff;
   
-  /* Modern Neutrals */
-  --pure-white: #ffffff;
-  --cool-gray: #e6f1ff;
+  /* Modern Glass Effects */
+  --glass-dark: rgba(15, 30, 60, 0.7);
+  --glass-light: rgba(30, 60, 120, 0.4);
+  --glass-blur: 12px;
   
-  /* Glass Morphism */
-  --glass-dark: rgba(11, 26, 48, 0.7);
-  --glass-light: rgba(22, 43, 77, 0.5);
-  --glass-blur: 16px;
-  
-  /* Modern Shadows */
-  --neumorphic-shadow: 
-    8px 8px 16px rgba(2, 12, 27, 0.5),
-    -8px -8px 16px rgba(30, 144, 255, 0.1);
-  
-  /* Spacing */
-  --section-padding: 2.5rem;
-  --card-padding: 2rem;
-  --border-radius: 16px;
+  /* Typography */
+  --text-primary: #e6f1ff;
+  --text-secondary: #b8d0ff;
 }
 
-/* Modern Base */
 body {
-  background: radial-gradient(
-    circle at 20% 50%,
-    var(--midnight-ocean),
-    var(--deep-abyss)
-  );
-  color: var(--cool-gray);
-  font-family: 'Poppins', -apple-system, sans-serif;
-  line-height: 1.6;
-  min-height: 100vh;
+  background: linear-gradient(135deg, var(--ocean-deep), var(--ocean-mid));
+  padding: 2rem;
+  font-family: 'Poppins', system-ui, sans-serif;
+  color: var(--text-primary);
 }
 
-/* Ultra-Modern Cards */
-.time-card, .section {
+.grid-container {
+  width: min(75rem, 100%);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: 2rem;
+}
+
+.card {
+  --grad: var(--aqua-bright), var(--wave-accent);
+  padding: 2.5rem;
   background: linear-gradient(
-    135deg,
-    var(--glass-dark),
-    var(--glass-light)
+    145deg,
+    rgba(30, 60, 120, 0.6),
+    rgba(15, 30, 60, 0.8)
   );
   backdrop-filter: blur(var(--glass-blur));
-  border-radius: var(--border-radius);
-  border: 1px solid rgba(126, 255, 245, 0.15);
-  box-shadow: var(--neumorphic-shadow);
+  border-radius: 1.5rem;
+  gap: 1.5rem;
+  display: grid;
+  grid-template: 'title icon' 'content content' 'bar bar' / 1fr auto;
+  box-shadow:
+    0 8px 32px rgba(2, 12, 27, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(126, 255, 245, 0.1);
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
   overflow: hidden;
 }
 
-/* Hover Animation */
-.time-card:hover, .section:hover {
-  transform: translateY(-5px);
-  box-shadow: 
-    12px 12px 24px rgba(2, 12, 27, 0.6),
-    -12px -12px 24px rgba(30, 144, 255, 0.2);
-  border-color: rgba(126, 255, 245, 0.3);
-}
-
-/* Glow Effects */
-.time-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--electric-blue),
-    transparent
-  );
-  box-shadow: 0 0 10px var(--electric-blue);
-}
-
-/* Ultra-Modern Typography */
-h1 {
-  font-size: clamp(3rem, 6vw, 4.5rem);
-  font-weight: 700;
-  background: linear-gradient(
-    90deg,
-    var(--electric-blue),
-    var(--soft-aqua)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  margin-bottom: 1rem;
-}
-
-h2 {
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
-  font-weight: 600;
-  color: var(--pure-white);
-}
-
-/* Digital Clock */
-.neravelle-time {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: clamp(2.5rem, 8vw, 4rem);
-  font-weight: 600;
-  color: var(--electric-blue);
-  letter-spacing: -0.02em;
-  text-shadow: 0 0 10px rgba(0, 224, 255, 0.4);
-}
-
-/* Modern Input */
-.birthday-input {
-  background: rgba(11, 26, 48, 0.8);
-  border: 1px solid var(--wave-highlight);
-  border-radius: 8px;
-  padding: 1rem;
-  color: var(--pure-white);
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.birthday-input:focus {
-  outline: none;
-  border-color: var(--electric-blue);
-  box-shadow: 0 0 0 3px rgba(0, 224, 255, 0.2);
-}
-
-/* Floating Elements */
-.time-card {
-  position: relative;
-}
-
-.time-card::before {
+.card::before {
   content: '';
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(0, 224, 255, 0.1) 0%,
-    transparent 70%
+  background: linear-gradient(
+    to bottom right,
+    transparent,
+    transparent,
+    rgba(0, 212, 255, 0.1)
   );
-  animation: float 8s infinite linear;
+  transform: rotate(30deg);
 }
 
-@keyframes float {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(5%, 5%); }
-  50% { transform: translate(10%, 0); }
-  75% { transform: translate(5%, -5%); }
-  100% { transform: translate(0, 0); }
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 12px 40px rgba(2, 12, 27, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  border-color: rgba(126, 255, 245, 0.3);
 }
 
-/* Responsive Design */
+.card-title {
+  grid-area: title;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--aqua-pale);
+  margin: 0;
+}
+
+.card-icon {
+  grid-area: icon;
+  color: var(--aqua-bright);
+  font-size: 1.8rem;
+  align-self: center;
+}
+
+.card-content {
+  grid-area: content;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.progress-bar {
+  grid-area: bar;
+  height: 6px;
+  background: rgba(30, 144, 255, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--grad));
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+/* Water Ripple Effect */
+.card:hover::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20, 20);
+    opacity: 0;
+  }
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  :root {
-    --section-padding: 1.5rem;
-    --card-padding: 1.5rem;
+  body {
+    padding: 1.5rem;
   }
   
-  .flex-container {
-    flex-direction: column;
+  .card {
+    padding: 1.8rem;
   }
 }
