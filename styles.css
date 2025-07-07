@@ -1,4 +1,3 @@
-/* === CSS Variables - Enhanced World Building Theme === */
 :root {
   --celestial-blue: #a2d5f2;
   --luminous-azure: #4fb3f6;
@@ -9,14 +8,18 @@
   --arcane-green: #2d6a4f;
   --spell-glow: 0 0 15px rgba(79, 179, 246, 0.6);
   --ancient-paper: rgba(248, 240, 227, 0.95);
-  --text-secondary: #6c757d;
+  --glass-bg: rgba(10, 42, 61, 0.25);
+  --glass-border: rgba(162, 213, 242, 0.2);
+  --text-primary: var(--pearl-white);
+  --text-secondary: #adb5bd;
   --weather-opacity: 0;
 }
 
-/* == Cosmic Ocean Background == */
 body {
-  background: linear-gradient(180deg, #0a2a3d 0%, #0c4a6e 100%);
-  color: var(--pearl-white);
+  background: linear-gradient(270deg, #0a2a3d, #0c4a6e, #2d6a4f, #9d4edd);
+  background-size: 800% 800%;
+  animation: magicalAtmosphere 45s ease infinite;
+  color: var(--text-primary);
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
@@ -24,7 +27,44 @@ body {
   position: relative;
 }
 
-/* Weather Overlay Effects */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" opacity="0.05"><path d="M0 200 Q100 100 200 200 T400 200 T600 200 T800 200" fill="none" stroke="%2307689f" stroke-width="2"/></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" opacity="0.03"><circle cx="250" cy="250" r="200" fill="%23ffc93c"/></svg>'),
+    linear-gradient(180deg, rgba(162,213,242,0.1) 0%, transparent 100%);
+  background-repeat: no-repeat;
+  background-position: 20% 30%, 80% 70%, 0 0;
+  z-index: -1;
+  animation: oceanFloat 30s infinite ease-in-out alternate;
+}
+
+@keyframes magicalAtmosphere {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes oceanFloat {
+  0% {
+    transform: translateY(0) rotate(0.5deg);
+    background-position: 20% 30%, 80% 70%, 0 0;
+  }
+  50% {
+    background-position: 25% 35%, 75% 65%, 0 0;
+  }
+  100% {
+    transform: translateY(30px) rotate(-0.5deg);
+    background-position: 15% 25%, 85% 75%, 0 0;
+  }
+}
+
+/* === WEATHER CUSTOM PARTICLES === */
 .weather-overlay {
   position: fixed;
   top: 0;
@@ -32,42 +72,58 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
   opacity: var(--weather-opacity);
-  transition: opacity 1.5s ease;
 }
 
-/* Rain Effect */
-.rain {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 20" opacity="0.3"><path d="M1 0v20" stroke="%23a2d5f2" stroke-width="0.5"/></svg>');
-  animation: rain 0.8s linear infinite;
+.weather-overlay .drop {
+  position: absolute;
+  width: 2px;
+  height: 15px;
+  background: var(--celestial-blue);
+  border-radius: 1px;
+  opacity: 0.4;
+  animation: rain-fall 0.6s linear infinite;
+  filter: blur(0.5px);
 }
 
-/* Snow Effect */
-.snow {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" opacity="0.5"><circle cx="5" cy="5" r="2" fill="%23f8f9fa"/></svg>');
-  animation: snow 12s linear infinite;
+.weather-overlay .flake {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: snow-fall 8s linear infinite;
+  filter: blur(0.3px);
 }
 
-/* Sunny Effect */
-.sunny {
-  background: radial-gradient(circle at 20% 30%, rgba(255, 201, 60, 0.1) 0%, transparent 50%);
-  animation: sunny 15s alternate infinite;
+.weather-overlay .ray {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, var(--gilded-sun) 0%, transparent 80%);
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: sun-glow 6s ease-in-out infinite alternate;
 }
 
-@keyframes rain {
-  to { background-position: 0 20px; }
+@keyframes rain-fall {
+  0% { transform: translateY(-100px); }
+  100% { transform: translateY(100vh); }
 }
 
-@keyframes snow {
-  to { background-position: 0 100vh; }
+@keyframes snow-fall {
+  0% { transform: translateY(-10px) translateX(0); }
+  100% { transform: translateY(100vh) translateX(20px); }
 }
 
-@keyframes sunny {
-  to { background-position: 30% 40%; }
+@keyframes sun-glow {
+  0% { transform: scale(0.9); opacity: 0.08; }
+  100% { transform: scale(1.1); opacity: 0.15; }
 }
 
-/* === Weather Controls === */
+/* === UI === */
 .weather-controls {
   position: fixed;
   bottom: 20px;
@@ -88,7 +144,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
@@ -101,7 +157,6 @@ body {
   box-shadow: 0 0 10px var(--gilded-sun);
 }
 
-/* Audio Controls */
 .audio-control {
   position: fixed;
   bottom: 20px;
@@ -117,71 +172,22 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 100;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* === Enhanced Cosmic Effects === */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" opacity="0.05"><path d="M0 200 Q100 100 200 200 T400 200 T600 200 T800 200" fill="none" stroke="%2307689f" stroke-width="2"/></svg>'),
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" opacity="0.03"><circle cx="250" cy="250" r="200" fill="%23ffc93c"/></svg>'),
-    linear-gradient(180deg, rgba(162,213,242,0.1) 0%, transparent 100%);
-  background-repeat: no-repeat;
-  background-position: 
-    20% 30%,
-    80% 70%,
-    0 0;
-  z-index: -1;
-  animation: oceanFloat 30s infinite ease-in-out alternate;
-}
-
-@keyframes oceanFloat {
-  0% { 
-    transform: translateY(0) rotate(0.5deg);
-    background-position: 
-      20% 30%,
-      80% 70%,
-      0 0;
-  }
-  50% {
-    background-position: 
-      25% 35%,
-      75% 65%,
-      0 0;
-  }
-  100% { 
-    transform: translateY(30px) rotate(-0.5deg);
-    background-position: 
-      15% 25%,
-      85% 75%,
-      0 0;
-  }
-}
-
-/* === Enhanced Time Cards === */
+/* === Other Components === */
 .time-card {
   position: relative;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.time-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><path d="M0 0 L100 100 M100 0 L0 100" stroke="%2307689f" stroke-width="1"/></svg>');
-  pointer-events: none;
-}
-
-/* === Calendar Enhancements === */
 .neravelle-date {
   position: relative;
   padding: 0.5rem;
@@ -195,64 +201,38 @@ body::before {
   margin-right: 5px;
 }
 
-/* === Responsive Adjustments === */
+.section {
+  position: relative;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 3px solid var(--gilded-sun);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  transition: all 0.5s ease;
+}
+
+.section.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* === Responsive === */
 @media (max-width: 768px) {
   .weather-controls {
     bottom: 10px;
     right: 10px;
   }
-  
+
   .weather-btn {
     width: 35px;
     height: 35px;
     font-size: 0.8rem;
   }
-  
+
   .audio-control {
     bottom: 10px;
     left: 10px;
     width: 35px;
     height: 35px;
   }
-}
-
-/* === New Floating Islands === */
-.floating-island {
-  position: fixed;
-  width: 200px;
-  height: 100px;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100"><path d="M0 50 Q50 0 100 50 T200 50 L200 100 L0 100 Z" fill="%232d6a4f" opacity="0.3"/></svg>');
-  z-index: -1;
-  animation: floatIsland 25s infinite linear;
-}
-
-.floating-island:nth-child(2) {
-  width: 150px;
-  height: 75px;
-  animation-duration: 30s;
-  animation-delay: -10s;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 75"><path d="M0 30 Q30 0 75 30 T150 30 L150 75 L0 75 Z" fill="%239d4edd" opacity="0.3"/></svg>');
-}
-
-@keyframes floatIsland {
-  0% { transform: translateX(100vw) translateY(20vh); }
-  100% { transform: translateX(-200px) translateY(30vh); }
-}
-
-/* === Enhanced Section Styling === */
-.section {
-  position: relative;
-}
-
-.section::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
-  border: 1px solid rgba(79, 179, 246, 0.2);
-  border-radius: 15px;
-  pointer-events: none;
-  z-index: -1;
 }
