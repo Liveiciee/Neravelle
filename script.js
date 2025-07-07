@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Initialize magical elements
+  createConstellations();
+  createFloatingRunes();
+  
   const weatherTypes = ['rain', 'snow', 'sunny'];
   let currentWeather = null;
   let audioEnabled = false;
   let weatherAudio = null; 
 
+  // Create weather overlays
   weatherTypes.forEach(type => {
     const overlay = document.createElement('div');
     overlay.className = `weather-overlay`;
@@ -12,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.appendChild(overlay);
   });
 
+  // Create weather controls
   const weatherControls = document.createElement('div');
   weatherControls.className = 'weather-controls';
 
@@ -26,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.body.appendChild(weatherControls);
 
+  // Create audio control
   const audioControl = document.createElement('button');
   audioControl.className = 'audio-control';
   audioControl.innerHTML = '🔇';
@@ -33,6 +40,27 @@ document.addEventListener('DOMContentLoaded', function () {
   audioControl.addEventListener('click', toggleAudio);
   document.body.appendChild(audioControl);
 
+  // Add hover effects to time cards
+  const timeCards = document.querySelectorAll('.time-card');
+  timeCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      const decoration = card.querySelector('.time-card-decoration');
+      if (decoration) {
+        decoration.style.height = '8px';
+        decoration.style.opacity = '1';
+      }
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      const decoration = card.querySelector('.time-card-decoration');
+      if (decoration) {
+        decoration.style.height = '4px';
+        decoration.style.opacity = '0.7';
+      }
+    });
+  });
+
+  // Weather functions
   function toggleWeather(type) {
     if (currentWeather === type) {
       document.documentElement.style.setProperty('--weather-opacity', '0');
@@ -56,17 +84,22 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function generateParticles(container, type) {
-  container.innerHTML = '';
-  const count = type === 'sunny' ? 15 : type === 'snow' ? 100 : 80; // ❄️ tambahin jadi 120
-  for (let i = 0; i < count; i++) {
-    const span = document.createElement('span');
-    span.className = type === 'rain' ? 'drop' : type === 'snow' ? 'flake' : 'ray';
-    span.style.left = Math.random() * 100 + 'vw';
-    span.style.animationDelay = Math.random() * 5 + 's';
-    container.appendChild(span);
+    container.innerHTML = '';
+    const count = type === 'sunny' ? 15 : type === 'snow' ? 120 : 80;
+    
+    for (let i = 0; i < count; i++) {
+      const span = document.createElement('span');
+      span.className = type === 'rain' ? 'drop' : type === 'snow' ? 'flake' : 'ray';
+      span.style.left = Math.random() * 100 + 'vw';
+      span.style.animationDelay = Math.random() * 5 + 's';
+      
+      if (type === 'snow') {
+        span.style.animationDuration = (8 + Math.random() * 10) + 's';
+      }
+      
+      container.appendChild(span);
+    }
   }
-}
-
 
   function getWeatherIcon(type) {
     return { rain: '🌧️', snow: '❄️', sunny: '☀️' }[type] || '✨';
@@ -103,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Clock
+  // Clock functions
   setInterval(updateClock, 1000);
   updateClock();
 
@@ -136,6 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }[dayName] || '';
   }
 
+  // Birthday conversion
   document.getElementById('birthdayInput')?.addEventListener('change', (e) => {
     const b = new Date(e.target.value);
     const diff = b - new Date('2025-06-29');
@@ -148,4 +182,40 @@ document.addEventListener('DOMContentLoaded', function () {
     const dayName = days[day % 7];
     document.getElementById('birthdayOutput').textContent = `${dayName}, ${date} ${months[month]} ${year} KHL`;
   });
+
+  // Create constellations
+  function createConstellations() {
+    const constellations = document.querySelector('.constellations');
+    const starCount = 50;
+    
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.width = `${Math.random() * 3 + 1}px`;
+      star.style.height = star.style.width;
+      star.style.animationDelay = `${Math.random() * 5}s`;
+      constellations.appendChild(star);
+    }
+  }
+
+  // Create floating runes
+  function createFloatingRunes() {
+    const runes = ['ᚠ', 'ᚢ', 'ᚦ', 'ᚨ', 'ᚱ', 'ᚲ', 'ᚷ', 'ᚹ', 'ᚺ', 'ᚾ', 'ᛁ', 'ᛃ', 'ᛇ', 'ᛈ', 'ᛉ', 'ᛊ', 'ᛏ', 'ᛒ', 'ᛖ', 'ᛗ', 'ᛚ', 'ᛜ', 'ᛟ', 'ᛞ'];
+    const container = document.body;
+    
+    for (let i = 0; i < 15; i++) {
+      const rune = document.createElement('div');
+      rune.className = 'floating-rune';
+      rune.textContent = runes[Math.floor(Math.random() * runes.length)];
+      rune.style.left = `${Math.random() * 100}%`;
+      rune.style.top = `${Math.random() * 100}%`;
+      rune.style.fontSize = `${Math.random() * 10 + 10}px`;
+      rune.style.opacity = Math.random() * 0.3 + 0.1;
+      rune.style.animationDuration = `${Math.random() * 30 + 20}s`;
+      rune.style.animationDelay = `${Math.random() * 10}s`;
+      container.appendChild(rune);
+    }
+  }
 });
