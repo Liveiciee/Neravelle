@@ -1,4 +1,25 @@
+/* === CSS Variables === */
+:root {
+  --celestial-blue: #a2d5f2;
+  --luminous-azure: #4fb3f6;
+  --abyssal-sapphire: #07689f;
+  --gilded-sun: #ffc93c;
+  --pearl-white: #f8f9fa;
+  --spell-glow: 0 0 15px rgba(79, 179, 246, 0.6);
+  --ancient-paper: rgba(248, 240, 227, 0.95);
+  --text-secondary: #6c757d;
+}
+
 /* === Oceanic Majesty === */
+body {
+  background: linear-gradient(180deg, #0a2a3d 0%, #0c4a6e 100%);
+  color: var(--pearl-white);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
 body::before {
   content: '';
   position: fixed;
@@ -7,11 +28,8 @@ body::before {
   width: 100%;
   height: 100%;
   background: 
-    /* Islands */
     url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" opacity="0.05"><path d="M0 200 Q100 100 200 200 T400 200 T600 200 T800 200" fill="none" stroke="%2307689f" stroke-width="2"/></svg>'),
-    /* Sun reflection */
     url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" opacity="0.03"><circle cx="250" cy="250" r="200" fill="%23ffc93c"/></svg>'),
-    /* Underwater light */
     linear-gradient(180deg, rgba(162,213,242,0.1) 0%, transparent 100%);
   background-repeat: no-repeat;
   background-position: 
@@ -51,7 +69,7 @@ body::before {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 150px; /* Lebih tinggi untuk efek lebih dramatis */
+  height: 150px;
   z-index: -1;
   overflow: hidden;
   transform-origin: bottom;
@@ -103,6 +121,7 @@ body::before {
   background: rgba(255,255,255,0.2);
   animation: bubbleRise linear infinite;
   z-index: -1;
+  pointer-events: none;
 }
 
 @keyframes bubbleRise {
@@ -124,9 +143,326 @@ body::before {
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60"><path d="M10,40 Q60,10 110,40 L110,50 Q60,60 10,50 Z" fill="%2307689f" opacity="0.3"/><path d="M60,10 L60,0" stroke="%23ffc93c" stroke-width="2"/></svg>');
   background-repeat: no-repeat;
   animation: shipFloat 8s infinite ease-in-out;
+  z-index: -1;
 }
 
 @keyframes shipFloat {
   0%, 100% { transform: translateX(-50%) rotate(-2deg); }
   50% { transform: translateX(-50%) rotate(2deg); }
+}
+
+/* === Glitter Particles === */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, var(--gilded-sun) 20%, transparent 70%);
+  border-radius: 50%;
+  animation: floatParticle linear infinite;
+  pointer-events: none;
+}
+
+@keyframes floatParticle {
+  to { transform: translateY(-100vh); }
+}
+
+/* === Radical Layout Overhaul === */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  perspective: 1000px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.title {
+  font-size: 3.5rem;
+  background: linear-gradient(135deg, var(--abyssal-sapphire), var(--luminous-azure));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  display: inline-block;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gilded-sun), transparent);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--luminous-azure);
+  margin-top: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* === Card Revolution === */
+.clock-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.time-card {
+  background: var(--ancient-paper);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 
+    0 8px 32px rgba(7, 104, 159, 0.1),
+    inset 0 1px 1px rgba(255,255,255,0.5);
+  border: 1px solid rgba(162, 213, 242, 0.3);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  color: #333;
+}
+
+.time-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 20% 80%,
+    rgba(79, 179, 246, 0.1),
+    transparent 70%
+  );
+  z-index: -1;
+}
+
+/* Time Elements Magic */
+.time-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--abyssal-sapphire);
+  margin-bottom: 1rem;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.neravelle-time {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--abyssal-sapphire), var(--luminous-azure));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 1rem 0;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
+}
+
+.neravelle-date, .real-world-time {
+  font-size: 1.2rem;
+  color: var(--abyssal-sapphire);
+  margin: 0.5rem 0;
+}
+
+.day-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+.real-world-time {
+  font-size: 2rem;
+  color: var(--abyssal-sapphire);
+  margin: 1rem 0;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* === Enhanced Hover Effects === */
+.time-card:hover {
+  transform: translateY(-8px) rotateX(5deg) scale(1.02);
+  box-shadow: 
+    0 15px 50px rgba(7, 104, 159, 0.3),
+    var(--spell-glow),
+    0 0 0 3px rgba(255, 201, 60, 0.3);
+}
+
+.time-card:hover::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 
+    0 0 15px 5px rgba(255, 255, 255, 0.8),
+    0 0 30px 15px rgba(79, 179, 246, 0.5);
+  animation: pulse 2s infinite;
+  z-index: 1;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3); }
+}
+
+/* === Section Reimagined === */
+.section {
+  background: var(--ancient-paper);
+  border-radius: 12px;
+  padding: 2.5rem;
+  margin: 3rem 0;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(7, 104, 159, 0.1);
+  color: #333;
+}
+
+.section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2307689f" opacity="0.1"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>');
+}
+
+.section h2 {
+  color: var(--abyssal-sapphire);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.section h2::before {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 50%;
+  height: 3px;
+  background: var(--gilded-sun);
+}
+
+.section ul, .section ol {
+  padding-left: 1.5rem;
+}
+
+.section li {
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+}
+
+/* === Scroll Animations === */
+.section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === Interactive Elements === */
+.birthday-input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--celestial-blue);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.8);
+  font-size: 1rem;
+  margin: 1rem 0;
+  transition: all 0.3s ease;
+}
+
+.birthday-input:focus {
+  border-color: var(--luminous-azure);
+  box-shadow: 0 0 0 3px rgba(79, 179, 246, 0.3);
+  outline: none;
+}
+
+#birthdayOutput {
+  padding: 1rem;
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  border-left: 4px solid var(--gilded-sun);
+  margin-top: 1rem;
+  color: var(--abyssal-sapphire);
+  min-height: 1.5rem;
+}
+
+/* === Magical Details === */
+.divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--luminous-azure), transparent);
+  margin: 3rem 0;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: '❖';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gilded-sun);
+  font-size: 1.2rem;
+}
+
+.divider::before {
+  left: 20%;
+}
+
+.divider::after {
+  right: 20%;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--luminous-azure);
+}
+
+/* === Responsive Magic === */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .neravelle-time {
+    font-size: 2rem;
+  }
+  
+  .section {
+    padding: 1.5rem;
+  }
+  
+  .wave-container {
+    height: 100px;
+  }
 }
