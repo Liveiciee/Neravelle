@@ -1,102 +1,46 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalender Heliora Luminari</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kalender Heliora Luminari</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1 class="title">Kalender Heliora Luminari</h1>
-            <div class="subtitle">Sistem penanggalan resmi Kerajaan Neravelle</div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="clock-container">
-            <div class="time-card">
-                <div class="time-label">Waktu Heliora</div>
-                <div class="neravelle-time" id="neravelleTime">00:00:00</div>
-                <div class="neravelle-date" id="neravelleDate">Elarion, 1 Aethera 800 KHL</div>
-                <div class="day-description" id="dayDescription"></div>
-            </div>
-            <div class="time-card">
-                <div class="time-label">Waktu Nyata</div>
-                <div class="real-world-time" id="realWorldTime">00:00:00</div>
-                <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
-                <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
-            </div>
-            <div class="time-card">
-                <div class="time-label">Konversi Ulang Tahun</div>
-                <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;color:var(--text-secondary);font-weight:600;">
-                    Tanggal ulang tahun
-                </label>
-                <input 
-                    type="date" 
-                    id="birthdayInput"
-                    class="birthday-input" 
-                    placeholder="Pilih tanggal lahirmu"
-                    autocomplete="bday"
-                >
-                <div id="birthdayOutput"></div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Susunan Hari dalam Satu Minggu</h2>
-            <ul>
-                <li><b>Elarion:</b> Hari pertama dalam pekan yang disimbolkan sebagai hari cahaya baru. Elarion adalah waktu yang dipercaya membawa harapan, keberanian, dan awal dari segala usaha.</li>
-                <li><b>Velmora:</b> Hari kedua yang dihubungkan dengan ilmu pengetahuan dan kebijaksanaan. Velmora adalah waktu bagi para cendekia, penulis, dan pemikir untuk menekuni karya mereka.</li>
-                <li><b>Tarsilune:</b> Hari ketiga yang dinaungi kekuatan bulan. Tarsilune sering dipilih sebagai hari untuk refleksi, meditasi, dan ritual kecil.</li>
-                <li><b>Dravendei:</b> Hari keempat yang melambangkan kekuatan, kehormatan, dan keteguhan hati. Dravendei sering menjadi hari bagi para prajurit, pengrajin, dan mereka yang bekerja dengan tangan mereka.</li>
-                <li><b>Esmiradyn:</b> Hari kelima yang dipenuhi dengan keberuntungan dan kemakmuran. Pada Esmiradyn, banyak pasar dan festival kecil digelar sebagai bentuk syukur kepada alam.</li>
-                <li><b>Lapliel:</b> Hari keenam yang dikenal sebagai hari kedamaian dan seni. Lapliel adalah hari yang disukai para musisi, pelukis, dan para seniman dalam menampilkan karya mereka.</li>
-                <li><b>Noxverra:</b> Hari ketujuh sekaligus akhir pekan yang dimuliakan sebagai waktu istirahat dan doa. Noxverra merupakan hari yang sakral, di mana rakyat Neravelle berkumpul untuk mempersembahkan pujian kepada cahaya Heliora.</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Susunan Bulan dalam Satu Tahun</h2> 
-            <ol>
-                <li><b>Aethera:</b> Bulan pembuka penuh harapan dan doa.</li>
-                <li><b>Crystallina:</b> Waktu merenung dan mengukuhkan tekad.</li>
-                <li><b>Aerius:</b> Bulan perubahan dan petualangan baru.</li>
-                <li><b>Floraison:</b> Bulan mekar bunga dan cinta alam.</li>
-                <li><b>Luminosa:</b> Bulan cahaya dan festival rakyat.</li>
-                <li><b>Solaria:</b> Bulan kekuatan dan kemenangan matahari.</li>
-                <li><b>Ignifera:</b> Bulan semangat yang tak padam.</li>
-                <li><b>Abundantia:</b> Bulan panen dan berbagi kemakmuran.</li>
-                <li><b>Vestalia:</b> Masa persiapan dan penghargaan keluarga.</li>
-                <li><b>Terraverdea:</b> Bulan keseimbangan antara bumi dan langit.</li>
-                <li><b>Nestaria:</b> Bulan introspeksi dan kedamaian.</li>
-                <li><b>Glimmeria:</b> Bulan penutup dengan harapan baru.</li>
-            </ol>
-        </div>
-
-        <div class="section">
-            <h2>Struktur Kalender</h2>
-            <ul>
-                <li>1 minggu terdiri dari <b>7 hari</b>.</li>
-                <li>1 bulan terdiri dari <b>30 hari</b>.</li>
-                <li>1 tahun terdiri dari <b>12 bulan</b>.</li>
-                <li><b>Total dalam 1 tahun: 360 hari</b>.</li>
-            </ul>
-            <p>Contoh format penulisan tanggal: <i>"Esmiradyn, Ignifera tanggal 12, Tahun 800 Heliora Luminari"</i></p>
-        </div>
-
-        <footer>
-            &copy; 2025 Kerajaan Neravelle
-        </footer>
+  <div class="container">
+    <div class="header">
+      <h1 class="title">Kalender Heliora Luminari</h1>
+      <div class="subtitle">Sistem penanggalan resmi Kerajaan Neravelle</div>
     </div>
-    <script src="script.js"></script> 
-<div class="particles"></div>
-<div class="wave-container">
-  <div class="wave"></div>
-  <div class="wave"></div>
-</div>
+
+    <div class="divider"></div>
+
+    <div class="clock-container">
+      <div class="time-card">
+        <div class="time-label">Waktu Heliora</div>
+        <div class="neravelle-time" id="neravelleTime">00:00:00</div>
+        <div class="neravelle-date" id="neravelleDate">Elarion, 1 Aethera 800 KHL</div>
+        <div class="day-description" id="dayDescription"></div>
+      </div>
+      <div class="time-card">
+        <div class="time-label">Waktu Nyata</div>
+        <div class="real-world-time" id="realWorldTime">00:00:00</div>
+        <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
+        <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
+      </div>
+      <div class="time-card">
+        <div class="time-label">Konversi Ulang Tahun</div>
+        <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;color:var(--text-secondary);font-weight:600;">Tanggal ulang tahun</label>
+        <input type="date" id="birthdayInput" class="birthday-input" placeholder="Pilih tanggal lahirmu" autocomplete="bday"/>
+        <div id="birthdayOutput"></div>
+      </div>
+    </div>
+      
+    <footer>&copy; 2025 Kerajaan Neravelle</footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
