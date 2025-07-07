@@ -18,36 +18,84 @@
   /* Typography */
   --text-primary: #e6f1ff;
   --text-secondary: #b8d0ff;
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   background: linear-gradient(135deg, var(--ocean-deep), var(--ocean-mid));
-  padding: 2rem;
+  min-height: 100vh;
+  padding: var(--space-xl);
   font-family: 'Poppins', system-ui, sans-serif;
   color: var(--text-primary);
+  line-height: 1.6;
 }
 
-.grid-container {
-  width: min(75rem, 100%);
-  margin-inline: auto;
+.container {
+  width: min(100%, 1200px);
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(to right, var(--aqua-pale), var(--aqua-bright));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: var(--space-sm);
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(126, 255, 245, 0.3), transparent);
+  margin: var(--space-lg) 0;
+}
+
+/* Clock Container Grid */
+.clock-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
 }
 
+/* Card Styles */
 .card {
   --grad: var(--aqua-bright), var(--wave-accent);
-  padding: 2.5rem;
+  padding: var(--space-lg);
   background: linear-gradient(
     145deg,
     rgba(30, 60, 120, 0.6),
     rgba(15, 30, 60, 0.8)
   );
   backdrop-filter: blur(var(--glass-blur));
-  border-radius: 1.5rem;
-  gap: 1.5rem;
-  display: grid;
-  grid-template: 'title icon' 'content content' 'bar bar' / 1fr auto;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
   box-shadow:
     0 8px 32px rgba(2, 12, 27, 0.3),
     inset 0 1px 1px rgba(255, 255, 255, 0.1);
@@ -55,6 +103,7 @@ body {
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
   overflow: hidden;
+  height: 100%;
 }
 
 .card::before {
@@ -81,76 +130,147 @@ body {
   border-color: rgba(126, 255, 245, 0.3);
 }
 
-.card-title {
-  grid-area: title;
-  font-size: 1.5rem;
+.time-label {
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--aqua-pale);
-  margin: 0;
+  margin-bottom: var(--space-sm);
 }
 
-.card-icon {
-  grid-area: icon;
-  color: var(--aqua-bright);
-  font-size: 1.8rem;
-  align-self: center;
+.neravelle-time {
+  font-size: 2.2rem;
+  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+  margin-bottom: var(--space-xs);
+  background: linear-gradient(to right, var(--aqua-pale), var(--aqua-bright));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.card-content {
-  grid-area: content;
+.neravelle-date {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.day-description {
+  font-size: 0.9rem;
   color: var(--text-secondary);
-  line-height: 1.6;
+  margin-top: auto;
 }
 
-.progress-bar {
-  grid-area: bar;
-  height: 6px;
-  background: rgba(30, 144, 255, 0.2);
-  border-radius: 3px;
-  overflow: hidden;
+.real-world-time {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+  color: var(--aqua-pale);
 }
 
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--grad));
-  border-radius: 3px;
-  transition: width 0.6s ease;
+/* Birthday Input */
+.birthday-input {
+  width: 100%;
+  padding: var(--space-sm);
+  background: rgba(10, 26, 46, 0.5);
+  border: 1px solid rgba(126, 255, 245, 0.2);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  margin-bottom: var(--space-sm);
+  transition: all 0.3s ease;
 }
 
-/* Water Ripple Effect */
-.card:hover::after {
+.birthday-input:focus {
+  outline: none;
+  border-color: var(--aqua-bright);
+  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
+}
+
+#birthdayOutput {
+  min-height: 3rem;
+  padding: var(--space-sm);
+  background: rgba(10, 26, 46, 0.3);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Section Styles */
+.section {
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  background: rgba(10, 26, 46, 0.3);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(126, 255, 245, 0.1);
+}
+
+.section h2 {
+  color: var(--aqua-pale);
+  margin-bottom: var(--space-md);
+  font-size: 1.5rem;
+  position: relative;
+  padding-bottom: var(--space-xs);
+}
+
+.section h2::after {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.4);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1, 1) translate(-50%, -50%);
-  transform-origin: 50% 50%;
-  animation: ripple 1s ease-out;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, var(--aqua-bright), transparent);
 }
 
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(20, 20);
-    opacity: 0;
-  }
+.section ul, .section ol {
+  padding-left: var(--space-md);
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.section li {
+  margin-bottom: var(--space-xs);
+}
+
+.section b {
+  color: var(--aqua-pale);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: var(--space-md);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: var(--space-xl);
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   body {
-    padding: 1.5rem;
+    padding: var(--space-md);
   }
   
-  .card {
-    padding: 1.8rem;
+  .title {
+    font-size: 2rem;
+  }
+  
+  .clock-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .section {
+    padding: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .neravelle-time {
+    font-size: 1.8rem;
+  }
+  
+  .real-world-time {
+    font-size: 1.5rem;
   }
 }
