@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const weatherTypes = ['rain', 'snow', 'sunny'];
   let currentWeather = null;
   let audioEnabled = false;
-  let weatherAudio = null;
+  let weatherAudio = null; 
 
   weatherTypes.forEach(type => {
     const overlay = document.createElement('div');
