@@ -161,9 +161,9 @@ function playWeatherAudio(type) {
   stopWeatherAudio();
   
   const sounds = {
-  rain: 'assets/audio/rain.mp3',
-  snow: 'assets/audio/snow.mp3',
-  sunny: 'assets/audio/sunny.mp3'
+  rain: 'assets/audio/rain.wav',
+  snow: 'assets/audio/snow.wav',
+  sunny: 'assets/audio/sunny.wav'
 };
   
   if (sounds[type]) {
