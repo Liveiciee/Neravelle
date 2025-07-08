@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <title>Kalender Heliora Luminari</title>
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
@@ -16,7 +19,7 @@
     <div class="orb orb-3"></div>
   </div>
 
-  <!-- Animated constellation background -->
+  <!-- Dynamic constellation background -->
   <div class="constellations"></div>
 
   <div class="container">
@@ -39,14 +42,14 @@
         <div class="neravelle-time" id="neravelleTime">00:00:00</div>
         <div class="neravelle-date" id="neravelleDate">Elarion, 1 Aethera 800 KHL</div>
         <div class="day-description" id="dayDescription"></div>
+        <div id="dayProphecy" class="day-prophecy"></div>
         <div class="time-card-decoration"></div>
       </div>
       
       <div class="time-card">
         <div class="time-label">Waktu Nyata</div>
         <div class="real-world-time" id="realWorldTime">00:00:00</div>
-        <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
-        <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
+        <div class="day-description">1 jam nyata = <span id="timeWarpIndicator">2</span> jam NeraVelle</div>
         <div class="time-card-decoration"></div>
       </div>
       
