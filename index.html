@@ -9,10 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Canvas untuk animasi kapal dan laut -->
   <div id="livingCanvasContainer">
     <canvas id="livingCanvas"></canvas>
   </div>
 
+  <!-- Semua elemen asli -->
   <div class="magic-orbs">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
@@ -26,6 +28,29 @@
     <canvas id="waveCanvas"></canvas>
   </div>
 
+  <!-- Overlay cuaca -->
+  <div id="rain-overlay" class="weather-overlay"></div>
+  <div id="snow-overlay" class="weather-overlay"></div>
+  <div id="sunny-overlay" class="weather-overlay"></div>
+
+  <!-- Kontrol interaktif -->
+  <div class="weather-controls">
+    <button class="weather-btn" title="Toggle hujan">🌧️</button>
+    <button class="weather-btn" title="Toggle salju">❄️</button>
+    <button class="weather-btn" title="Toggle cerah">☀️</button>
+  </div>
+
+  <button class="audio-control" title="Toggle suara">🔇</button>
+
+  <div class="time-warp-controls">
+    <div id="timeWarpIndicator">⏱️ 2x</div>
+    <button>0.5x</button>
+    <button>1x</button>
+    <button>2x</button>
+    <button>5x</button>
+  </div>
+
+  <!-- Kontainer kalender -->
   <div class="container">
     <div class="header">
       <h1 class="title">Kalender Heliora Luminari</h1>
