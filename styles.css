@@ -125,7 +125,7 @@ body::before {
   animation-delay: 10s;
 }
 
-/* === CONSTELLATIONS === */
+/* === CONSTELLATIONS & MOON PHASE === */
 .constellations {
   position: fixed;
   top: 0;
@@ -140,6 +140,25 @@ body::before {
   animation: twinkle 5s infinite alternate;
   pointer-events: none;
   z-index: 1;
+}
+
+.moon-phase {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  top: 20%;
+  right: 10%;
+  box-shadow: 0 0 20px var(--pearl-white);
+  z-index: 1;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite ease-in-out;
+  transform-origin: center;
 }
 
 /* === HEADER DECORATION === */
@@ -408,6 +427,34 @@ footer {
   box-shadow: 0 0 10px var(--gilded-sun);
 }
 
+/* === TIME WARP CONTROLS === */
+.time-warp-controls {
+  position: fixed;
+  bottom: 70px;
+  left: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.time-warp-controls button {
+  background: var(--abyssal-sapphire);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.time-warp-controls button:hover {
+  transform: scale(1.1);
+  background: var(--mystic-purple);
+}
+
+/* === AUDIO CONTROL === */
 .audio-control {
   position: fixed;
   bottom: 20px;
@@ -428,12 +475,36 @@ footer {
     transform 0.3s ease,
     box-shadow 0.3s ease,
     background-color 0.3s ease;
-  
 }
 
 .audio-control:hover {
   transform: scale(1.1);
   box-shadow: 0 0 15px var(--luminous-azure);
+}
+
+/* === INTERACTIVE RUNES === */
+.floating-rune.interactive {
+  cursor: pointer;
+  transition: all 0.3s;
+  position: absolute;
+  font-size: 24px;
+  animation: floatRune 20s linear infinite;
+  z-index: 10;
+}
+
+.floating-rune.interactive:hover {
+  transform: scale(1.5);
+  text-shadow: 0 0 10px var(--gilded-sun);
+}
+
+@keyframes floatRune {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-100vh) rotate(360deg); }
+}
+
+@keyframes runeExplode {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
 }
 
 /* === ANIMATIONS === */
@@ -533,14 +604,16 @@ footer {
     width: 35px;
     height: 35px;
   }
-.star {
-  display: block;
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  animation: twinkle 3s infinite ease-in-out;
-  transform-origin: center;
+
+  .time-warp-controls {
+    bottom: 60px;
+    left: 10px;
+  }
+
+  .moon-phase {
+    width: 50px;
+    height: 50px;
+    top: 15%;
+    right: 5%;
   }
 }
-
-
