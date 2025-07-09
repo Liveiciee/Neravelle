@@ -1,12 +1,13 @@
-class HelioraTime {
+export class HelioraTime {
   constructor() {
     this.baseDate = new Date('2025-06-29T00:00:00');
     this.warpFactor = 2;
+    this.listeners = {};
     this.init();
   }
 
   init() {
-    setInterval(this.update.bind(this), 1000);
+    setInterval(() => this.update(), 1000);
   }
 
   update() {
@@ -19,6 +20,7 @@ class HelioraTime {
     const months = ["Aethera", "Crystallina", "Aerius", "Floraison", "Luminosa", "Solaria", "Ignifera", "Abundantia", "Vestalia", "Terraverdea", "Nestaria", "Glimmeria"];
     
     const timeData = {
+      realTime: now.toLocaleTimeString(),
       hour: warpedTime.getHours(),
       minute: warpedTime.getMinutes(),
       dayName: days[day % 7],
@@ -33,5 +35,17 @@ class HelioraTime {
 
   setWarpFactor(factor) {
     this.warpFactor = factor;
+    this.emit('warpChange', factor);
+  }
+
+  on(event, callback) {
+    if (!this.listeners[event]) this.listeners[event] = [];
+    this.listeners[event].push(callback);
+  }
+
+  emit(event, data) {
+    if (this.listeners[event]) {
+      this.listeners[event].forEach(cb => cb(data));
+    }
   }
 }
