@@ -1,4 +1,4 @@
-:root { 
+:root {
   --celestial-blue: #a2d5f2;
   --luminous-azure: #4fb3f6;
   --abyssal-sapphire: #07689f;
@@ -15,6 +15,7 @@
   --weather-opacity: 0;
 }
 
+/* Base Styles */
 body {
   background: linear-gradient(270deg, #0a2a3d, #0c4a6e, #2d6a4f, #9d4edd);
   background-size: 800% 800%;
@@ -44,12 +45,60 @@ body::before {
   animation: oceanFloat 30s infinite ease-in-out alternate;
 }
 
+/* Canvas Containers */
+#livingCanvasContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ocean-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  z-index: 1;
+  overflow: hidden;
+}
+
+#livingCanvas,
+#waveCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Boat Animation */
+.boat {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  width: 80px;
+  height: 60px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><path d="M10,40 L90,40 L80,20 L20,20 Z" fill="%23d4af37"/><path d="M50,20 L50,10 L60,10 L60,20" fill="%238B4513"/></svg>') no-repeat;
+  z-index: 3;
+  animation: boatFloat 8s infinite ease-in-out;
+  transform-origin: center bottom;
+}
+
+/* Calendar UI */
 .container {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
   position: relative;
-  z-index: 2;
+  z-index: 10;
+  background: rgba(10, 42, 61, 0.5);
+  backdrop-filter: blur(5px);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .header {
@@ -78,166 +127,7 @@ body::before {
   font-size: 1.2rem;
 }
 
-.magic-orbs {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(30px);
-  opacity: 0.3;
-  animation: floatOrb 15s infinite ease-in-out;
-}
-
-.orb-1 {
-  width: 200px;
-  height: 200px;
-  background: var(--mystic-purple);
-  top: 20%;
-  left: 10%;
-  animation-delay: 0s;
-}
-
-.orb-2 {
-  width: 300px;
-  height: 300px;
-  background: var(--luminous-azure);
-  top: 60%;
-  left: 70%;
-  animation-delay: 5s;
-}
-
-.orb-3 {
-  width: 150px;
-  height: 150px;
-  background: var(--gilded-sun);
-  top: 30%;
-  left: 50%;
-  animation-delay: 10s;
-}
-
-.constellations {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(162, 213, 242, 0.1) 0.5px, transparent 1px),
-    radial-gradient(circle at 80% 70%, rgba(162, 213, 242, 0.1) 0.5px, transparent 1px),
-    radial-gradient(circle at 50% 20%, rgba(162, 213, 242, 0.1) 0.5px, transparent 1px);
-  background-size: 100px 100px;
-  animation: mechanicalRotate 120s infinite linear, twinkle 5s infinite alternate;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.moon-phase {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  top: 20%;
-  right: 10%;
-  box-shadow: 0 0 20px var(--pearl-white);
-  z-index: 1;
-}
-
-.star {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  animation: mechanicalPulse 4s infinite steps(4);
-  transform-origin: center;
-}
-
-.mechanical-gear {
-  position: absolute;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M50,0 L55,20 L75,20 L60,35 L70,50 L60,65 L75,80 L55,80 L50,100 L45,80 L25,80 L40,65 L30,50 L40,35 L25,20 L45,20 Z" fill="%23a2d5f2" opacity="0.7"/><circle cx="50" cy="50" r="10" fill="%230a2a3d"/></svg>');
-  background-repeat: no-repeat;
-  background-size: contain;
-  animation: gearRotate 12s infinite linear;
-  transform-origin: center;
-}
-
-.main-gear {
-  width: 150px;
-  height: 150px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation-duration: 20s;
-}
-
-.small-gear {
-  width: 60px;
-  height: 60px;
-  animation-direction: reverse;
-}
-
-.header-decoration {
-  position: relative;
-  height: 40px;
-  margin-top: 1rem;
-}
-
-.crystal {
-  position: absolute;
-  width: 40px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.1);
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-  animation: crystalGlow 4s infinite alternate;
-}
-
-.crystal-left {
-  left: 25%;
-  transform: rotate(-15deg);
-}
-
-.crystal-right {
-  right: 25%;
-  transform: rotate(15deg);
-}
-
-.divider {
-  position: relative;
-  height: 2px;
-  background: linear-gradient(to right, transparent, var(--gilded-sun), transparent);
-  margin: 2rem 0;
-  box-shadow: 0 0 10px var(--gilded-sun);
-}
-
-.divider-star {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  background: var(--gilded-sun);
-  clip-path: polygon(
-    50% 0%,
-    61% 35%,
-    98% 35%,
-    68% 57%,
-    79% 91%,
-    50% 70%,
-    21% 91%,
-    32% 57%,
-    2% 35%,
-    39% 35%
-  );
-  animation: pulse 2s infinite;
-}
-
+/* Time Cards */
 .clock-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -316,76 +206,170 @@ body::before {
   color: var(--text-secondary);
 }
 
-.birthday-input {
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: 6px;
-  border: 1px solid var(--glass-border);
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-primary);
-  font-family: 'Poppins', sans-serif;
-  margin-bottom: 0.5rem;
-}
-
-footer {
-  text-align: center;
-  margin-top: 3rem;
-  padding-top: 1rem;
-  position: relative;
-  color: var(--text-secondary);
-}
-
-.footer-decoration {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--gilded-sun), transparent);
-  box-shadow: 0 0 10px var(--gilded-sun);
-}
-
-.ocean-container {
+/* Weather System */
+.weather-overlay {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30vh;
-  z-index: 1;
-  overflow: hidden;
-}
-
-#livingCanvas,
-#waveCanvas {
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  opacity: var(--weather-opacity);
+  transition: opacity 0.5s ease-in-out;
 }
 
-.boat {
+.weather-overlay .drop {
   position: absolute;
-  bottom: 15%;
-  left: 50%;
-  width: 80px;
-  height: 60px;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"><path d="M10,40 L90,40 L80,20 L20,20 Z" fill="%23d4af37"/><path d="M50,20 L50,10 L60,10 L60,20" fill="%238B4513"/></svg>') no-repeat;
-  z-index: 3;
-  animation: boatFloat 8s infinite ease-in-out;
-  transform-origin: center bottom;
+  width: 2px;
+  height: 15px;
+  background: var(--celestial-blue);
+  border-radius: 1px;
+  opacity: 0.4;
+  animation: rain-fall 0.6s linear infinite;
+  filter: blur(0.5px);
 }
 
-.bubble {
+.weather-overlay .flake {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background: rgba(162, 213, 242, 0.6);
+  width: 4px;
+  height: 4px;
+  background: white;
   border-radius: 50%;
-  animation: floatUp linear infinite;
+  opacity: 0.7;
+  animation: snow-fall 12s linear infinite;
+  filter: blur(0.5px);
 }
 
+.weather-overlay .ray {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, var(--gilded-sun) 0%, transparent 80%);
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: sun-glow 6s ease-in-out infinite alternate;
+}
+
+/* Controls */
+.weather-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+}
+
+.weather-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--abyssal-sapphire);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.weather-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px currentColor;
+}
+
+.weather-btn.active {
+  background: var(--gilded-sun);
+  box-shadow: 0 0 10px var(--gilded-sun);
+}
+
+.time-warp-controls {
+  position: fixed;
+  bottom: 70px;
+  left: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: rgba(7, 104, 159, 0.5);
+  padding: 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.time-warp-controls button {
+  background: var(--abyssal-sapphire);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.time-warp-controls button:hover {
+  transform: scale(1.1);
+  background: var(--mystic-purple);
+}
+
+.audio-control {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--abyssal-sapphire);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.audio-control:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px var(--luminous-azure);
+}
+
+/* Constellations */
+.constellations {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  animation: mechanicalRotate 120s infinite linear;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: mechanicalPulse 4s infinite steps(4);
+  transform-origin: center;
+}
+
+.mechanical-gear {
+  position: absolute;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M50,0 L55,20 L75,20 L60,35 L70,50 L60,65 L75,80 L55,80 L50,100 L45,80 L25,80 L40,65 L30,50 L40,35 L25,20 L45,20 Z" fill="%23a2d5f2" opacity="0.7"/><circle cx="50" cy="50" r="10" fill="%230a2a3d"/></svg>');
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation: gearRotate 12s infinite linear;
+  transform-origin: center;
+}
+
+/* Animations */
 @keyframes magicalAtmosphere {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -393,51 +377,13 @@ footer {
 }
 
 @keyframes oceanFloat {
-  0% {
-    transform: translateY(0) rotate(0.5deg);
-    background-position: 20% 30%, 80% 70%, 0 0;
-  }
-  50% {
-    background-position: 25% 35%, 75% 65%, 0 0;
-  }
-  100% {
-    transform: translateY(30px) rotate(-0.5deg);
-    background-position: 15% 25%, 85% 75%, 0 0;
-  }
+  0% { transform: translateY(0) rotate(0.5deg); }
+  100% { transform: translateY(30px) rotate(-0.5deg); }
 }
 
-@keyframes floatOrb {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(50px, 30px); }
-  50% { transform: translate(0, 50px); }
-  75% { transform: translate(-30px, 20px); }
-  100% { transform: translate(0, 0); }
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-}
-
-@keyframes titleGlow {
-  0% { text-shadow: 0 0 10px rgba(255, 201, 60, 0.3); }
-  100% { text-shadow: 0 0 20px rgba(79, 179, 246, 0.6); }
-}
-
-@keyframes crystalGlow {
-  0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
-  100% { box-shadow: 0 0 20px rgba(162, 213, 242, 0.8); }
-}
-
-@keyframes pulse {
-  0% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.2); }
-  100% { transform: translate(-50%, -50%) scale(1); }
-}
-
-@keyframes rainbowFlow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+@keyframes boatFloat {
+  0%, 100% { transform: translateX(-50%) rotate(-5deg) translateY(0); }
+  50% { transform: translateX(-50%) rotate(5deg) translateY(-20px); }
 }
 
 @keyframes mechanicalRotate {
@@ -452,22 +398,36 @@ footer {
 }
 
 @keyframes gearRotate {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-@keyframes boatFloat {
-  0%, 100% { transform: translateX(-50%) rotate(-5deg) translateY(0); }
-  50% { transform: translateX(-50%) rotate(5deg) translateY(-20px); }
+@keyframes rain-fall {
+  0% { transform: translateY(-100px); }
+  100% { transform: translateY(100vh); }
 }
 
-@keyframes floatUp {
-  to { 
-    transform: translateY(-100vh);
-    opacity: 0;
-  }
+@keyframes snow-fall {
+  0% { transform: translateY(-10px) translateX(0); }
+  100% { transform: translateY(100vh) translateX(20px); }
 }
 
+@keyframes sun-glow {
+  0% { transform: scale(0.9); opacity: 0.08; }
+  100% { transform: scale(1.1); opacity: 0.15; }
+}
+
+@keyframes titleGlow {
+  0% { text-shadow: 0 0 10px rgba(255, 201, 60, 0.3); }
+  100% { text-shadow: 0 0 20px rgba(79, 179, 246, 0.6); }
+}
+
+@keyframes rainbowFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
@@ -477,10 +437,16 @@ footer {
     font-size: 2rem;
   }
 
+  .weather-controls {
+    bottom: 60px;
+  }
+
+  .time-warp-controls {
+    bottom: 120px;
+  }
+
   .moon-phase {
     width: 50px;
     height: 50px;
-    top: 15%;
-    right: 5%;
   }
 }
