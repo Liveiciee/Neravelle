@@ -1,19 +1,26 @@
-class WeatherSystem {
+export class WeatherSystem {
   constructor() {
-    this.currentWeather = null;
+    this.current = null;
     this.types = ['rain', 'snow', 'sunny'];
-    this.initOverlays();
+    this.listeners = {};
+    this.initElements();
   }
 
-  initOverlays() {
+  initElements() {
     this.types.forEach(type => {
       const overlay = document.getElementById(`${type}-overlay`);
+      if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'weather-overlay';
+        overlay.id = `${type}-overlay`;
+        document.body.appendChild(overlay);
+      }
       overlay.style.display = 'none';
     });
   }
 
   toggle(type) {
-    if (this.currentWeather === type) {
+    if (this.current === type) {
       this.deactivate();
     } else {
       this.activate(type);
@@ -21,35 +28,67 @@ class WeatherSystem {
   }
 
   activate(type) {
-    this.currentWeather = type;
+    this.deactivate(); // Matikan yang aktif sebelumnya
+    
+    this.current = type;
     const overlay = document.getElementById(`${type}-overlay`);
     
-    // Animasi fade in
     overlay.style.display = 'block';
     overlay.style.opacity = '0';
     setTimeout(() => {
       overlay.style.opacity = '1';
+      this.generateParticles(type);
     }, 10);
     
-    // Update tombol aktif
-    document.querySelectorAll('.weather-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.textContent === this.getWeatherIcon(type));
-    });
+    this.updateActiveButton();
+    this.emit('change', type);
+  }
+
+  generateParticles(type) {
+    const overlay = document.getElementById(`${type}-overlay`);
+    overlay.innerHTML = '';
     
-    this.emit('weatherChange', type);
+    const count = type === 'sunny' ? 15 : type === 'snow' ? 120 : 80;
+    const className = type === 'rain' ? 'drop' : type === 'snow' ? 'flake' : 'ray';
+    
+    for (let i = 0; i < count; i++) {
+      const particle = document.createElement('div');
+      particle.className = className;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.animationDelay = `${Math.random() * 5}s`;
+      overlay.appendChild(particle);
+    }
   }
 
   deactivate() {
-    const overlay = document.getElementById(`${this.currentWeather}-overlay`);
+    if (!this.current) return;
+    
+    const overlay = document.getElementById(`${this.current}-overlay`);
     overlay.style.opacity = '0';
     setTimeout(() => {
       overlay.style.display = 'none';
     }, 500);
-    this.currentWeather = null;
+    
+    this.current = null;
+    this.updateActiveButton();
   }
 
-  getWeatherIcon(type) {
-    const icons = { rain: '🌧️', snow: '❄️', sunny: '☀️' };
-    return icons[type];
+  updateActiveButton() {
+    document.querySelectorAll('.weather-btn').forEach(btn => {
+      const iconMap = { rain: '🌧️', snow: '❄️', sunny: '☀️' };
+      btn.classList.toggle('active', 
+        this.current && btn.textContent === iconMap[this.current]);
+    });
+  }
+
+  on(event, callback) {
+    if (!this.listeners[event]) this.listeners[event] = [];
+    this.listeners[event].push(callback);
+  }
+
+  emit(event, data) {
+    if (this.listeners[event]) {
+      this.listeners[event].forEach(cb => cb(data));
+    }
   }
 }
