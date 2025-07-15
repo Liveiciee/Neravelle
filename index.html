@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kalender Heliora Luminari</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Floating magical orbs -->
+  <div class="magic-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Animated constellation background -->
+  <div class="constellations"></div>
+
+  <div class="container">
+    <div class="header">
+      <h1 class="title">Kalender Heliora Luminari</h1>
+      <div class="subtitle">Sistem penanggalan resmi Kerajaan Neravelle</div>
+      <div class="header-decoration">
+        <div class="crystal crystal-left"></div>
+        <div class="crystal crystal-right"></div>
+      </div>
+    </div>
+    
+    <div class="divider">
+      <div class="divider-star"></div>
+    </div>
+    
+    <div class="clock-container">
+      <div class="time-card">
+        <div class="time-label">Waktu Heliora</div>
+        <div class="neravelle-time" id="neravelleTime">00:00:00</div>
+        <div class="neravelle-date" id="neravelleDate">Elarion, 1 Aethera 800 KHL</div>
+        <div class="day-description" id="dayDescription"></div>
+        <div class="time-card-decoration"></div>
+      </div>
+      
+      <div class="time-card">
+        <div class="time-label">Waktu Nyata</div>
+        <div class="real-world-time" id="realWorldTime">00:00:00</div>
+        <div class="day-description">1 jam nyata = 2 jam NeraVelle</div>
+        <div class="day-description">1 hari nyata = 2 hari NeraVelle</div>
+        <div class="time-card-decoration"></div>
+      </div>
+      
+      <div class="time-card">
+        <div class="time-label">Konversi Ulang Tahun</div>
+        <label for="birthdayInput" style="display:block;margin:12px 0 8px 0;color:var(--text-secondary);font-weight:600;">Tanggal ulang tahun</label>
+        <input type="date" id="birthdayInput" class="birthday-input" placeholder="Pilih tanggal lahirmu" autocomplete="bday"/>
+        <div id="birthdayOutput"></div>
+        <div class="time-card-decoration"></div>
+      </div>
+    </div>
+      
+    <footer>
+      <div class="footer-decoration"></div>
+      &copy; 2025 Kerajaan Neravelle
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

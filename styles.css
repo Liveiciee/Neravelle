@@ -1,0 +1,546 @@
+:root { 
+  --celestial-blue: #a2d5f2;
+  --luminous-azure: #4fb3f6;
+  --abyssal-sapphire: #07689f;
+  --gilded-sun: #ffc93c;
+  --pearl-white: #f8f9fa;
+  --mystic-purple: #9d4edd;
+  --arcane-green: #2d6a4f;
+  --spell-glow: 0 0 15px rgba(79, 179, 246, 0.6);
+  --ancient-paper: rgba(248, 240, 227, 0.95);
+  --glass-bg: rgba(10, 42, 61, 0.25);
+  --glass-border: rgba(162, 213, 242, 0.2);
+  --text-primary: var(--pearl-white);
+  --text-secondary: #adb5bd;
+  --weather-opacity: 0;
+}
+
+/* === BASE STYLES === */
+body {
+  background: linear-gradient(270deg, #0a2a3d, #0c4a6e, #2d6a4f, #9d4edd);
+  background-size: 800% 800%;
+  animation: magicalAtmosphere 45s ease infinite;
+  color: var(--text-primary);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  padding-bottom: 50px;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" opacity="0.05"><path d="M0 200 Q100 100 200 200 T400 200 T600 200 T800 200" fill="none" stroke="%2307689f" stroke-width="2"/></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" opacity="0.03"><circle cx="250" cy="250" r="200" fill="%23ffc93c"/></svg>'),
+    linear-gradient(180deg, rgba(162,213,242,0.1) 0%, transparent 100%);
+  background-repeat: no-repeat;
+  background-position: 20% 30%, 80% 70%, 0 0;
+  z-index: -1;
+  animation: oceanFloat 30s infinite ease-in-out alternate;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  margin: 0;
+  background: linear-gradient(to right, var(--gilded-sun), var(--luminous-azure));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(255, 201, 60, 0.3);
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+.subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* === MAGICAL ORBS === */
+.magic-orbs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(30px);
+  opacity: 0.3;
+  animation: floatOrb 15s infinite ease-in-out;
+}
+
+.orb-1 {
+  width: 200px;
+  height: 200px;
+  background: var(--mystic-purple);
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 300px;
+  height: 300px;
+  background: var(--luminous-azure);
+  top: 60%;
+  left: 70%;
+  animation-delay: 5s;
+}
+
+.orb-3 {
+  width: 150px;
+  height: 150px;
+  background: var(--gilded-sun);
+  top: 30%;
+  left: 50%;
+  animation-delay: 10s;
+}
+
+/* === CONSTELLATIONS === */
+.constellations {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(162, 213, 242, 0.1) 0.5px, transparent 1px),
+    radial-gradient(circle at 80% 70%, rgba(162, 213, 242, 0.1) 0.5px, transparent 1px),
+    radial-gradient(circle at 50% 20%, rgba(162, 213, 242, 0.1) 0.5px, transparent 1px);
+  background-size: 100px 100px;
+  animation: twinkle 5s infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* === HEADER DECORATION === */
+.header-decoration {
+  position: relative;
+  height: 40px;
+  margin-top: 1rem;
+}
+
+.crystal {
+  position: absolute;
+  width: 40px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  animation: crystalGlow 4s infinite alternate;
+}
+
+.crystal-left {
+  left: 25%;
+  transform: rotate(-15deg);
+}
+
+.crystal-right {
+  right: 25%;
+  transform: rotate(15deg);
+}
+
+/* === DIVIDER === */
+.divider {
+  position: relative;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--gilded-sun), transparent);
+  margin: 2rem 0;
+  box-shadow: 0 0 10px var(--gilded-sun);
+}
+
+.divider-star {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background: var(--gilded-sun);
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  animation: pulse 2s infinite;
+}
+
+/* === TIME CARDS === */
+.clock-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.time-card {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.time-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.time-card-decoration {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, var(--mystic-purple), var(--luminous-azure), var(--gilded-sun));
+  opacity: 0.7;
+  animation: rainbowFlow 8s linear infinite;
+}
+
+.time-label {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--gilded-sun);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.neravelle-time {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  margin: 0.5rem 0;
+  color: var(--luminous-azure);
+  text-shadow: 0 0 10px rgba(79, 179, 246, 0.5);
+}
+
+.real-world-time {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  margin: 0.5rem 0;
+}
+
+.neravelle-date {
+  position: relative;
+  padding: 0.5rem;
+  background: rgba(7, 104, 159, 0.1);
+  border-radius: 6px;
+  display: inline-block;
+  margin: 0.5rem 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+}
+
+.neravelle-date::before {
+  content: '📅';
+  margin-right: 5px;
+}
+
+.day-description {
+  margin-top: 0.5rem;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.birthday-input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 0.5rem;
+}
+
+/* === FOOTER === */
+footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  position: relative;
+  color: var(--text-secondary);
+}
+
+.footer-decoration {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gilded-sun), transparent);
+  box-shadow: 0 0 10px var(--gilded-sun);
+}
+
+/* === WEATHER EFFECTS === */
+.weather-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: var(--weather-opacity);
+  transition: opacity 0.5s ease-in-out;
+}
+
+.weather-overlay .drop {
+  position: absolute;
+  width: 2px;
+  height: 15px;
+  background: var(--celestial-blue);
+  border-radius: 1px;
+  opacity: 0.4;
+  animation: rain-fall 0.6s linear infinite;
+  filter: blur(0.5px);
+  transition: transform 0.3s ease-out;
+}
+
+.weather-overlay .flake {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: snow-fall 12s linear infinite;
+  filter: blur(0.5px);
+  transition: 
+    transform 0.5s ease-out,
+    opacity 0.5s ease-out;
+}
+
+.weather-overlay .flake:nth-child(3n) {
+  width: 6px;
+  height: 6px;
+  opacity: 0.5;
+  animation-duration: 15s;
+}
+
+.weather-overlay .flake:nth-child(4n) {
+  width: 8px;
+  height: 8px;
+  opacity: 0.3;
+  animation-duration: 20s;
+}
+
+.weather-overlay .ray {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, var(--gilded-sun) 0%, transparent 80%);
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: sun-glow 6s ease-in-out infinite alternate;
+}
+
+/* === WEATHER CONTROLS === */
+.weather-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+}
+
+.weather-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--abyssal-sapphire);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.weather-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px currentColor;
+}
+
+.weather-btn.active {
+  background: var(--gilded-sun);
+  box-shadow: 0 0 10px var(--gilded-sun);
+}
+
+.audio-control {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--abyssal-sapphire);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: 
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  
+}
+
+.audio-control:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px var(--luminous-azure);
+}
+
+/* === ANIMATIONS === */
+@keyframes magicalAtmosphere {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes oceanFloat {
+  0% {
+    transform: translateY(0) rotate(0.5deg);
+    background-position: 20% 30%, 80% 70%, 0 0;
+  }
+  50% {
+    background-position: 25% 35%, 75% 65%, 0 0;
+  }
+  100% {
+    transform: translateY(30px) rotate(-0.5deg);
+    background-position: 15% 25%, 85% 75%, 0 0;
+  }
+}
+
+@keyframes rain-fall {
+  0% { transform: translateY(-100px); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes snow-fall {
+  0% { transform: translateY(-10px) translateX(0); }
+  100% { transform: translateY(100vh) translateX(20px); }
+}
+
+@keyframes sun-glow {
+  0% { transform: scale(0.9); opacity: 0.08; }
+  100% { transform: scale(1.1); opacity: 0.15; }
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(50px, 30px); }
+  50% { transform: translate(0, 50px); }
+  75% { transform: translate(-30px, 20px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes titleGlow {
+  0% { text-shadow: 0 0 10px rgba(255, 201, 60, 0.3); }
+  100% { text-shadow: 0 0 20px rgba(79, 179, 246, 0.6); }
+}
+
+@keyframes crystalGlow {
+  0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+  100% { box-shadow: 0 0 20px rgba(162, 213, 242, 0.8); }
+}
+
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.2); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes rainbowFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .weather-controls {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .weather-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 0.8rem;
+  }
+
+  .audio-control {
+    bottom: 10px;
+    left: 10px;
+    width: 35px;
+    height: 35px;
+  }
+.star {
+  display: block;
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite ease-in-out;
+  transform-origin: center;
+  }
+}
+
+
